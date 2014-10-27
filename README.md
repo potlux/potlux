@@ -7,7 +7,8 @@ Potlux is an environmental social network started by students at Wesleyan Univer
 ##How to edit this project
 1. Clone to your machine
 2. Run the app by using the command: <code>~$ python runserver.py</code>
-3. All of the files you will edit are in the ./potlux directory
+3. Go to [localhost:5000](localhost:5000) in you browser to see the app working.
+4. All of the files you will edit are in the ./potlux directory
 
 -----------------------	
 ##Directory structure 
