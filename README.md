@@ -11,16 +11,14 @@ Potlux is an environmental social network started by students at Wesleyan Univer
 
 -----------------------	
 ##Directory structure 
-<code>
 ./  
 --README  
 --runserver.py  
 --potlux  
 ----static  
 ----templates  
-----__init__.py  
+----\_\_init\_\_.py  
 ----views.py  
-</code>
 
 * Javascript code will go in the static directory
 * [html templates](http://flask.pocoo.org/docs/0.10/tutorial/templates/) will go in the templates directory
