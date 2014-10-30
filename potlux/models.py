@@ -3,6 +3,9 @@ from mongokit import Document
 import datetime
 
 class Idea(Document):
+	__database__ = 'potlux'
+	__collection__ = 'ideas'
+
 	structure = {
 		'date_creation': datetime.datetime,
 		'name': basestring,
@@ -28,7 +31,7 @@ class Idea(Document):
 		}
 	}
 
-	required_fields = ['name', 'categories', 'contact']
+	required_fields = ['name', 'categories', 'summary']
 
 	default_values = {
 		'date_creation': datetime.datetime.utcnow
