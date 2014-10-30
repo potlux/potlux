@@ -40,6 +40,17 @@ def new():
 	else: 
 		return render_template('new.html')
 
+@app.route('/idea/<id>', methods=["GET", "POST"])
+def show_idea(id):
+	idea = db.ideas.find_one({"_id" : ObjectId(id)})
+	# if request.method == "POST":
+		# update idea in database	
+	return dumps(idea)
+
+@app.route('/random')
+def show_random():
+	return dumps(db.ideas.Idea.find_random())
+
 @app.route('/')
 def home():
 	return app.send_static_file('index.html')
