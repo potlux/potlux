@@ -45,7 +45,7 @@ def show_idea(id):
 	idea = db.ideas.find_one({"_id" : ObjectId(id)})
 	# if request.method == "POST":
 		# update idea in database	
-	return dumps(idea)
+	return render_template('project.html', idea=idea) #dumps(idea)
 
 @app.route('/random')
 def show_random():
@@ -53,4 +53,5 @@ def show_random():
 
 @app.route('/')
 def home():
+	new_ideas = db.ideas.Idea.find()
 	return render_template('index.html')
