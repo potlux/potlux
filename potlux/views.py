@@ -38,7 +38,7 @@ def new():
 		new_idea.save()
 		return redirect(url_for('show_all'))
 	else: 
-		return render_template('new.html')
+		return render_template('submit.html')
 
 @app.route('/idea/<id>', methods=["GET", "POST"])
 def show_idea(id):
