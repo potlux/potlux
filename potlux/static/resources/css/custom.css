@@ -99,13 +99,37 @@ a:hover {
 	height:200px;
 }
 
+.description:hover {
+	background:#e2f1dd;
+	cursor:pointer;
+}
+
+.tabey {
+	margin-left:auto;
+	margin-right:auto;
+}
+
 .submitContent {
-	background: url('resources/images/tree.jpg');
+	background: url('../images/tree.jpg');
 	background-size: 100%;
 	background-repeat: no-repeat;
 	background-attachment: fixed;
 	text-align:center;
 	padding:100px;
+	color: #fff;
+	font-size:18px;
+	font-weight:200;
+}
+
+.submitBubble {
+	padding: 5px;
+	margin:10px;
+}
+
+.projSub {
+	font-size:48px;
+	font-weight: 200;
+	color: #fff;
 }
 
 #slideshow {
