@@ -1,0 +1,114 @@
+body {
+	font-family: 'Raleway', sans-serif;
+}
+
+a {
+	color:#c1c3bf;
+	text-decoration:none;
+	transition:color 0.5s;
+}
+
+a:hover {
+	color: #35ce2c;
+	text-decoration:none;
+}
+
+.header {
+	padding:15px;
+}
+
+.links {
+	float:right;
+	font-size:14px;
+	padding-top:10px;
+	padding-right:15px;
+	line-height:14px;
+}
+
+.logo {
+	font-size:24px;
+	font-weight:300;
+	padding:20px;
+	color: #999a98;
+	padding-left: 50px;
+}
+
+.navlink {
+	padding:15px;
+}
+
+.capHead{
+	font-weight:500;
+	font-size:64px;
+	line-height:64px;
+}
+
+.capSub{
+	font-weight:300;
+	font-size:28px;
+	line-height:28px;
+}
+
+.carousel-caption {
+	text-align:right;
+	font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+}
+
+.slideImage {
+	opacity: 0.6;
+	transition: opacity 1s;
+}
+
+.slideImage:hover {
+	opacity: 1;
+}
+
+.content {
+	padding-top: 70px;
+}
+
+.thumb {
+	height:200px;
+}
+
+.projTable {
+
+}
+
+.projTitle {
+	font-size:18px;
+	color:#1a3f19;
+	padding-bottom:20px;
+}
+
+.projDesc {
+	font-size:14px;
+	font-weight:300;
+}
+
+.breaker {
+	font-size:50px;
+	line-height:50px;
+}
+
+.description {
+	padding:20px;
+	background: #e8f1f0;
+	border-top-right-radius:10px;
+	border-bottom-right-radius:10px;
+	height:200px;
+}
+
+.submitContent {
+	background: url('../images/tree.jpg');
+	background-size: 100%;
+	background-repeat: no-repeat;
+	background-attachment: fixed;
+	text-align:center;
+	padding:100px;
+}
+
+#slideshow {
+	background: #000;
+	margin: 0;
+}
