@@ -44,5 +44,26 @@
       </a>
     </div>
 
+    <div class="container projContent">
+      <div class="projInfo">
+        <div class="ideaName"> {{idea.name}}</div>
+        <div class="ideaContact">Submitted By: <a href="mailto:{{idea.contact.email}}">{{idea.contact.name}}</a></div>
+        <div class="ideaSummary">{{idea.summary}}</div>
+      </div>
+
+      <div class="projImages">
+        {%
+          if idea.resources.images|length == 0:
+        %}
+          <form action="" method="post">
+            <input type="file" name="imageUpload" />
+            <input type="submit" name="submit" />
+          </form>
+        {%
+          endif
+        %}
+      </div>
+    </div>
+
     <div> {{ idea.name }} </div>
 {% endblock %}
