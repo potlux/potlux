@@ -35,13 +35,38 @@
 
     <div class="submitContent">
 
-      Project Submission
+      <span class="projSub">Project Submission</span>
 
       <form action="new" method="post">
-        Name: <input type="text" name="name" /><br />
-        Category: <input type="text" name="categories" /><br />
-        Contact: <input type="text" name="contact_name" /><input type="text" name="contact_email" /><br />
-        Summary: <input type="text" name="summary" /><br />
+      <table>
+
+        <tr>
+          <td>Name:</td>
+           <td>
+            <input class="submitBubble" type="text" name="name" />
+          </td>
+        </tr>
+        <tr>
+          <td>Category:</td>
+           <td>
+            <input class="submitBubble" type="text" name="categories" />
+          </td>
+        </tr>
+        <tr>
+          <td>Contact:</td>
+           <td>
+            <input class="contactBubble" type="text" name="contact_name" />
+            <input class="contactBubble" type="text" name="contact_email" />
+          </td>
+        </tr>
+        <tr>
+          <td>Summary:</td>
+           <td>
+            <input class="submitBubble" type="text" name="summary" />
+          </td>
+        </tr>
+
+      </table>
         <input type="submit" value="Submit" />
       </form>
 
