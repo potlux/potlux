@@ -53,4 +53,4 @@ def show_random():
 
 @app.route('/')
 def home():
-	return app.send_static_file('index.html')
+	return render_template('index.html')
