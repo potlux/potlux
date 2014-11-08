@@ -3,6 +3,7 @@ from models import Idea
 
 from flask import request, render_template, redirect, url_for
 from mongokit import *
+import pymongo
 from bson.json_util import dumps
 
 # configuration
@@ -53,5 +54,5 @@ def show_random():
 
 @app.route('/')
 def home():
-	new_ideas = db.ideas.Idea.find()
-	return render_template('index.html')
+	new_ideas = db.ideas.Idea.find(sort=[('date_creation', pymongo.DESCENDING)], max_scan=10)
+	return render_template('index.html', ideas=new_ideas)

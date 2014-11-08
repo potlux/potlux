@@ -69,6 +69,13 @@
       </a>
     </div>
 
+    {% for idea in ideas: %}
+      <div> {{ idea.name }} </div>
+      <div> Summary: {{ idea.summary }} </div>
+      <div> Created by: {{ idea.contact.name }} </div>
+      <div> Contact: <a href="{{ idea.contact.email }}">{{ idea.contact.email }}</a> for more info. </div>
+    {% endfor %}
+
     <div class="container content">
       <table cellpadding="0" cellspacing="0" border="0" class="projTable">
         <tr class="project">
