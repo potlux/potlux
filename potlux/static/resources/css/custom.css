@@ -109,8 +109,9 @@ a:hover {
 	margin-right:auto;
 }
 
+
 .submitContent {
-	background: url('../images/tree.jpg');
+	background: url('../images/tree-faded.png');
 	background-size: 100%;
 	background-repeat: no-repeat;
 	background-attachment: fixed;
@@ -124,12 +125,43 @@ a:hover {
 .submitBubble {
 	padding: 5px;
 	margin:10px;
+	border-radius: 10px;
+	opacity: 0.7;
+	border:none;
+	color: #000;
+	width: 300px;
+}
+
+.contactBubble {
+	padding: 5px;
+	margin:10px;
+	border-radius: 10px;
+	opacity: 0.7;
+	border:none;
+	color: #000;
+	width: 140px;
+}
+
+.summBubble {
+	padding: 5px;
+	margin:10px;
+	border-radius: 10px;
+	opacity: 0.7;
+	border:none;
+	color: #000;
+	width: 300px;
 }
 
 .projSub {
 	font-size:48px;
 	font-weight: 200;
 	color: #fff;
+}
+
+.formtd {
+	vertical-align: top;
+	padding-top: 15px;
+	text-align:right;
 }
 
 #slideshow {

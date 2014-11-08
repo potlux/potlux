@@ -37,37 +37,40 @@
 
       <span class="projSub">Project Submission</span>
 
-      <form action="new" method="post">
-      <table>
+      <form action="new" method="post" class="formy">
+      <table class="tabey">
 
         <tr>
-          <td>Name:</td>
+          <td class="formtd">Name:</td>
            <td>
             <input class="submitBubble" type="text" name="name" />
           </td>
         </tr>
         <tr>
-          <td>Category:</td>
+          <td class="formtd">Category:</td>
            <td>
             <input class="submitBubble" type="text" name="categories" />
           </td>
         </tr>
         <tr>
-          <td>Contact:</td>
+          <td class="formtd">Contact:</td>
            <td>
             <input class="contactBubble" type="text" name="contact_name" />
             <input class="contactBubble" type="text" name="contact_email" />
           </td>
         </tr>
         <tr>
-          <td>Summary:</td>
-           <td>
-            <input class="submitBubble" type="text" name="summary" />
+          <td class="formtd">Summary:</td>
+          <td>
+            <textarea class="summBubble" rows="5" name="summary" ></textarea>
           </td>
+        </tr>
+        <tr>
+          <td></td>
+          <td><input type="submit" value="Submit" /></td>
         </tr>
 
       </table>
-        <input type="submit" value="Submit" />
       </form>
 
     </div>
