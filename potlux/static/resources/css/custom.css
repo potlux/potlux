@@ -100,7 +100,7 @@ a:hover {
 }
 
 .submitContent {
-	background: url('../images/tree.jpg');
+	background: url('resources/images/tree.jpg');
 	background-size: 100%;
 	background-repeat: no-repeat;
 	background-attachment: fixed;
