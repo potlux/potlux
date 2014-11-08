@@ -1,0 +1,41 @@
+<!doctype html>
+<html>
+  <head>
+    {% block head %}
+    <link href='http://fonts.googleapis.com/css?family=Raleway:400,500,600,700,800,900,300,200,100' rel='stylesheet' type='text/css'>
+    <link href="{{url_for('static',filename='resources/css/bootstrap.min.css')}}" rel="stylesheet">
+    <link href="{{url_for('static',filename='resources/css/custom.css')}}" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script src="{{url_for('static',filename='resources/js/bootstrap.min.js')}}"></script>
+    <title>Study Buddy - {% block title %}{% endblock %}</title>
+    {% endblock %}
+  </head>
+  <body>
+    <div class="header">
+        <span class="logo">
+          POTLUX
+        </span>
+
+        <span class="links">
+          <span class="navlink">
+            <a href="#">HOME</a>
+          </span>
+          <span class="navlink">
+            <a href="#">ABOUT</a>
+          </span>
+          <span class="navlink">
+            <a href="#">PROJECTS</a>
+          </span>
+          <span class="navlink">
+            <a href="new">SUBMISSION</a>
+          </span>
+        </span>
+      </div>
+    <div id="content">{% block content %}{% endblock %}</div>
+    <div id="footer">
+      {% block footer %}
+      &copy; Copyright 2010 by <a href="http://domain.invalid/">you</a>.
+      {% endblock %}
+    </div>
+  </body>
+</html>
