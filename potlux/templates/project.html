@@ -52,16 +52,13 @@
       </div>
 
       <div class="projImages">
-        {%
-          if idea.resources.images|length == 0:
-        %}
-          <form action="" method="post">
+        {% for image_url in idea.resources.images: %}
+          <span> <img src="{{ url_for('static', filename='resources/user_images/'+image_url) }}" /> </span>
+        {% endfor %}
+          <form action="/idea/{{idea._id}}" method="post" enctype=multipart/form-data>
             <input type="file" name="imageUpload" />
             <input type="submit" name="submit" />
           </form>
-        {%
-          endif
-        %}
       </div>
     </div>
 
