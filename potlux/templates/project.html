@@ -44,5 +44,23 @@
       </a>
     </div>
 
+    <div class="container projContent">
+      <div class="projInfo">
+        <div class="ideaName"> {{idea.name}}</div>
+        <div class="ideaContact">Submitted By: <a href="mailto:{{idea.contact.email}}">{{idea.contact.name}}</a></div>
+        <div class="ideaSummary">{{idea.summary}}</div>
+      </div>
+
+      <div class="projImages">
+        {% for image_url in idea.resources.images: %}
+          <span> <img src="{{ url_for('static', filename='resources/user_images/'+image_url) }}" /> </span>
+        {% endfor %}
+          <form action="/idea/{{idea._id}}" method="post" enctype=multipart/form-data>
+            <input type="file" name="imageUpload" />
+            <input type="submit" name="submit" />
+          </form>
+      </div>
+    </div>
+
     <div> {{ idea.name }} </div>
 {% endblock %}

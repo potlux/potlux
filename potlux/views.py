@@ -5,12 +5,16 @@ from flask import request, render_template, redirect, url_for
 from mongokit import *
 import pymongo
 from bson.json_util import dumps
+from helpers import *
 
 # configuration
 MONGODB_HOST = 'localhost'
 MONGODB_PORT = 27017
 
 app.config.from_object(__name__)
+
+APP_ROOT = os.path.dirname(os.path.abspath(__file__))
+app.config['UPLOAD_FOLDER'] = APP_ROOT + "/static/resources/user_images/"
 
 connection = Connection()
 connection.register([Idea])
@@ -43,10 +47,18 @@ def new():
 
 @app.route('/idea/<id>', methods=["GET", "POST"])
 def show_idea(id):
-	idea = db.ideas.find_one({"_id" : ObjectId(id)})
-	# if request.method == "POST":
-		# update idea in database	
-	return render_template('project.html', idea=idea)
+	idea = db.ideas.Idea.find_one({"_id" : ObjectId(id)})
+
+	if request.method == "POST":		
+		if 'imageUpload' in request.files:
+			# handle image upload
+			filename = process_image(request.files['imageUpload'])
+			idea['resources']['images'].append(filename)
+			idea.save()
+
+		#else:
+			# nothing
+	return render_template('project.html', idea=idea) #dumps(idea)
 
 @app.route('/random')
 def show_random():

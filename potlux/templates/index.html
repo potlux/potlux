@@ -43,25 +43,19 @@
       </a>
     </div>
 
-    {% for idea in ideas: %}
-      <div> {{ idea.name }} </div>
-      <div> Summary: {{ idea.summary }} </div>
-      <div> Created by: {{ idea.contact.name }} </div>
-      <div> Contact: <a href="{{ idea.contact.email }}">{{ idea.contact.email }}</a> for more info. </div>
-    {% endfor %}
-
     <div class="container content">
       <table cellpadding="0" cellspacing="0" border="0" class="projTable">
+      {% for idea in ideas: %}
         <tr class="project">
           <td class="image">
             <img class="thumb" src="{{url_for('static',filename='resources/images/flower.png')}}" />
           </td>
           <td class="description">
             <div class="projTitle">
-              Flowers are nice!
+              {{ idea.name }}
             </div>
             <div class="projDesc">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla ut nunc non justo condimentum commodo non nec lorem. Duis egestas varius lacinia. Ut sed volutpat libero, quis mollis leo. Etiam et lorem scelerisque, rhoncus elit eget, porttitor ligula. Donec eros mauris, finibus et pharetra sed, rutrum sit amet orci. Mauris lorem ligula, posuere quis lorem nec, iaculis posuere dolor.
+              {{ idea.summary }}
             </div>
           </td>
         </tr>
@@ -71,26 +65,7 @@
           &nbsp;
           </td>
         </tr>
-
-        <tr class="project">
-          <td class="image">
-            <img class="thumb" src="{{url_for('static',filename='resources/images/flower.png')}}" />
-          </td>
-          <td class="description">
-            <div class="projTitle">
-              Flowers are nice!
-            </div>
-            <div class="projDesc">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla ut nunc non justo condimentum commodo non nec lorem. Duis egestas varius lacinia. Ut sed volutpat libero, quis mollis leo. Etiam et lorem scelerisque, rhoncus elit eget, porttitor ligula. Donec eros mauris, finibus et pharetra sed, rutrum sit amet orci. Mauris lorem ligula, posuere quis lorem nec, iaculis posuere dolor.
-            </div>
-          </td>
-        </tr>
-
-         <tr class="break">
-          <td class="breaker" colspan="2">
-          &nbsp;
-          </td>
-        </tr>
+        {% endfor %}
       </table>
     </div>
 {% endblock %}
