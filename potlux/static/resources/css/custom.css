@@ -59,6 +59,21 @@ a:hover {
 	transition: opacity 1s;
 }
 
+.projContent {
+	padding:20px;
+	background: #e8f1f0;
+	border-radius:10px;
+	margin-top: 50px;
+}
+
+.ideaContact {
+	font-style: italic;
+}
+
+.ideaName {
+	font-size:28px;
+}
+
 .slideImage:hover {
 	opacity: 1;
 }
@@ -72,7 +87,7 @@ a:hover {
 }
 
 .projTable {
-
+	width:100%;
 }
 
 .projTitle {
@@ -120,6 +135,10 @@ a:hover {
 	color: #fff;
 	font-size:18px;
 	font-weight:200;
+}
+
+td.image {
+	width:239px;
 }
 
 .submitBubble {
