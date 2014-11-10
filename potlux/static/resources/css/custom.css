@@ -1,4 +1,4 @@
-body {
+html,body {
 	font-family: 'Raleway', sans-serif;
 }
 
@@ -132,6 +132,7 @@ a:hover {
 	width: 300px;
 }
 
+
 .contactBubble {
 	padding: 5px;
 	margin:10px;
@@ -162,6 +163,25 @@ a:hover {
 	vertical-align: top;
 	padding-top: 15px;
 	text-align:right;
+}
+
+.subButton {
+	width:300px;
+	height:60px;
+	background: #31f1cb;
+	color: #fff;
+	border:none;
+	border-radius:10px;
+	font-size: 18px;
+}
+
+.subButton:hover {
+	background:#60f19b;
+}
+
+.faded {
+	background: #000;
+	opacity: 0.8;
 }
 
 #slideshow {
