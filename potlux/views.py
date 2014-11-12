@@ -41,7 +41,7 @@ def new():
 		new_idea.summary = summary
 
 		new_idea.save()
-		return redirect(url_for('show_all'))
+		return redirect(url_for('show_idea', id=str(new_idea._id)))
 	else: 
 		return render_template('submit.html')
 
