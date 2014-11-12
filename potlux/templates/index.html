@@ -46,19 +46,19 @@
     <div class="container content">
       <table cellpadding="0" cellspacing="0" border="0" class="projTable">
       {% for idea in ideas: %}
-        <tr class="project">
-          <td class="image">
-            <img class="thumb" src="{{url_for('static',filename='resources/images/flower.png')}}" />
-          </td>
-          <td class="description">
-            <div class="projTitle">
-              {{ idea.name }}
-            </div>
-            <div class="projDesc">
-              {{ idea.summary }}
-            </div>
-          </td>
-        </tr>
+          <tr class="project">
+            <td class="image">
+              <img class="thumb" src="{{url_for('static',filename='resources/images/flower.png')}}" />
+            </td>
+            <td class="description">
+              <div class="projTitle">
+                {{ idea.name }}
+              </div>
+              <div class="projDesc">
+                {{ idea.summary }}
+              </div>
+            </td>
+          </tr>
 
         <tr class="break">
           <td class="breaker" colspan="2">
