@@ -22,12 +22,12 @@ db = connection.potlux
 
 @app.route('/comingsoon')
 def coming_soon():
-	return app.send_static_file('comingsoon.html')
+	return 'Coming Soon' #app.send_static_file('comingsoon.html')
 
 @app.route('/all')
 def show_all():
 	ideas = db.ideas.Idea.find()	
-	return dumps([idea for idea in ideas])
+	return 'all' #dumps([idea for idea in ideas])
 
 @app.route('/new', methods=["POST", "GET"])
 def new():
