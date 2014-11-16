@@ -20,10 +20,14 @@ connection = Connection()
 connection.register([Idea])
 db = connection.potlux
 
+@app.route('/comingsoon')
+def coming_soon():
+	return 'Coming Soon' #app.send_static_file('comingsoon.html')
+
 @app.route('/all')
 def show_all():
 	ideas = db.ideas.Idea.find()	
-	return dumps([idea for idea in ideas])
+	return 'all' #dumps([idea for idea in ideas])
 
 @app.route('/new', methods=["POST", "GET"])
 def new():
@@ -41,7 +45,7 @@ def new():
 		new_idea.summary = summary
 
 		new_idea.save()
-		return redirect(url_for('show_all'))
+		return redirect(url_for('show_idea', id=str(new_idea._id)))
 	else: 
 		return render_template('submit.html')
 
