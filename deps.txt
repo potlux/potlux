@@ -1,0 +1,5 @@
+Flask
+Pillow
+Flask-PyMongo
+Flask-MongoKit
+
