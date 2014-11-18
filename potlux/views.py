@@ -59,9 +59,15 @@ def show_idea(id):
 			filename = process_image(request.files['imageUpload'])
 			idea['resources']['images'].append(filename)
 			idea.save()
-
-		#else:
-			# nothing
+		else:
+			for arg in request.args:
+				if isinstance(idea[arg], list):
+					idea[arg].append(request.args.get(arg))
+				else:
+					idea[arg] = request.args.get(arg)
+			print idea
+			idea.save()
+			
 	return render_template('project.html', idea=idea) #dumps(idea)
 
 @app.route('/random')
