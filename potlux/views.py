@@ -60,12 +60,15 @@ def show_idea(id):
 			idea['resources']['images'].append(filename)
 			idea.save()
 		else:
-			for arg in request.args:
-				if isinstance(idea[arg], list):
-					idea[arg].append(request.args.get(arg))
-				else:
-					idea[arg] = request.args.get(arg)
-			print idea
+			if 'summary' in request.form:
+				print request.form['summary']
+				idea['summary'] = request.form['summary']
+			# for arg in request.args:
+			# 	if isinstance(idea[arg], list):
+			# 		idea[arg].append(request.args.get(arg))
+			# 	else:
+			# 		idea[arg] = request.args.get(arg)
+			print "NEW IDEA:", idea
 			idea.save()
 			
 	return render_template('project.html', idea=idea) #dumps(idea)
