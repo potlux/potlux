@@ -8,6 +8,7 @@ class Idea(Document):
 
 	structure = {
 		'date_creation': datetime.datetime,
+		#'last_edit' : datetime.datetime,
 		'name': basestring,
 		'categories': [basestring],
 		'university': basestring,
