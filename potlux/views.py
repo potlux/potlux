@@ -1,7 +1,7 @@
 from potlux import app
 from models import Idea
 
-from flask import request, render_template, redirect, url_for
+from flask import request, render_template, redirect, url_for, session, escape
 from mongokit import *
 import pymongo
 from bson.json_util import dumps
@@ -77,7 +77,27 @@ def show_idea(id):
 def show_random():
 	return dumps(db.ideas.Idea.find_random())
 
+@app.route('/new_user', methods=['GET', 'POST'])
+def new_user():
+    if request.method == 'POST':
+    	# Create user
+    	# log user in
+        return redirect(url_for('home'))
+    if 'user_email' in session:
+    	return render_template('new_user.html', email=session['user_email'])
+    else:
+    	return render_template('new_user.html')
+
+@app.route('/try/<beta_key>')
+def beta():
+	if is_allowed(beta_key):
+		session['user_email'] = get_email(beta_key)
+		redirect(url_for('new_user'))
+	else:
+		return "Potlux is still in beta, sign up here to get updates!"
+
 @app.route('/')
 def home():
 	new_ideas = db.ideas.Idea.find(sort=[('date_creation', pymongo.DESCENDING)], max_scan=10)
 	return render_template('index.html', ideas=new_ideas)
+	

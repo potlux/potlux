@@ -2,6 +2,23 @@ from mongokit import Document
 
 import datetime
 
+class BetaKey(Document):
+	__database__ = 'potlux'
+	__collection__ = 'beta_keys'
+
+	structure = {
+		'date_creation': datetime.datetime,
+		'key' : basestring
+	}
+
+	required_fields = ['key']
+
+	default_values = {
+		'date_creation' : datetime.datetime.utcnow
+	}
+
+	use_dot_notation = True
+
 class Idea(Document):
 	__database__ = 'potlux'
 	__collection__ = 'ideas'
