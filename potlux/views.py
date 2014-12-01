@@ -12,11 +12,13 @@ def coming_soon():
 	return 'Coming Soon' #app.send_static_file('comingsoon.html')
 
 @app.route('/all')
+@login_required
 def show_all():
 	ideas = db.ideas.Idea.find()	
 	return 'all' # dumps([idea for idea in ideas])
 
 @app.route('/new', methods=["POST", "GET"])
+@login_required
 def new():
 	if request.method == "POST":
 		name = request.form["name"]
@@ -37,6 +39,7 @@ def new():
 		return render_template('submit.html')
 
 @app.route('/idea/<id>', methods=["GET", "POST"])
+@login_required
 def show_idea(id):
 	idea = db.ideas.Idea.find_one({"_id" : ObjectId(id)})
 
@@ -59,6 +62,7 @@ def show_idea(id):
 	return render_template('project.html', idea=idea) #dumps(idea)
 
 @app.route('/random')
+@login_required
 def show_random():
 	return dumps(db.ideas.Idea.find_random())
 
@@ -107,6 +111,7 @@ def beta():
 		return "Potlux is still in beta, sign up here to get updates!"
 
 @app.route('/')
+@login_required
 def home():
 	new_ideas = db.ideas.Idea.find(sort=[('date_creation', pymongo.DESCENDING)], max_scan=10)
 	return render_template('index.html', ideas=new_ideas)
