@@ -1,0 +1,22 @@
+{% extends "template.html" %}
+{% block title %}Login{% endblock %}
+{% block head %}
+  {{ super() }}
+  <style type="text/css">
+    .important { color: #336699; }
+  </style>
+{% endblock %}
+
+{% block content %}
+	{% from "_templatehelpers.html" import render_field %}
+
+	<form method="post" action="/login">
+	  <dl>
+	  	{{ form.csrf_token }}
+	    {{ render_field(form.email) }}
+	    {{ render_field(form.password) }}
+	    {{ render_field(form.remember) }}
+	  </dl>
+	  <p><input type=submit value="Log In">
+	</form>
+{% endblock %}
