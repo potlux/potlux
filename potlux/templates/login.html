@@ -1,0 +1,20 @@
+{% extends "template.html" %}
+{% block title %}Submit{% endblock %}
+{% block head %}
+  {{ super() }}
+  <style type="text/css">
+    .important { color: #336699; }
+  </style>
+{% endblock %}
+
+{% block content %}
+	{% from "_templatehelpers.html" import render_field %}
+
+	<form method="post" action="/login">
+	  <dl>
+	    {{ render_field(form.email) }}
+	    {{ render_field(form.password) }}
+	  </dl>
+	  <p><input type=submit value=Register>
+	</form>
+{% endblock %}

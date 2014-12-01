@@ -21,6 +21,7 @@ def process_image(file):
 
 def is_allowed(beta_key):
 	#check if beta_key is in beta_key database, return True
+	
 	return True
 
 def get_email(beta_key):

@@ -1,6 +1,27 @@
 from mongokit import Document
+from flask.ext.login import UserMixin
 
 import datetime
+
+class User(Document, UserMixin):
+	__database__ = 'potlux'
+	__collection__ = 'users'
+
+	structure = {
+		'date_creation' : datetime.datetime,
+		'email' : basestring,
+		'password' : basestring,
+		'name' : {
+			'first' : basestring,
+			'last' : basestring
+		}
+	}
+
+	default_values = {
+		'date_creation' : datetime.datetime.utcnow
+	}
+
+	required_fields = ['email', 'password']
 
 class BetaKey(Document):
 	__database__ = 'potlux'
