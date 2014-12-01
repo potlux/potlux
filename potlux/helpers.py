@@ -1,5 +1,6 @@
 from potlux import app
 from PIL import Image
+from werkzeug.security import check_password_hash
 
 import models
 import uuid, os
@@ -27,3 +28,4 @@ def is_allowed(beta_key):
 def get_email(beta_key):
 	# returns email associated with beta_key
 	return None
+

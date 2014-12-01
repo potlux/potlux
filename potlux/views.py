@@ -1,11 +1,11 @@
-from potlux import app, db, login_required
+from potlux import app, db, login_required, login_user, logout_user
 from forms import RegistrationForm, LoginForm
-from flask import request, render_template, redirect, url_for, session, escape
+from flask import request, render_template, redirect, url_for, session, escape, flash
 from mongokit import *
 import pymongo
 from bson.json_util import dumps
 from helpers import *
-from werkzeug.security import generate_password_hash, check_password_hash
+from werkzeug.security import generate_password_hash
 
 @app.route('/comingsoon')
 def coming_soon():
@@ -48,14 +48,12 @@ def show_idea(id):
 			idea.save()
 		else:
 			if 'summary' in request.form:
-				print request.form['summary']
 				idea['summary'] = request.form['summary']
 			# for arg in request.args:
 			# 	if isinstance(idea[arg], list):
 			# 		idea[arg].append(request.args.get(arg))
 			# 	else:
 			# 		idea[arg] = request.args.get(arg)
-			print "NEW IDEA:", idea
 			idea.save()
 			
 	return render_template('project.html', idea=idea) #dumps(idea)
@@ -68,29 +66,36 @@ def show_random():
 def login():
 	form = LoginForm(request.form)
 	if form.validate_on_submit():
-		login_user(user) # login_user(user, remember=True)
+		print "form validated"
+		login_user(form.get_user(), remember=form.remember.data) # login_user(user, remember=True)
 		flash("Logged in succesfully")
-		return redirect(request.args.get("next") or url_for('index'))
+		return redirect(request.args.get("next") or url_for('home'))
 	return render_template('login.html', form=form)
 
 @app.route('/register', methods=['GET', 'POST'])
 def register():
 	form = RegistrationForm(request.form)
 	if form.validate_on_submit():
-		print "form validated"
     	# Create user
 		user_email = form.email.data
 		password = form.password.data
+
+		if db.users.User.find({'email' : user_email}).count() > 0:
+			flash('An account with that email already exists!')
+			form = RegistrationForm()
+			return render_template('register.html', form=form)
+		else:
+			new_user = db.users.User()
+			new_user.email = user_email
+			new_user.password = generate_password_hash(password) # hash this!!!
+			new_user.save()
+
 		# log user in
-		print "email:", user_email
-		print "password:", password
+		login_user(new_user)
 		return redirect(url_for('home'))
 	if 'user_email' in session:
-		print "email in session"
 		return render_template('register.html', email=session['user_email'], form=form)
 	else:
-		print "going back to register"
-		print form.errors
 		return render_template('register.html', form=form)
 
 @app.route('/try/<beta_key>')
@@ -109,5 +114,5 @@ def home():
 @app.route('/logout')
 def logout():
 	logout_user()
-	return redirect(url_for('index'))
+	return redirect(url_for('home'))
 	

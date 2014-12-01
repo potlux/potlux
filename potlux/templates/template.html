@@ -22,25 +22,41 @@
   </head>
   <body>
     <div class="header">
-        <span class="logo">
-          <a href="/">POTLUX</a>
-        </span>
+      <span class="logo">
+        <a href="/">POTLUX</a>
+      </span>
 
-        <span class="links">
-          <span class="navlink">
-            <a href="/">HOME</a>
-          </span>
-          <span class="navlink">
-            <a href="#">ABOUT</a>
-          </span>
-          <span class="navlink">
-            <a href="#">PROJECTS</a>
-          </span>
-          <span class="navlink">
-            <a href="/new">SUBMISSION</a>
-          </span>
+      <span class="links">
+        <span class="navlink">
+          <a href="/">HOME</a>
         </span>
-      </div>
+        <span class="navlink">
+          <a href="#">ABOUT</a>
+        </span>
+        <span class="navlink">
+          <a href="#">PROJECTS</a>
+        </span>
+        <span class="navlink">
+          <a href="/new">SUBMISSION</a>
+        </span>
+        <span class="loginlink">
+          {% if current_user.is_authenticated(): %}
+            <a href="logout">Hi {{ current_user.email }}!</a>
+          {% else: %}
+            <a href="/login">LOGIN</a>
+          {% endif %}
+        </span>
+      </span>
+    </div>
+    {% with messages = get_flashed_messages() %}
+      {% if messages %}
+        <ul class=flashes>
+        {% for message in messages %}
+          <li>{{ message }}</li>
+        {% endfor %}
+        </ul>
+      {% endif %}
+    {% endwith %}
     <div id="content">{% block content %}{% endblock %}</div>
   </body>
 </html>

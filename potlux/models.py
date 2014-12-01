@@ -23,6 +23,12 @@ class User(Document, UserMixin):
 
 	required_fields = ['email', 'password']
 
+	use_dot_notation = True
+
+	def get_id(self):
+		print "ID in model:", str(self._id)
+		return str(self._id)
+
 class BetaKey(Document):
 	__database__ = 'potlux'
 	__collection__ = 'beta_keys'

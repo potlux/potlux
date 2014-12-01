@@ -1,7 +1,7 @@
 from flask import Flask
-from models import Idea
+from models import Idea, User
 from mongokit import *
-from flask.ext.login import LoginManager, login_required
+from flask.ext.login import LoginManager, login_required, login_user, logout_user
 from flask.ext.wtf.csrf import CsrfProtect
 import os
 
@@ -22,7 +22,7 @@ APP_ROOT = os.path.dirname(os.path.abspath(__file__))
 app.config['UPLOAD_FOLDER'] = APP_ROOT + "/static/resources/user_images/"
 
 connection = Connection()
-connection.register([Idea])
+connection.register([Idea, User])
 db = connection.potlux
 
 login_manager = LoginManager()
@@ -36,5 +36,5 @@ from potlux.views import *
 
 @login_manager.user_loader
 def load_user(user_id):
-	return User.get(user_id)
+	return db.users.User.find_one({'_id' : ObjectId(user_id)})
 
