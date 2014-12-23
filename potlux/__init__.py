@@ -3,6 +3,7 @@ from models import Idea, User
 from mongokit import *
 from flask.ext.login import LoginManager, login_required, login_user, logout_user
 from flask.ext.wtf.csrf import CsrfProtect
+import flask.ext.security
 import os
 
 app = Flask(__name__)
@@ -20,6 +21,10 @@ app.config.from_object(__name__)
 
 APP_ROOT = os.path.dirname(os.path.abspath(__file__))
 app.config['UPLOAD_FOLDER'] = APP_ROOT + "/static/resources/user_images/"
+
+app.config['SECURITY_REGISTERABLE'] = True
+app.config['SECURITY_CONFIRMABLE'] = True
+app.config['SECURITY_RECOVERABLE'] = True
 
 connection = Connection()
 connection.register([Idea, User])

@@ -91,7 +91,7 @@ def register():
 		else:
 			new_user = db.users.User()
 			new_user.email = user_email
-			new_user.password = generate_password_hash(password) # hash this!!!
+			new_user.password = generate_password_hash(password)
 			new_user.save()
 
 		# log user in
