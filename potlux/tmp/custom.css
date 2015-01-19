@@ -1,0 +1,208 @@
+body, html {
+	height: 100%;
+	padding: 0;
+	margin: 0;
+	font-family: 'Raleway', sans-serif;
+}
+
+a, a:link {
+	color: #fff;
+	text-decoration: none;
+}
+
+a:hover {
+	font-weight: bold;
+}
+
+.everything {
+	height: 100%;
+	width: 100%;
+}
+
+.formtd {
+	padding-right: 8px;
+	font-weight: 200;
+	font-size:12px;
+}
+
+.submitBubble {
+	width: 300px;
+	background: #CECECE;
+	border: none;
+	padding: 5px;
+	border-radius: 5px;
+}
+
+.submitBubble:focus, .contactBubble:focus, .summBubble:focus {
+	background: #fff;
+}
+
+.contactBubble {
+	width: 148px;
+	background: #CECECE;
+	border: none;
+	padding: 5px;
+	border-radius: 5px;
+}
+
+.summBubble {
+	width: 300px;
+	background: #CECECE;
+	border: none;
+	padding: 5px;
+	border-radius: 5px;
+}
+
+.sidebar {
+	background: #23d0a5;
+	width: 250px;
+	vertical-align: top;
+	padding-top: 100px;
+}
+
+.logo {
+	margin-left: 30px;
+}
+
+table {
+	padding: 0;
+	margin: 0;
+}
+
+.subButton {
+	background: #23d0a5;
+	border: none;
+	padding: 8px;
+	border-radius: 5px;
+	font-weight: 400;
+	width: 100px;
+}
+
+.subButton:hover {
+	background: #AFAFAF;
+}
+
+.buttonHolder {
+	text-align: right;
+}
+
+.projTable {
+	width: 100%;
+	height: 100%;
+}
+
+.navlink{
+	margin-left: 40px;
+	font-size: 16px;
+	line-height: 18px;
+}
+
+.active {
+	color:#575757;
+}
+
+.content {
+	background: #efefef;
+	padding: 20px;
+}
+
+.about {
+	padding: 50px;
+}
+
+.projHolder {
+	padding: 20px;
+}
+
+.project {
+	background: #ffffff;
+	height: 100%;
+	width: 100%;
+	text-align: center;
+}
+
+.addNew {
+	background: #fff;
+	height: 100%;
+	width: 100%;
+	text-align: center;
+	font-size: 100px;
+}
+
+.projRow {
+	height: 50%;
+}
+
+/* entire container, keeps perspective */
+.flip-container {
+	perspective: 1000;
+}
+	/* flip the pane when hovered */
+	.flip-container:hover .flipper, .flip-container.hover .flipper {
+		transform: rotateY(180deg);
+	}
+
+.flip-container, .front, .back {
+	width: 100%;
+	height: 100%;
+}
+
+/* flip speed goes here */
+.flipper {
+	transition: 0.6s;
+	transform-style: preserve-3d;
+	width: 100%;
+	height: 100%;
+
+	position: relative;
+}
+
+/* hide back of pane during swap */
+.front, .back {
+	backface-visibility: hidden;
+
+	position: absolute;
+	top: 0;
+	left: 0;
+}
+
+/* front pane, placed above back */
+.front {
+	z-index: 2;
+	/* for firefox 31 */
+	transform: rotateY(0deg);
+	background: #fff;
+}
+
+/* back, initially hidden pane */
+.back {
+	transform: rotateY(180deg);
+	background: #8F8F8F;
+
+}
+
+.heading {
+	font-size:36px;
+	color: #646464;
+	font-weight: 200;
+}
+
+.subHeading {
+	font-size: 18px;
+	color: #646464;
+	font-weight: 100;
+}
+
+.textBlock {
+	background: #CDCDCD;
+	border-radius: 10px;
+	padding: 10px;
+	margin-top: 10px;
+	max-width: 80%;
+	font-weight: 300;
+}
+
+.submit {
+	vertical-align: top;
+	padding: 100px;
+}
