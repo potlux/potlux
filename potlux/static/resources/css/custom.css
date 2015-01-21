@@ -1,209 +1,212 @@
-html,body {
+body, html {
+	height: 100%;
+	padding: 0;
+	margin: 0;
 	font-family: 'Raleway', sans-serif;
 }
 
-a {
-	color:#c1c3bf;
-	text-decoration:none;
-	transition:color 0.5s;
+a, a:link{
+	color: #fff;
+	text-decoration: none;
 }
 
 a:hover {
-	color: #35ce2c;
-	text-decoration:none;
-}
-
-.header {
-	padding:15px;
-}
-
-.links {
-	float:right;
-	font-size:14px;
-	padding-top:10px;
-	padding-right:15px;
-	line-height:14px;
-}
-
-.logo {
-	font-size:24px;
-	font-weight:300;
-	padding:20px;
-	color: #999a98;
-	padding-left: 50px;
-}
-
-.navlink {
-	padding:15px;
-}
-
-.capHead{
-	font-weight:500;
-	font-size:64px;
-	line-height:64px;
-}
-
-.capSub{
-	font-weight:300;
-	font-size:28px;
-	line-height:28px;
-}
-
-.carousel-caption {
-	text-align:right;
-	font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-}
-
-.slideImage {
-	opacity: 0.6;
-	transition: opacity 1s;
-}
-
-.projContent {
-	padding:20px;
-	background: #e8f1f0;
-	border-radius:10px;
-	margin-top: 50px;
-}
-
-.ideaContact {
-	font-style: italic;
-}
-
-.ideaName {
-	font-size:28px;
-}
-
-.slideImage:hover {
-	opacity: 1;
-}
-
-.content {
-	padding-top: 70px;
-}
-
-.thumb {
-	height:200px;
-}
-
-.projTable {
-	width:100%;
-}
-
-.projTitle {
-	font-size:18px;
-	color:#1a3f19;
-	padding-bottom:20px;
-}
-
-.projDesc {
-	font-size:14px;
-	font-weight:300;
-}
-
-.breaker {
-	font-size:50px;
-	line-height:50px;
-}
-
-.description {
-	padding:20px;
-	background: #e8f1f0;
-	border-top-right-radius:10px;
-	border-bottom-right-radius:10px;
-	height:200px;
-}
-
-.description:hover {
-	background:#e2f1dd;
-	cursor:pointer;
-}
-
-.tabey {
-	margin-left:auto;
-	margin-right:auto;
-}
-
-
-.submitContent {
-	background: url('../images/tree-faded.png');
-	background-size: 100%;
-	background-repeat: no-repeat;
-	background-attachment: fixed;
-	text-align:center;
-	padding:100px;
 	color: #fff;
-	font-size:18px;
-	font-weight:200;
+	font-weight: bold;
+	text-decoration: none;
 }
 
-td.image {
-	width:239px;
-}
-
-.submitBubble {
-	padding: 5px;
-	margin:10px;
-	border-radius: 10px;
-	opacity: 0.7;
-	border:none;
-	color: #000;
-	width: 300px;
-}
-
-
-.contactBubble {
-	padding: 5px;
-	margin:10px;
-	border-radius: 10px;
-	opacity: 0.7;
-	border:none;
-	color: #000;
-	width: 140px;
-}
-
-.summBubble {
-	padding: 5px;
-	margin:10px;
-	border-radius: 10px;
-	opacity: 0.7;
-	border:none;
-	color: #000;
-	width: 300px;
-}
-
-.projSub {
-	font-size:48px;
-	font-weight: 200;
-	color: #fff;
+.everything {
+	height: 100%;
+	width: 100%;
 }
 
 .formtd {
+	padding-right: 8px;
+	font-weight: 200;
+	font-size:12px;
+}
+
+.submitBubble {
+	width: 300px;
+	background: #CECECE;
+	border: none;
+	padding: 5px;
+	border-radius: 5px;
+}
+
+.submitBubble:focus, .contactBubble:focus, .summBubble:focus {
+	background: #fff;
+}
+
+.contactBubble {
+	width: 148px;
+	background: #CECECE;
+	border: none;
+	padding: 5px;
+	border-radius: 5px;
+}
+
+.summBubble {
+	width: 300px;
+	background: #CECECE;
+	border: none;
+	padding: 5px;
+	border-radius: 5px;
+}
+
+.sidebar {
+	background: #23d0a5;
+	width: 250px;
 	vertical-align: top;
-	padding-top: 15px;
-	text-align:right;
+	padding-top: 100px;
+}
+
+.logo {
+	margin-left: 30px;
+}
+
+table {
+	padding: 0;
+	margin: 0;
 }
 
 .subButton {
-	width:300px;
-	height:60px;
-	background: #31f1cb;
-	color: #fff;
-	border:none;
-	border-radius:10px;
-	font-size: 18px;
+	background: #23d0a5;
+	border: none;
+	padding: 8px;
+	border-radius: 5px;
+	font-weight: 400;
+	width: 100px;
 }
 
 .subButton:hover {
-	background:#60f19b;
+	background: #AFAFAF;
 }
 
-.faded {
-	background: #000;
-	opacity: 0.8;
+.buttonHolder {
+	text-align: right;
 }
 
-#slideshow {
-	background: #000;
-	margin: 0;
+.projTable {
+	width: 100%;
+	height: 100%;
+}
+
+.navlink{
+	margin-left: 40px;
+	font-size: 16px;
+	line-height: 18px;
+}
+
+.active {
+	color:#575757;
+}
+
+.mainArea {
+	background: #efefef;
+	padding: 20px;
+}
+#content {
+	height:100%;
+}
+.about {
+	padding: 50px;
+}
+
+.projHolder {
+	padding: 20px;
+}
+
+.project {
+	background: #ffffff;
+	height: 100%;
+	width: 100%;
+	text-align: center;
+}
+
+.addNew {
+	background: #fff;
+	height: 100%;
+	width: 100%;
+	text-align: center;
+	font-size: 100px;
+}
+
+.projRow {
+	height: 50%;
+}
+
+/* entire container, keeps perspective */
+.flip-container {
+	perspective: 1000;
+}
+	/* flip the pane when hovered */
+	.flip-container:hover .flipper, .flip-container.hover .flipper {
+		transform: rotateY(180deg);
+	}
+
+.flip-container, .front, .back {
+	width: 100%;
+	height: 100%;
+}
+
+/* flip speed goes here */
+.flipper {
+	transition: 0.6s;
+	transform-style: preserve-3d;
+	width: 100%;
+	height: 100%;
+
+	position: relative;
+}
+
+/* hide back of pane during swap */
+.front, .back {
+	backface-visibility: hidden;
+
+	position: absolute;
+	top: 0;
+	left: 0;
+}
+
+/* front pane, placed above back */
+.front {
+	z-index: 2;
+	/* for firefox 31 */
+	transform: rotateY(0deg);
+	background: #fff;
+}
+
+/* back, initially hidden pane */
+.back {
+	transform: rotateY(180deg);
+	background: #8F8F8F;
+
+}
+
+.heading {
+	font-size:36px;
+	color: #646464;
+	font-weight: 200;
+}
+
+.subHeading {
+	font-size: 18px;
+	color: #646464;
+	font-weight: 100;
+}
+
+.textBlock {
+	background: #CDCDCD;
+	border-radius: 10px;
+	padding: 10px;
+	margin-top: 10px;
+	max-width: 80%;
+	font-weight: 300;
+}
+
+.submit {
+	vertical-align: top;
+	padding: 100px;
 }
