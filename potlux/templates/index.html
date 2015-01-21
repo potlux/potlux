@@ -17,12 +17,18 @@
 		<a href="/idea/{{idea._id}}">
 		<div class="flip-container" ontouchstart="this.classList.toggle('hover');">
 			<div class="flipper">
-				<div class="front">
+				{%if idea.resources.images:%}
+				<div class="front textCenter" style="background-image:url('{{url_for('static',filename='resources/images/' + idea.resources.images[0])}}')">
+				{%else:%}
+				<div class="front textCenter">
+				{%endif%}
 					<div class="projName">{{idea.name}}</div>
 					<div class="uniName">{{idea.university}}</div>
 				</div>
-				<div class="back">
+				<div class="back textCenter">
+					<div class="sumContent">
 					{{idea.summary}}
+					</div>
 				</div>
 			</div>
 		</div>
