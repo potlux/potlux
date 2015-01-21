@@ -178,6 +178,10 @@ table {
 
 .textCenter {
 	padding-top: 45%;
+	background: #fff;
+}.textCenterB {
+	padding-top: 45%;
+	background: #8F8F8F;
 }
 
 /* front pane, placed above back */
@@ -185,9 +189,13 @@ table {
 	z-index: 2;
 	/* for firefox 31 */
 	transform: rotateY(0deg);
-	background: #fff;
 }
-
+.aboutDesc {
+	color:#fff;
+	width:200px;
+	height:200px;
+	text-align:center;
+}
 .projName {
 	font-size: 28px;
 	font-weight: 300;
@@ -201,11 +209,26 @@ table {
 .sumContent {
 	padding: 20px;
 }
-
+.aboutPic {
+	width: 200px;
+	height: 200px;
+	text-align:center;
+}
+.personName {
+	margin-top:72%;
+	color: #fff;
+	font-weight: 400;
+	font-size: 20px;
+	line-height:18px;
+}
+.personTitle {
+	color:#fff;
+	font-weight: 200;
+}
 /* back, initially hidden pane */
 .back {
 	transform: rotateY(180deg);
-	background: #8F8F8F;
+
 
 }
 
