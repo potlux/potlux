@@ -128,4 +128,8 @@ def home():
 def logout():
 	logout_user()
 	return redirect(url_for('home'))
+
+@app.route('/about')
+def about():
+	return render_template('about.html')
 	
