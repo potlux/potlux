@@ -1,35 +1,24 @@
-from potlux import app
-from models import Idea
-
-from flask import request, render_template, redirect, url_for
+from potlux import app, db, login_required, login_user, logout_user
+from forms import RegistrationForm, LoginForm
+from flask import request, render_template, redirect, url_for, session, escape, flash
 from mongokit import *
 import pymongo
 from bson.json_util import dumps
 from helpers import *
-
-# configuration
-MONGODB_HOST = 'localhost'
-MONGODB_PORT = 27017
-
-app.config.from_object(__name__)
-
-APP_ROOT = os.path.dirname(os.path.abspath(__file__))
-app.config['UPLOAD_FOLDER'] = APP_ROOT + "/static/resources/user_images/"
-
-connection = Connection()
-connection.register([Idea])
-db = connection.potlux
+from werkzeug.security import generate_password_hash
 
 @app.route('/comingsoon')
 def coming_soon():
 	return 'Coming Soon' #app.send_static_file('comingsoon.html')
 
 @app.route('/all')
+@login_required
 def show_all():
 	ideas = db.ideas.Idea.find()	
-	return 'all' #dumps([idea for idea in ideas])
+	return 'all' # dumps([idea for idea in ideas])
 
 @app.route('/new', methods=["POST", "GET"])
+@login_required
 def new():
 	if request.method == "POST":
 		name = request.form["name"]
@@ -50,6 +39,7 @@ def new():
 		return render_template('submit.html')
 
 @app.route('/idea/<id>', methods=["GET", "POST"])
+@login_required
 def show_idea(id):
 	idea = db.ideas.Idea.find_one({"_id" : ObjectId(id)})
 
@@ -59,16 +49,75 @@ def show_idea(id):
 			filename = process_image(request.files['imageUpload'])
 			idea['resources']['images'].append(filename)
 			idea.save()
-
-		#else:
-			# nothing
+		else:
+			if 'summary' in request.form:
+				idea['summary'] = request.form['summary']
+			# for arg in request.args:
+			# 	if isinstance(idea[arg], list):
+			# 		idea[arg].append(request.args.get(arg))
+			# 	else:
+			# 		idea[arg] = request.args.get(arg)
+			idea.save()
+			
 	return render_template('project.html', idea=idea) #dumps(idea)
 
 @app.route('/random')
+@login_required
 def show_random():
 	return dumps(db.ideas.Idea.find_random())
 
+@app.route('/login', methods=["GET", "POST"])
+def login():
+	form = LoginForm(request.form)
+	if form.validate_on_submit():
+		print "form validated"
+		login_user(form.get_user(), remember=form.remember.data) # login_user(user, remember=True)
+		flash("Logged in succesfully")
+		return redirect(request.args.get("next") or url_for('home'))
+	return render_template('login.html', form=form)
+
+@app.route('/register', methods=['GET', 'POST'])
+def register():
+	form = RegistrationForm(request.form)
+	if form.validate_on_submit():
+    	# Create user
+		user_email = form.email.data
+		password = form.password.data
+
+		if db.users.User.find({'email' : user_email}).count() > 0:
+			flash('An account with that email already exists!')
+			form = RegistrationForm()
+			return render_template('register.html', form=form)
+		else:
+			new_user = db.users.User()
+			new_user.email = user_email
+			new_user.password = generate_password_hash(password) # hash this!!!
+			new_user.save()
+
+		# log user in
+		login_user(new_user)
+		return redirect(url_for('home'))
+	if 'user_email' in session:
+		return render_template('register.html', email=session['user_email'], form=form)
+	else:
+		return render_template('register.html', form=form)
+
+@app.route('/try/<beta_key>')
+def beta():
+	if is_allowed(beta_key):
+		session['user_email'] = get_email(beta_key)
+		redirect(url_for('register'))
+	else:
+		return "Potlux is still in beta, sign up here to get updates!"
+
 @app.route('/')
+@login_required
 def home():
 	new_ideas = db.ideas.Idea.find(sort=[('date_creation', pymongo.DESCENDING)], max_scan=10)
 	return render_template('index.html', ideas=new_ideas)
+
+@app.route('/logout')
+def logout():
+	logout_user()
+	return redirect(url_for('home'))
+	
