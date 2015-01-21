@@ -7,78 +7,28 @@
   </style>
 {% endblock %}
 {% block content %}
-	<table class="everything">
-		<tr>
-			<td class="sidebar">
-				<img src="{{url_for('static',filename='resources/images/logo.png')}}" class="logo" width="180"/>
-				<br /><br />
-				<div class="navlink">
-					<a href="/" class="active">HOME</a>
+<div class="row">
+	<div class="col-lg-3 col-md-4 col-sm-6 project">
+		<div class="addNew">+
+		</div>
+	</div>
+	{%for idea in ideas:%}
+	<div class="col-lg-3 col-md-4 col-sm-6 project">
+		<a href="/idea/{{idea._id}}">
+		<div class="flip-container" ontouchstart="this.classList.toggle('hover');">
+			<div class="flipper">
+				<div class="front">
+					<div class="projName">{{idea.name}}</div>
+					<div class="uniName">{{idea.university}}</div>
 				</div>
-				<div class="navlink">
-					<a href="/about">ABOUT</a>
+				<div class="back">
+					{{idea.summary}}
 				</div>
-				<div class="navlink">
-					<a href="/new">SUBMIT</a>
-				</div>
-				<div class="navlink">
-					<a href="/contact">CONTACT</a>
-				</div>
-			</td>
-			<td class="mainArea">
-				<table class="projTable">
-					<tr class="projRow">
-						<td class="projHolder">
-							<div class="addNew">+
-							</div>
-						</td>
-						<td class="projHolder">
-							<div class=" flip-container" ontouchstart="this.classList.toggle('hover');">
-								<div class="flipper">
-									<div class="front">
-										Project
-									</div>
-									<div class="back">
-										this da back.
-									</div>
-								</div>
-							</div>
-						</td>
-						<td class="projHolder">
-							<div class="project">
-							Project.
-							</div>
-						</td>
-						<td class="projHolder">
-							<div class="project">
-							Project.
-							</div>
-						</td>
-					</tr>
-					<tr class="projRow">
-						<td class="projHolder">
-							<div class="project">
-							Project.
-							</div>
-						</td>
-						<td class="projHolder">
-							<div class="project">
-							Project.
-							</div>
-						</td>
-						<td class="projHolder">
-							<div class="project">
-							Project.
-							</div>
-						</td>
-						<td class="projHolder">
-							<div class="project">
-							Project.
-							</div>
-						</td>
-					</tr>
-				</table>
-			</td>
-		</tr>
-	</table>
+			</div>
+		</div>
+		</a>
+	</div>
+	{%endfor%}
+</div>
+
 {% endblock %}
