@@ -61,6 +61,14 @@ def show_idea(id):
 			
 	return render_template('project.html', idea=idea) #dumps(idea)
 
+##
+# Route to search by tag.
+##
+@app.route('/search/<tag>')
+def search(tag):
+	idea = db.ideas.Idea.find({"categories" : { "$all" : [tag]}})
+	return idea
+
 @app.route('/random')
 @login_required
 def show_random():
