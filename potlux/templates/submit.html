@@ -1,29 +1,13 @@
-<html>
-	<head>
-		<link href="custom.css" rel="stylesheet" />
-		<link href='http://fonts.googleapis.com/css?family=Raleway:400,100,200,300,500,600,700,900,800' rel='stylesheet' type='text/css'>
-		<title>Potlux</title>
-	</head>
-	<body>
-		<table class="everything">
-			<tr>
-				<td class="sidebar">
-					<img src="potlux_logo_demo.jpg" class="logo" width="180"/>
-					<br /><br />
-					<div class="navlink">
-						<a href="index.html">HOME</a>
-					</div>
-					<div class="navlink">
-						<a href="about.html">ABOUT</a>
-					</div>
-					<div class="navlink">
-						<a href="#" class="active">SUBMIT</a>
-					</div>
-					<div class="navlink">
-						<a href="contact.html">CONTACT</a>
-					</div>
-				</td>
-				<td class="content submit">
+{% extends "template.html" %}
+{% block title %}Register{% endblock %}
+{% block head %}
+  {{ super() }}
+  <style type="text/css">
+    .important { color: #336699; }
+  </style>
+{% endblock %}
+{% block content %}
+				<div class="content submit">
 					<div class="heading">Submission</div>
 					<br />
 
@@ -33,39 +17,57 @@
 			    		<tr>
 			    			<td class="formtd">PROJECT NAME</td>
 			    			<td>
-			    				<input class="submitBubble" type="text" name="name"/>	    
+			    				<input class="submitBubble" type="text" name="name"/>
 			    			</td>
+			    		</tr>
+			    		<tr>
+			    			<td class="spacer">&nbsp;</td>
 			    		</tr>
 			    		<tr>
 			    			<td class="formtd">CATEGORY</td>
 			    			<td>
-			    				<input class="submitBubble" type="text" name="categories"/>			    
+			    				<input class="submitBubble" type="text" name="categories"/>
 			    			</td>
+			    		</tr>
+			    		<tr>
+			    			<td class="spacer">&nbsp;</td>
 			    		</tr>
 			    		<tr>
 			    			<td class="formtd">UNIVERSITY</td>
 			    			<td>
-			    				<input class="submitBubble" type="text" name="university"/>			    
+			    				<input class="submitBubble" type="text" name="university"/>
 			    			</td>
+			    		</tr>
+			    		<tr>
+			    			<td class="spacer">&nbsp;</td>
 			    		</tr>
 			    		<tr>
 			    			<td class="formtd">YOUR NAME</td>
 			    			<td>
-			    				<input class="contactBubble" type="text" name="contact_name" placeholder="First" />			    
-			    				<input class="contactBubble" type="text" name="contact_email" placeholder="Last" />			    
+			    				<input class="contactBubble" type="text" name="contact_name" placeholder="First" />
+			    				<input class="contactBubble" type="text" name="contact_email" placeholder="Last" />
 			    			</td>
+			    		</tr>
+			    		<tr>
+			    			<td class="spacer">&nbsp;</td>
 			    		</tr>
 			    		<tr>
 			    			<td class="formtd">EMAIL</td>
 			    			<td>
-			    				<input class="submitBubble" type="text" name="email"/>			    
+			    				<input class="submitBubble" type="text" name="email"/>
 			    			</td>
+			    		</tr>
+			    		<tr>
+			    			<td class="spacer">&nbsp;</td>
 			    		</tr>
 			    		<tr>
 			    			<td class="formtd">PASSWORD</td>
 			    			<td>
-			    				<input class="submitBubble" type="text" name="password"/>			    
+			    				<input class="submitBubble" type="text" name="password"/>
 			    			</td>
+			    		</tr>
+			    		<tr>
+			    			<td class="spacer">&nbsp;</td>
 			    		</tr>
 			    		<tr>
 			    			<td class="formtd">SUMMARY</td>
@@ -74,16 +76,16 @@
 			    			</td>
 			    		</tr>
 			    		<tr>
+			    			<td class="spacer">&nbsp;</td>
+			    		</tr>
+			    		<tr>
 			    			<td></td>
 			    			<td class="buttonHolder">
-			    				<input type="submit" value="SUBMIT" class="subButton"/>			    
+			    				<input type="submit" value="SUBMIT" class="subButton"/>
 			    			</td>
 			    		</tr>
 
 			    	</table>
 			    </form>
-				</td>
-			</tr>
-		</table>
-	</body>
-</html>
+				</div>
+{%endblock%}

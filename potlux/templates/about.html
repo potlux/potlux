@@ -1,29 +1,13 @@
-<html>
-	<head>
-		<link href="custom.css" rel="stylesheet" />
-		<link href='http://fonts.googleapis.com/css?family=Raleway:400,100,200,300,500,600,700,900,800' rel='stylesheet' type='text/css'>
-		<title>Potlux</title>
-	</head>
-	<body>
-		<table class="everything">
-			<tr>
-				<td class="sidebar">
-					<img src="potlux_logo_demo.jpg" class="logo" width="180"/>
-					<br /><br />
-					<div class="navlink">
-						<a href="index.html">HOME</a>
-					</div>
-					<div class="navlink">
-						<a href="#" class="active">ABOUT</a>
-					</div>
-					<div class="navlink">
-						<a href="submit.html">SUBMIT</a>
-					</div>
-					<div class="navlink">
-						<a href="contact.html">CONTACT</a>
-					</div>
-				</td>
-				<td class="content about">
+{% extends "template.html" %}
+{% block title %}Register{% endblock %}
+{% block head %}
+  {{ super() }}
+  <style type="text/css">
+    .important { color: #336699; }
+  </style>
+{% endblock %}
+{% block content %}
+				<div class="content about">
 					<div class="heading">Mission</div>
 					<div class="subHeading">Collaboration. Knowledge. Innovation.</div>
 					<div class="textBlock">
@@ -43,21 +27,18 @@
 					<table>
 						<tr>
 							<td>
-								<img src="images/brent.png" width="150" />
+								<img src="{{url_for('static',filename='resources/images/brent.png')}}" width="150" />
 							</td>
 							<td>
-								<img src="images/aaron.png" width="150" />
+								<img src="{{url_for('static',filename='resources/images/aaron.png')}}" width="150" />
 							</td>
 							<td>
-								<img src="images/jared.png" width="150" />
+								<img src="{{url_for('static',filename='resources/images/jared.png')}}" width="150" />
 							</td>
 							<td>
-								<img src="images/gerard.png" width="150" />
+								<img src="{{url_for('static',filename='resources/images/gerard.png')}}" width="150" />
 							</td>
 						</tr>
 					</table>
-				</td>
-			</tr>
-		</table>
-	</body>
-</html>
+				</div>
+{%endblock%}

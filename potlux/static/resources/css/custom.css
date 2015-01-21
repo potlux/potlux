@@ -3,6 +3,7 @@ body, html {
 	padding: 0;
 	margin: 0;
 	font-family: 'Raleway', sans-serif;
+	background: #efefef;
 }
 
 a, a:link{
@@ -16,9 +17,9 @@ a:hover {
 	text-decoration: none;
 }
 
-.everything {
-	height: 100%;
-	width: 100%;
+.spacer {
+	font-size: 5px;
+	line-height: 5px;
 }
 
 .formtd {
@@ -60,6 +61,7 @@ a:hover {
 	width: 250px;
 	vertical-align: top;
 	padding-top: 100px;
+	min-height:100%;
 }
 
 .logo {
@@ -69,6 +71,12 @@ a:hover {
 table {
 	padding: 0;
 	margin: 0;
+}
+
+.project a, .project a:link, .project a:visited, .project a:hover {
+	color: #000;
+	font-weight: 300;
+	text-decoration:none;
 }
 
 .subButton {
@@ -103,8 +111,10 @@ table {
 	color:#575757;
 }
 
+.submitRow {
+	padding: 5px;
+}
 .mainArea {
-	background: #efefef;
 	padding: 20px;
 }
 #content {
@@ -114,15 +124,10 @@ table {
 	padding: 50px;
 }
 
-.projHolder {
-	padding: 20px;
-}
-
 .project {
-	background: #ffffff;
-	height: 100%;
-	width: 100%;
 	text-align: center;
+	height: 400px;
+	margin: 20px 0 20px 0;
 }
 
 .addNew {
@@ -168,6 +173,7 @@ table {
 	position: absolute;
 	top: 0;
 	left: 0;
+	padding-top:45%;
 }
 
 /* front pane, placed above back */
@@ -178,10 +184,22 @@ table {
 	background: #fff;
 }
 
+.projName {
+	font-size: 28px;
+	font-weight: 300;
+}
+
+.uniName {
+	font-size: 18px;
+	font-weight: 100;
+}
+
 /* back, initially hidden pane */
 .back {
 	transform: rotateY(180deg);
 	background: #8F8F8F;
+	padding-left:20px;
+	padding-right:20px;
 
 }
 
