@@ -31,12 +31,14 @@
 		<div class="flip-container" ontouchstart="this.classList.toggle('hover');">
 			<div class="flipper">
 				{%if idea.resources.images:%}
-				<div class="front textCenter" style="background-image:url('{{url_for('static',filename=idea.resources.images[0])}}')">
+				<div class="front textCenter" style="background-image:url('{{url_for('static',filename=idea.resources.images[0])}}');background-size:cover;background-position: center;">
 				{%else:%}
 				<div class="front textCenter">
 				{%endif%}
-					<div class="projName">{{idea.name}}</div>
-					<div class="uniName">{{idea.university}}</div>
+					<div class="layer">
+						<div class="projName">{{idea.name}}</div>
+						<div class="uniName">{{idea.university}}</div>
+					</div>
 				</div>
 				<div class="back textCenterB">
 					<div class="sumContent">
