@@ -26,12 +26,14 @@ def new():
 		contact = {'name': request.form["contact_name"],
 				   'email': request.form["contact_email"]}
 		summary = request.form["summary"]
+		university = request.form["university"]
 
 		new_idea = db.ideas.Idea()
 		new_idea.name = name
 		new_idea.categories = categories
 		new_idea.contact = contact
 		new_idea.summary = summary
+		new_idea.university = university
 
 		new_idea.save()
 		return redirect(url_for('show_idea', id=str(new_idea._id)))
@@ -125,7 +127,7 @@ def beta():
 @app.route('/')
 @login_required
 def home():
-	new_ideas = db.ideas.Idea.find(sort=[('date_creation', pymongo.DESCENDING)], max_scan=10)
+	new_ideas = db.ideas.Idea.find().sort('date_creation', pymongo.DESCENDING).limit(10)
 	return render_template('index.html', ideas=new_ideas)
 
 @app.route('/logout')
