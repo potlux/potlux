@@ -31,7 +31,7 @@
 		<div class="flip-container" ontouchstart="this.classList.toggle('hover');">
 			<div class="flipper">
 				{%if idea.resources.images:%}
-				<div class="front textCenter" style="background-image:url('{{url_for('static',filename='resources/images/' + idea.resources.images[0])}}')">
+				<div class="front textCenter" style="background-image:url('{{url_for('static',filename=idea.resources.images[0])}}')">
 				{%else:%}
 				<div class="front textCenter">
 				{%endif%}
