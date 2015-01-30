@@ -96,6 +96,11 @@ table {
 	text-decoration:none;
 }
 
+.projectName {
+	font-size: 64px;
+	font-weight:100;
+}
+
 .subButton {
 	background: #23d0a5;
 	border: none;
@@ -159,6 +164,31 @@ table {
 	margin: 20px 0 20px 0;
 }
 
+.projectTitle {
+	padding: 10px 10px 10px 0;
+	font-weight: bold;
+}
+
+.projLink, .projLink:link, .projLink:active, .projLink:visited {
+	color: #1aa181;
+	font-weight: 500;
+}
+
+.projLink:hover {
+	color: #23d0a5
+}
+
+.projectInfo {
+	padding: 10px;
+}
+
+.projectImages {
+	width: 100%;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
 .addNew {
 	background: #c9c8c3;
 	height: 100%;
@@ -168,6 +198,11 @@ table {
 	font-weight: 100;
 	padding-top: 22%;
 	transition: background 0.5s;
+}
+
+.summaryTitle {
+	font-size: 40px;
+	font-weight: 200;
 }
 
 .addNew:hover {
