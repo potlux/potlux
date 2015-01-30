@@ -43,10 +43,12 @@ def new():
 def show_idea(id):
 	idea = db.ideas.Idea.find_one({"_id" : ObjectId(id)})
 
-	if request.method == "POST":		
+	if request.method == "POST":
+		print request.files
 		if 'imageUpload' in request.files:
 			# handle image upload
-			filename = process_image(request.files['imageUpload'])
+			filename = process_image(request.files['imageUpload'], id)
+			print filename
 			idea['resources']['images'].append(filename)
 			idea.save()
 		else:
@@ -64,10 +66,12 @@ def show_idea(id):
 ##
 # Route to search by tag.
 ##
-@app.route('/search/<tag>')
+@app.route('/search')
 def search(tag):
-	idea = db.ideas.Idea.find({"categories" : { "$all" : [tag]}})
-	return idea
+	tag = request.args.get('search')
+	# search_by = request.args.get()
+	ideas = db.ideas.Idea.find({"categories" : { "$all" : [tag]}})
+	return render_template('index.html', ideas=ideas)
 
 @app.route('/random')
 @login_required

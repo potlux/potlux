@@ -281,3 +281,7 @@ table {
 	vertical-align: top;
 	padding: 100px;
 }
+
+ul .flashes {
+	list-style: none;
+}

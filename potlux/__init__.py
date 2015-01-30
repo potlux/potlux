@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import Flask, abort
 from models import Idea, User
 from mongokit import *
 from flask.ext.login import LoginManager, login_required, login_user, logout_user
@@ -34,8 +34,8 @@ login_manager = LoginManager()
 login_manager.init_app(app)
 login_manager.login_view = 'login'
 
-csrf = CsrfProtect()
-csrf.init_app(app)
+# csrf = CsrfProtect()
+# csrf.init_app(app)
 
 from potlux.views import *
 

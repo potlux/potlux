@@ -3,4 +3,4 @@
 
 runserver.py
 
-/potlux/static/resources/user_images/*.png
+user_images/*/*.png
