@@ -140,7 +140,7 @@ table {
 }
 .about {
 	padding: 50px;
-	overflow: auto;
+	display: inline-block;
 }
 
 .layer {
