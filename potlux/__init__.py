@@ -20,7 +20,7 @@ MONGODB_PORT = 27017
 app.config.from_object(__name__)
 
 APP_ROOT = os.path.dirname(os.path.abspath(__file__))
-app.config['UPLOAD_FOLDER'] = APP_ROOT + "/static/resources/user_images/"
+app.config['UPLOAD_FOLDER'] = os.path.join(APP_ROOT, "static", "resources", "user_images")
 
 app.config['SECURITY_REGISTERABLE'] = True
 app.config['SECURITY_CONFIRMABLE'] = True
