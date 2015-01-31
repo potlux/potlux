@@ -74,11 +74,19 @@ a:hover {
 
 .sidebar {
 	background: #23d0a5;
-	width: 250px;
 	vertical-align: top;
 	padding-top: 100px;
 	min-height:100%;
 	margin-right:20px;
+	width: 250px;
+}
+
+.sideContent {
+	position:fixed;
+}
+
+.allMyBuns {
+	padding: 0 40px 0 40px;
 }
 
 .logo {
@@ -142,6 +150,7 @@ table {
 }
 #content {
 	height:100%;
+	width:100%;
 }
 .about {
 	padding: 50px;

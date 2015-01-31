@@ -29,8 +29,10 @@
     <link href="{{url_for('static',filename='resources/css/custom.css')}}" rel="stylesheet">
   </head>
   <body>
-    <div id="content">
-            <div class="col-md-3 sidebar">
+    <table id="content">
+        <tr>
+            <td class="sidebar">
+                <div class="sideContent">
                 {% with messages = get_flashed_messages() %}
                   {% if messages %}
                     <ul class=flashes>
@@ -56,7 +58,9 @@
                     <a href="/contact">CONTACT</a>
                 </div>
             </div>
-            <div class="col-md-9">{% block content %}{% endblock %}</div>
-    </div>
+            </td>
+            <td class="allMyBuns">{% block content %}{% endblock %}</td>
+        </tr>
+    </table>
   </body>
 </html>
