@@ -74,11 +74,20 @@ a:hover {
 
 .sidebar {
 	background: #23d0a5;
-	width: 250px;
 	vertical-align: top;
 	padding-top: 100px;
 	min-height:100%;
 	margin-right:20px;
+	width: 250px;
+}
+
+.sideContent {
+	position:fixed;
+}
+
+.allMyBuns {
+	padding: 0 40px 0 40px;
+	vertical-align: top;
 }
 
 .logo {
@@ -94,6 +103,11 @@ table {
 	color: #000;
 	font-weight: 300;
 	text-decoration:none;
+}
+
+.projectName {
+	font-size: 64px;
+	font-weight:100;
 }
 
 .subButton {
@@ -137,14 +151,14 @@ table {
 }
 #content {
 	height:100%;
+	width:100%;
 }
 .about {
-	padding: 50px;
-	display: inline-block;
+	padding: 50px 50px 0 50px;
 }
 
 .layer {
-    background-color: rgba(255, 255, 255, 0.4);
+    background-color: rgba(255, 255, 255, 0.6);
     position: absolute;
     top: 0;
     left: 0;
@@ -159,6 +173,31 @@ table {
 	margin: 20px 0 20px 0;
 }
 
+.projectTitle {
+	padding: 10px 10px 10px 0;
+	font-weight: bold;
+}
+
+.projLink, .projLink:link, .projLink:active, .projLink:visited {
+	color: #1aa181;
+	font-weight: 500;
+}
+
+.projLink:hover {
+	color: #23d0a5
+}
+
+.projectInfo {
+	padding: 10px;
+}
+
+.projectImages {
+	width: 100%;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
 .addNew {
 	background: #c9c8c3;
 	height: 100%;
@@ -168,6 +207,11 @@ table {
 	font-weight: 100;
 	padding-top: 22%;
 	transition: background 0.5s;
+}
+
+.summaryTitle {
+	font-size: 40px;
+	font-weight: 200;
 }
 
 .addNew:hover {

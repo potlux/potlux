@@ -8,60 +8,84 @@
 {% endblock %}
 
 {% block content %}
-    <div id="slideshow" class="carousel slide" data-ride="carousel">
-        <!-- Indicators -->
-      <ol class="carousel-indicators">
-        <li data-target="#slideshow" data-slide-to="0" class="active"></li>
-        <li data-target="#slideshow" data-slide-to="1"></li>
-      </ol>
 
-      <!-- Wrapper for slides -->
-      <div class="carousel-inner" role="listbox">
-        <div class="item active">
-          <img class="slideImage" src="{{ url_for('static',filename='resources/images/wildwes.png') }}" alt="Wild WES">
-          <div class="carousel-caption">
-            <span class="capHead">WILD WES</span><br />
-            <span class="capSub">WESLEYAN UNIVERSITY</span>
-          </div>
-        </div>
-        <div class="item">
-          <img class="slideImage" src="{{ url_for('static',filename='resources/images/wildwes2.png') }}" alt="Wild WES">
-         <div class="carousel-caption">
-            <span class="capHead">WILD WES</span><br />
-            <span class="capSub">WESLEYAN UNIVERSITY</span>
-          </div>
-        </div>
+    <div class="content about">
+      <div class="projectName">
+      {{idea.name}}
       </div>
-
-      <!-- Controls -->
-      <a class="left carousel-control" href="#slideshow" role="button" data-slide="prev">
-        <span class="glyphicon glyphicon-chevron-left"></span>
-        <span class="sr-only">Previous</span>
-      </a>
-      <a class="right carousel-control" href="#slideshow" role="button" data-slide="next">
-        <span class="glyphicon glyphicon-chevron-right"></span>
-        <span class="sr-only">Next</span>
-      </a>
-    </div>
-
-    <div class="container projContent">
-      <div class="projInfo">
-        <div class="ideaName"> {{idea.name}}</div>
-        <div class="ideaContact">Submitted By: <a href="mailto:{{idea.contact.email}}">{{idea.contact.name}}</a></div>
-        <br />
-        <div class="ideaSummary"><span id="ideaWords">{{idea.summary}}</span> <span id="editButt"><a onClick="editSummary()" href="#">edit</a></span></div>
-      </div>
-
-      <div class="projImages">
+      <table border="0">
+        <tr>
+          <td>
+            <span class="projectTitle">
+            INITIATIVE NAME
+            </span>
+          </td>
+          <td>
+            <span class="projectInfo">
+            {{idea.name}}
+            </span>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <span class="projectTitle">
+            UNIVERSITY
+            </span>
+          </td>
+          <td>
+            <span class="projectInfo">
+            {{idea.university}}
+            </span>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <span class="projectTitle">
+            CATEGORY
+            </span>
+          </td>
+          <td>
+            <span class="projectInfo">
+            {{idea.category}}
+            </span>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <span class="projectTitle">
+            CONTACT
+            </span>
+          </td>
+          <td>
+            <span class="projectInfo">
+            {{idea.contact.name}} &lt;<a class="projLink" href="mailto:{{idea.contact.email}}">{{idea.contact.email}}</a>&gt;
+            </span>
+          </td>
+        </tr>
+      </table>
+      <br />
+      <br />
+      <div class="projectImages">
         {% for image_url in idea.resources.images: %}
           <span> <img src="{{ url_for('static', filename=image_url) }}" /> </span>
         {% endfor %}
+      </div><br />
+      <br />
+      <div class="summaryTitle">
+      SUMMARY
+      </div>
+      <div class="projectSummary">
+      {{idea.summary}} <span id="editButt"><a onClick="editSummary()" href="#" class="projLink">&nbsp;&nbsp;edit</a></span>
+      </div>
+      <br /><br />
+      <div>
           <form action="/idea/{{idea._id}}" method="post" enctype=multipart/form-data>
             <input type="file" name="imageUpload" />
             <input type="submit" name="submit" />
           </form>
       </div>
     </div>
+
 
     <script>
       function editSummary(){
@@ -91,5 +115,26 @@
         document.body.appendChild(form);
         form.submit();
     }
+
+    var true_width = ( function(){
+      var $tempobj = $('#projImages') // starting with truncated text div projImages
+          .clone().contents() // duplicate the text
+          .wrap('<div id="content"/>') // wrap it in a projImages
+          .parent().appendTo('body') // add this to the dom
+          .css('left','-1000px'); // but put it far off-screen
+      var result = $tempobj.width(); // measure it
+      $tempobj.remove(); // clean up
+      return result;
+    })();
+
+    $('#projImages').one('mouseenter', function(){ // perhaps trigger once only
+      var shift_distance = true_width - $(this).width(); // how far to move
+      var time_normalized = parseInt(shift_distance / 100, 10) * 1000; // speed
+      $(this).contents().wrap('<div id="content">').parent() // wrap in div
+        .animate({
+            left: -shift_distance,
+            right: 0
+        }, time_normalized, 'linear'); // and move the div within its "viewport"
+    });
     </script>
 {% endblock %}
