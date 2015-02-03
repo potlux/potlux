@@ -3,34 +3,20 @@ body, html {
 	padding: 0;
 	margin: 0;
 	font-family: 'Raleway', sans-serif;
-	background: #efefef;
 }
 
-select {
-   background: #CECECE;
-   border:none;
-   padding: 5px;
-   margin: 0 15px 0 10px;
-}
-
-select ul li {
-	background: #4e2e27;
-}
-
-a, a:link{
+a, a:link {
 	color: #fff;
 	text-decoration: none;
 }
 
 a:hover {
-	color: #fff;
 	font-weight: bold;
-	text-decoration: none;
 }
 
-.spacer {
-	font-size: 5px;
-	line-height: 5px;
+.everything {
+	height: 100%;
+	width: 100%;
 }
 
 .formtd {
@@ -59,11 +45,6 @@ a:hover {
 	border-radius: 5px;
 }
 
-.sortSearch {
-	padding-top:20px;
-	color: #4e4e4e;
-}
-
 .summBubble {
 	width: 300px;
 	background: #CECECE;
@@ -74,20 +55,9 @@ a:hover {
 
 .sidebar {
 	background: #23d0a5;
+	width: 250px;
 	vertical-align: top;
 	padding-top: 100px;
-	min-height:100%;
-	margin-right:20px;
-	width: 250px;
-}
-
-.sideContent {
-	position:fixed;
-}
-
-.allMyBuns {
-	padding: 0 40px 0 40px;
-	vertical-align: top;
 }
 
 .logo {
@@ -99,17 +69,6 @@ table {
 	margin: 0;
 }
 
-.project a, .project a:link, .project a:visited, .project a:hover {
-	color: #000;
-	font-weight: 300;
-	text-decoration:none;
-}
-
-.projectName {
-	font-size: 64px;
-	font-weight:100;
-}
-
 .subButton {
 	background: #23d0a5;
 	border: none;
@@ -117,7 +76,6 @@ table {
 	border-radius: 5px;
 	font-weight: 400;
 	width: 100px;
-	font-family: 'Raleway', sans-serif;
 }
 
 .subButton:hover {
@@ -143,79 +101,34 @@ table {
 	color:#575757;
 }
 
-.submitRow {
-	padding: 5px;
-}
-.mainArea {
+.content {
+	background: #efefef;
 	padding: 20px;
-}
-#content {
-	height:100%;
-	width:100%;
-}
-.about {
-	padding: 50px 50px 0 50px;
+	height: 100%;
 }
 
-.layer {
-    background-color: rgba(255, 255, 255, 0.6);
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    padding-top: 45%;
+
+.about {
+	padding: 50px;
+}
+
+.projHolder {
+	padding: 20px;
 }
 
 .project {
-	text-align: center;
-	height: 375px;
-	margin: 20px 0 20px 0;
-}
-
-.projectTitle {
-	padding: 10px 10px 10px 0;
-	font-weight: bold;
-}
-
-.projLink, .projLink:link, .projLink:active, .projLink:visited {
-	color: #1aa181;
-	font-weight: 500;
-}
-
-.projLink:hover {
-	color: #23d0a5
-}
-
-.projectInfo {
-	padding: 10px;
-}
-
-.projectImages {
-	width: 100%;
-    overflow: hidden;
-    white-space: nowrap;
-    text-overflow: ellipsis;
-}
-
-.addNew {
-	background: #c9c8c3;
+	background: #ffffff;
 	height: 100%;
 	width: 100%;
 	text-align: center;
-	font-size: 150px;
-	font-weight: 100;
-	padding-top: 22%;
-	transition: background 0.5s;
 }
 
-.summaryTitle {
-	font-size: 40px;
-	font-weight: 200;
-}
-
-.addNew:hover {
-	background: #96dfc4;
+.addNew {
+	background: #fff;
+	height: 100%;
+	width: 100%;
+	text-align: center;
+	font-size: 100px;
 }
 
 .projRow {
@@ -255,57 +168,19 @@ table {
 	left: 0;
 }
 
-.textCenter {
-	background: #fff;
-}.textCenterB {
-	background: #c9c8c3;
-	padding-top:45%;
-}
-
 /* front pane, placed above back */
 .front {
 	z-index: 2;
 	/* for firefox 31 */
 	transform: rotateY(0deg);
-}
-.aboutDesc {
-	color:#fff;
-	width:200px;
-	height:200px;
-	text-align:center;
-}
-.projName {
-	font-size: 28px;
-	font-weight: 300;
+	background: #fff;
 }
 
-.uniName {
-	font-size: 18px;
-	font-weight: 100;
-}
-
-.sumContent {
-	padding: 20px;
-}
-.aboutPic {
-	width: 200px;
-	height: 200px;
-	text-align:center;
-}
-.personName {
-	margin-top:72%;
-	color: #fff;
-	font-weight: 400;
-	font-size: 20px;
-	line-height:18px;
-}
-.personTitle {
-	color:#fff;
-	font-weight: 200;
-}
 /* back, initially hidden pane */
 .back {
 	transform: rotateY(180deg);
+	background: #8F8F8F;
+
 }
 
 .heading {
@@ -332,8 +207,4 @@ table {
 .submit {
 	vertical-align: top;
 	padding: 100px;
-}
-
-ul .flashes {
-	list-style: none;
 }

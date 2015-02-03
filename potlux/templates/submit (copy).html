@@ -1,0 +1,53 @@
+{% extends "template.html" %}
+{% block title %}Submit{% endblock %}
+{% block head %}
+  {{ super() }}
+  <style type="text/css">
+    .important { color: #336699; }
+  </style>
+{% endblock %}
+
+{% block content %}
+    <div class="submitContent">
+      <span class="projSub">Project Submission</span>
+      <br /><br /><br />
+
+      <form action="new" method="post" class="formy">
+      <table class="tabey">
+
+        <tr>
+          <td class="formtd">Name:</td>
+           <td>
+            <input class="submitBubble" type="text" name="name" placeholder="Name of Initiative"/>
+          </td>
+        </tr>
+        <tr>
+          <td class="formtd">Category:</td>
+           <td>
+            <input class="submitBubble" type="text" name="categories" placeholder="Categories"/>
+          </td>
+        </tr>
+        <tr>
+          <td class="formtd">Contact:</td>
+           <td>
+            <input class="contactBubble" type="text" name="contact_name" placeholder="Name" />
+            <input class="contactBubble" type="text" name="contact_email" placeholder="Email" />
+          </td>
+        </tr>
+        <tr>
+          <td class="formtd">Summary:</td>
+          <td>
+            <textarea class="summBubble" rows="5" name="summary" ></textarea>
+          </td>
+        </tr>
+        <tr>
+          <td></td>
+          <td><input type="submit" value="SUBMIT" class="subButton"/></td>
+        </tr>
+
+      </table>
+      </form>
+      <br /><br /><br /><br /><br /><br />
+
+    </div>
+{% endblock %}

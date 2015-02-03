@@ -12,11 +12,13 @@ def coming_soon():
 	return app.send_static_file('comingsoon.html')
 
 @app.route('/all')
+# @login_required
 def show_all():
 	ideas = db.ideas.Idea.find()	
 	return 'all' # dumps([idea for idea in ideas])
 
 @app.route('/new', methods=["POST", "GET"])
+# @login_required
 def new():
 	if request.method == "POST":
 		name = request.form["name"]
@@ -24,12 +26,14 @@ def new():
 		contact = {'name': request.form["contact_name"],
 				   'email': request.form["contact_email"]}
 		summary = request.form["summary"]
+		university = request.form["university"]
 
 		new_idea = db.ideas.Idea()
 		new_idea.name = name
 		new_idea.categories = categories
 		new_idea.contact = contact
 		new_idea.summary = summary
+		new_idea.university = university
 
 		new_idea.save()
 		return redirect(url_for('show_idea', id=str(new_idea._id)))
@@ -37,13 +41,16 @@ def new():
 		return render_template('submit.html')
 
 @app.route('/idea/<id>', methods=["GET", "POST"])
+# @login_required
 def show_idea(id):
 	idea = db.ideas.Idea.find_one({"_id" : ObjectId(id)})
 
-	if request.method == "POST":		
+	if request.method == "POST":
+		print request.files
 		if 'imageUpload' in request.files:
 			# handle image upload
-			filename = process_image(request.files['imageUpload'])
+			filename = process_image(request.files['imageUpload'], id)
+			print filename
 			idea['resources']['images'].append(filename)
 			idea.save()
 		else:
@@ -58,7 +65,18 @@ def show_idea(id):
 			
 	return render_template('project.html', idea=idea) #dumps(idea)
 
+##
+# Route to search by tag.
+##
+@app.route('/search')
+def search(tag):
+	tag = request.args.get('search')
+	# search_by = request.args.get()
+	ideas = db.ideas.Idea.find({"categories" : { "$all" : [tag]}})
+	return render_template('index.html', ideas=ideas)
+
 @app.route('/random')
+@login_required
 def show_random():
 	return dumps(db.ideas.Idea.find_random())
 
@@ -87,7 +105,7 @@ def register():
 		else:
 			new_user = db.users.User()
 			new_user.email = user_email
-			new_user.password = generate_password_hash(password) # hash this!!!
+			new_user.password = generate_password_hash(password)
 			new_user.save()
 
 		# log user in
@@ -107,12 +125,21 @@ def beta():
 		return "Potlux is still in beta, sign up here to get updates!"
 
 @app.route('/')
+# @login_required
 def home():
-	new_ideas = db.ideas.Idea.find(sort=[('date_creation', pymongo.DESCENDING)], max_scan=10)
+	new_ideas = db.ideas.Idea.find().sort('date_creation', pymongo.DESCENDING).limit(10)
 	return render_template('index.html', ideas=new_ideas)
 
 @app.route('/logout')
 def logout():
 	logout_user()
 	return redirect(url_for('home'))
+
+@app.route('/about')
+def about():
+	return render_template('about.html')
+
+@app.route('/contact')
+def contact():
+	return render_template('contact.html')
 	

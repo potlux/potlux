@@ -1,0 +1,55 @@
+{% extends "template.html" %}
+{% block title %}Contact{% endblock %}
+{% block head %}
+  {{ super() }}
+  <style type="text/css">
+    .important { color: #336699; }
+  </style>
+{% endblock %}
+{% block content %}
+				<div class="content submit">
+					<div class="heading">Contact</div>
+					<div class="subHeading">Please contact us with any questions, comments, feedback, or love at <a href="mailto:potluxnetwork@gmail.com" style="color:#23d0a5;font-weight:400;">potluxnetwork@gmail.com</a></div>
+					<br /><br />
+
+			    <form action="MAILTO:potluxnetwork@gmail.com" method="post" class="formy" enctype+"text/plain">
+			    	<table class="submitTable">
+
+			    		<tr>
+			    			<td class="formtd">NAME</td>
+			    			<td>
+			    				<input class="submitBubble" type="text" name="name"/>
+			    			</td>
+			    		</tr>
+			    		<tr>
+			    			<td class="spacer">&nbsp;</td>
+			    		</tr>
+			    		<tr>
+			    			<td class="formtd">EMAIL</td>
+			    			<td>
+			    				<input class="submitBubble" type="text" name="mail"/>
+			    			</td>
+			    		</tr>
+			    		<tr>
+			    			<td class="spacer">&nbsp;</td>
+			    		</tr>
+			    		<tr>
+			    			<td class="formtd">MESSAGE</td>
+			    			<td>
+			    				<textarea class="summBubble" rows="5" name="comment"></textarea>
+			    			</td>
+			    		</tr>
+			    		<tr>
+			    			<td class="spacer">&nbsp;</td>
+			    		</tr>
+			    		<tr>
+			    			<td></td>
+			    			<td class="buttonHolder">
+			    				<input type="submit" value="SEND" class="subButton"/>
+			    			</td>
+			    		</tr>
+
+			    	</table>
+			    </form>
+				</td>
+{%endblock%}

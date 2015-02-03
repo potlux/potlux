@@ -6,48 +6,86 @@
     .important { color: #336699; }
   </style>
 {% endblock %}
-
 {% block content %}
-    <div class="submitContent">
-      <span class="projSub">Project Submission</span>
-      <br /><br /><br />
+				<div class="content submit">
+					<div class="heading">Submission</div>
+					<br />
 
-      <form action="new" method="post" class="formy">
-      <table class="tabey">
+			    <form action="new" method="post" class="formy">
+			    	<table class="submitTable">
 
-        <tr>
-          <td class="formtd">Name:</td>
-           <td>
-            <input class="submitBubble" type="text" name="name" placeholder="Name of Initiative"/>
-          </td>
-        </tr>
-        <tr>
-          <td class="formtd">Category:</td>
-           <td>
-            <input class="submitBubble" type="text" name="categories" placeholder="Categories"/>
-          </td>
-        </tr>
-        <tr>
-          <td class="formtd">Contact:</td>
-           <td>
-            <input class="contactBubble" type="text" name="contact_name" placeholder="Name" />
-            <input class="contactBubble" type="text" name="contact_email" placeholder="Email" />
-          </td>
-        </tr>
-        <tr>
-          <td class="formtd">Summary:</td>
-          <td>
-            <textarea class="summBubble" rows="5" name="summary" ></textarea>
-          </td>
-        </tr>
-        <tr>
-          <td></td>
-          <td><input type="submit" value="SUBMIT" class="subButton"/></td>
-        </tr>
+			    		<tr>
+			    			<td class="formtd">PROJECT NAME</td>
+			    			<td>
+			    				<input class="submitBubble" type="text" name="name"/>
+			    			</td>
+			    		</tr>
+			    		<tr>
+			    			<td class="spacer">&nbsp;</td>
+			    		</tr>
+			    		<tr>
+			    			<td class="formtd">CATEGORY</td>
+			    			<td>
+			    				<input class="submitBubble" type="text" name="categories"/>
+			    			</td>
+			    		</tr>
+			    		<tr>
+			    			<td class="spacer">&nbsp;</td>
+			    		</tr>
+			    		<tr>
+			    			<td class="formtd">UNIVERSITY</td>
+			    			<td>
+			    				<input class="submitBubble" type="text" name="university"/>
+			    			</td>
+			    		</tr>
+			    		<tr>
+			    			<td class="spacer">&nbsp;</td>
+			    		</tr>
+			    		<tr>
+			    			<td class="formtd">YOUR NAME</td>
+			    			<td>
+			    				<input class="contactBubble" type="text" name="contact_name" placeholder="First" />
+			    				<input class="contactBubble" type="text" name="contact_email" placeholder="Last" />
+			    			</td>
+			    		</tr>
+			    		<tr>
+			    			<td class="spacer">&nbsp;</td>
+			    		</tr>
+			    		<tr>
+			    			<td class="formtd">EMAIL</td>
+			    			<td>
+			    				<input class="submitBubble" type="text" name="email"/>
+			    			</td>
+			    		</tr>
+			    		<tr>
+			    			<td class="spacer">&nbsp;</td>
+			    		</tr>
+			    		<tr>
+			    			<td class="formtd">PASSWORD</td>
+			    			<td>
+			    				<input class="submitBubble" type="password" name="password"/>
+			    			</td>
+			    		</tr>
+			    		<tr>
+			    			<td class="spacer">&nbsp;</td>
+			    		</tr>
+			    		<tr>
+			    			<td class="formtd">SUMMARY</td>
+			    			<td>
+			    				<textarea class="summBubble" rows="5" name="summary" placeholder="Short summary of project (200 characters)"></textarea>
+			    			</td>
+			    		</tr>
+			    		<tr>
+			    			<td class="spacer">&nbsp;</td>
+			    		</tr>
+			    		<tr>
+			    			<td></td>
+			    			<td class="buttonHolder">
+			    				<input type="submit" value="SUBMIT" class="subButton"/>
+			    			</td>
+			    		</tr>
 
-      </table>
-      </form>
-      <br /><br /><br /><br /><br /><br />
-
-    </div>
-{% endblock %}
+			    	</table>
+			    </form>
+				</div>
+{%endblock%}
