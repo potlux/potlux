@@ -112,7 +112,51 @@
       <div class="projectSummary" id="ideaWords">
       {{idea.summary}} 
       </div>
+      {% if current_user._id=idea.owner: %}
       <span id="editButt"><a onClick="editSummary()" href="#" class="projLink">edit</a></span>
+      {% endif %}
+      <br /><br />
+      <div class="summaryTitle">
+      IMPACT
+      </div>
+      <div class="projectSummary" id="ideaWords">
+      {{idea.impact}} 
+      </div>
+      {% if current_user._id=idea.owner: %}
+      <span id="editButt"><a onClick="editSummary()" href="#" class="projLink">edit</a></span>
+      {% endif %}
+      <br /><br />
+      <div class="summaryTitle">
+      PROCEDURE
+      </div>
+      <div class="projectSummary" id="ideaWords">
+      {{idea.procedure}} 
+      </div>
+      {% if current_user._id=idea.owner: %}
+      <span id="editButt"><a onClick="editSummary()" href="#" class="projLink">edit</a></span>
+      {% endif% }
+      <br /><br />
+      <div class="summaryTitle">
+      MISTAKES &amp; LESSONS
+      </div>
+      <div class="projectSummary" id="ideaWords">
+      {{idea.results.negative}} 
+      <br />
+      {{idea.results.positive}}
+      </div>
+      {% if current_user._id=idea.owner: %}
+      <span id="editButt"><a onClick="editSummary()" href="#" class="projLink">edit</a></span>
+      {% if current_user._id=idea.owner: %}
+      <br /><br />
+      <div class="summaryTitle">
+      FUTURE PLANS
+      </div>
+      <div class="projectSummary" id="ideaWords">
+      {{idea.future}} 
+      </div>
+      {% if current_user._id=idea.owner: %}
+      <span id="editButt"><a onClick="editSummary()" href="#" class="projLink">edit</a></span>
+      {% endif %}
       <br /><br />
       <div>
           <form action="/idea/{{idea._id}}" method="post" enctype=multipart/form-data>
