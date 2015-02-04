@@ -32,7 +32,6 @@
     <table id="content">
         <tr>
             <td class="sidebar">
-            <div class="sidebar2">
                 <div class="sideContent">
                     {% with messages = get_flashed_messages() %}
                       {% if messages %}
@@ -59,7 +58,6 @@
                         <a href="/contact">CONTACT</a>
                     </div>
                 </div>
-            </div>
             </td>
             <td class="allMyBuns">{% block content %}{% endblock %}</td>
         </tr>
