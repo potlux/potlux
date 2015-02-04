@@ -9,14 +9,14 @@
 {% block content %}
 <div class="sortSearch">
 	<form action="{{ url_for('search') }}" method="GET">
-	SORT BY:
-	<select>
-	  <option value="volvo">DATE</option>
-	  <option value="saab">MOST RECENT</option>
-	  <option value="mercedes">CATEGORY</option>
-	  <option value="audi">UNIVERSITY</option>
-	</select>
-	<input class="submitBubble" type="text" name="search" placeholder="Search"/>
+		SORT BY:
+		<select name="search_type">
+		  <option value="recent">MOST RECENT</option>
+		  <option value="category">CATEGORY</option>
+		  <option value="university">UNIVERSITY</option>
+		</select>
+		<input class="submitBubble" type="text" name="search" placeholder="Search"/>
+	</form>
 </div>
 <div class="row">
 	<div class="col-lg-3 col-sm-6 project">

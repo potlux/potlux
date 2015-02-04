@@ -63,7 +63,7 @@ def show_idea(id):
 			# 		idea[arg] = request.args.get(arg)
 			idea.save()
 			
-	return render_template('project.html', idea=idea) #dumps(idea)
+	return render_template('project.html', idea=idea)
 
 ##
 # Route to search by tag.
@@ -71,10 +71,23 @@ def show_idea(id):
 @app.route('/search')
 @app.route('/search/<tag>')
 def search(tag=None):
+	ideas = None
+	search_by = request.args.get('search_type')
+	print "Searching by:", search_by
 	if not tag:
 		tag = request.args.get('search')
-	# search_by = request.args.get()
-	ideas = db.ideas.Idea.find({"categories" : { "$in" : [tag]}})
+	
+	if search_by == "recent":
+		ideas = db.ideas.Idea.find().sort('date_creation', pymongo.DESCENDING).limit(10)
+	elif search_by == "category":
+		print "searching by category"
+		ideas = db.ideas.Idea.find({"categories" : { "$all" : [tag]}})
+	elif search_by == "university":
+		ideas = db.ideas.Idea.find({"university" : tag})
+	else:
+		print "didn't find a match"
+		ideas = db.ideas.Idea.find().sort('date_creation', pymongo.DESCENDING).limit(10)
+	
 	return render_template('index.html', ideas=ideas)
 
 @app.route('/random')
