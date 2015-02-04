@@ -16,7 +16,7 @@ print "Running app..."
 # configuration
 MONGODB_HOST = 'localhost'
 MONGODB_PORT = 27017
-WTF_CSRF_PROTECT = False
+WTF_CSRF_ENABLED = False
 
 app.config.from_object(__name__)
 
