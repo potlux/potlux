@@ -69,10 +69,12 @@ def show_idea(id):
 # Route to search by tag.
 ##
 @app.route('/search')
-def search(tag):
-	tag = request.args.get('search')
+@app.route('/search/<tag>')
+def search(tag=None):
+	if not tag:
+		tag = request.args.get('search')
 	# search_by = request.args.get()
-	ideas = db.ideas.Idea.find({"categories" : { "$all" : [tag]}})
+	ideas = db.ideas.Idea.find({"categories" : { "$in" : [tag]}})
 	return render_template('index.html', ideas=ideas)
 
 @app.route('/random')
