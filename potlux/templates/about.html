@@ -24,7 +24,9 @@
 					<br /><br />
 					<div class="heading">The Team</div>
 					<br />
-							<div class="col-md-2">
+					<table class="aboutPicsTabe">
+						<tr>
+							<td class="aboutTd">
 								<div class="flip-container" ontouchstart="this.classList.toggle('hover');">
 									<div class="flipper">
 										<div class="front aboutPic" style="background-image:url('{{url_for('static',filename='resources/images/brent.png')}}');background-size:cover;background-repeat:no-repeat;">
@@ -36,8 +38,11 @@
 										</div>
 									</div>
 								</div>
-							</div>
-							<div class="col-md-2">
+							</td>
+							<td class="tabespacer">
+								&nbsp;
+							</td>
+							<td class="aboutTd">
 								<div class="flip-container" ontouchstart="this.classList.toggle('hover');">
 									<div class="flipper">
 										<div class="front aboutPic" style="background-image:url('{{url_for('static',filename='resources/images/aaron.png')}}');background-size:cover;background-repeat:no-repeat;">
@@ -49,8 +54,11 @@
 										</div>
 									</div>
 								</div>
-							</div>
-							<div class="col-md-2">
+							</td>
+							<td class="tabespacer">
+								&nbsp;
+							</td>
+							<td class="aboutTd">
 								<div class="flip-container" ontouchstart="this.classList.toggle('hover');">
 									<div class="flipper">
 										<div class="front aboutPic" style="background-image:url('{{url_for('static',filename='resources/images/jared.png')}}');background-size:cover;background-repeat:no-repeat;">
@@ -62,8 +70,11 @@
 										</div>
 									</div>
 								</div>
-							</div>
-							<div class="col-md-2">
+							</td>
+							<td class="tabespacer">
+								&nbsp;
+							</td>
+							<td class="aboutTd">
 								<div class="flip-container" ontouchstart="this.classList.toggle('hover');">
 									<div class="flipper">
 										<div class="front aboutPic" style="background-image:url('{{url_for('static',filename='resources/images/gerard.png')}}');background-size:cover;background-repeat:no-repeat;">
@@ -75,6 +86,8 @@
 										</div>
 									</div>
 								</div>
-							</div>
+							</td>
+						</tr>
+					</table>
 				</div>
 {%endblock%}
