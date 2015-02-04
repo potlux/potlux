@@ -34,7 +34,7 @@
           </td>
           <td>
             <span class="projectInfo">
-            {{idea.university}}
+            {{titleize(idea.university)}}
             </span>
           </td>
         </tr>
@@ -46,7 +46,9 @@
           </td>
           <td>
             <span class="projectInfo">
-            {{idea.category}}
+            {% for category in idea.categories: %}
+              <a href="{{ url_for('search', tag=category) }}">{{category}}</a>,
+            {% endfor %}
             </span>
           </td>
         </tr>

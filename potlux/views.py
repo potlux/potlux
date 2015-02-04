@@ -21,12 +21,12 @@ def show_all():
 # @login_required
 def new():
 	if request.method == "POST":
-		name = request.form["name"]
-		categories = request.form["categories"].split(",")
+		name = request.form["name"].lower()
+		categories = [cat.lower() for cat in request.form["categories"].split(",")]
 		contact = {'name': request.form["contact_name"],
 				   'email': request.form["contact_email"]}
 		summary = request.form["summary"]
-		university = request.form["university"]
+		university = request.form["university"].lower()
 
 		new_idea = db.ideas.Idea()
 		new_idea.name = name

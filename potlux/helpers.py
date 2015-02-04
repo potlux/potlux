@@ -3,8 +3,7 @@ from PIL import Image
 from werkzeug.security import check_password_hash
 
 import models
-import uuid, os
-
+import uuid, os	
 
 def process_image(file, idea_id):
 

@@ -1,6 +1,7 @@
 from flask import Flask, abort
 from models import Idea, User
 from mongokit import *
+from inflection import titleize
 from flask.ext.login import LoginManager, login_required, login_user, logout_user
 from flask.ext.wtf.csrf import CsrfProtect
 import flask.ext.security
@@ -28,6 +29,7 @@ app.config['SECURITY_CONFIRMABLE'] = True
 app.config['SECURITY_RECOVERABLE'] = True
 
 app.jinja_env.globals['len'] = len 
+app.jinja_env.globals['titleize'] = titleize
 
 connection = Connection()
 connection.register([Idea, User])
