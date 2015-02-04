@@ -111,9 +111,10 @@
       <div class="summaryTitle">
       SUMMARY
       </div>
-      <div class="projectSummary">
-      {{idea.summary}} <span id="editButt"><a onClick="editSummary()" href="#" class="projLink">&nbsp;&nbsp;edit</a></span>
+      <div class="projectSummary" id="ideaWords">
+      {{idea.summary}} 
       </div>
+      <span id="editButt"><a onClick="editSummary()" href="#" class="projLink">edit</a></span>
       <br /><br />
       <div>
           <form action="/idea/{{idea._id}}" method="post" enctype=multipart/form-data>
@@ -128,7 +129,7 @@
       function editSummary(){
         var curSum = document.getElementById('ideaWords').innerHTML;
         document.getElementById('ideaWords').innerHTML = "<textarea id=\"tarea\" rows=\"4\"cols=\"50\">" + curSum + "</textarea>";
-        document.getElementById('editButt').innerHTML = "<a onClick=\"changeSummary()\" href=\"#\">done</a>";
+        document.getElementById('editButt').innerHTML = "<a onClick=\"changeSummary()\" class=\"projLink\" href=\"#\">done</a>";
       }
 
       function changeSummary(){

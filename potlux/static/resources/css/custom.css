@@ -206,6 +206,20 @@ table {
 	width: 300px;
 }
 
+.aboutPicsTabe {
+	height: 200px;
+}
+
+.tabespacer {
+	width: 10px;
+}
+
+.aboutTd {
+	padding:0;
+	width:200px;
+	height:200px;
+}
+
 .addNew {
 	background: #c9c8c3;
 	height: 100%;
@@ -278,8 +292,6 @@ table {
 }
 .aboutDesc {
 	color:#fff;
-	width:200px;
-	height:200px;
 	text-align:center;
 }
 .projName {
@@ -296,8 +308,6 @@ table {
 	padding: 20px;
 }
 .aboutPic {
-	width: 200px;
-	height: 200px;
 	text-align:center;
 }
 .personName {
