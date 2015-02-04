@@ -75,17 +75,10 @@ a:hover {
 .sidebar {
 	background: #23d0a5;
 	vertical-align: top;
+	padding-top: 100px;
 	min-height:100%;
 	margin-right:20px;
 	width: 250px;
-}
-
-.sidebar2 {
-	position: fixed;
-	height: 100%;
-	width: 250px;
-	background: #23d0a5;
-	padding-top: 100px;
 }
 
 .sideContent {
@@ -198,11 +191,19 @@ table {
 	padding: 10px;
 }
 
+.caroImage {
+	height: 300px;
+}
+
 .projectImages {
 	width: 100%;
-    overflow: hidden;
+    overflow: scroll;
     white-space: nowrap;
     text-overflow: ellipsis;
+}
+
+.carousel {
+	width: 300px;
 }
 
 .addNew {
