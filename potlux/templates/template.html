@@ -32,30 +32,32 @@
     <table id="content">
         <tr>
             <td class="sidebar">
+            <div class="sidebar2">
                 <div class="sideContent">
-                {% with messages = get_flashed_messages() %}
-                  {% if messages %}
-                    <ul class=flashes>
-                    {% for message in messages %}
-                      <li>{{ message }}</li>
-                    {% endfor %}
-                    </ul>
-                  {% endif %}
-                {% endwith %}
-                <img src="{{url_for('static',filename='resources/images/logo.png')}}" class="logo" width="180"/>
-                <br />
-                <br />
-                <div class="navlink">
-                    <a href="/">HOME</a>
-                </div>
-                <div class="navlink">
-                    <a href="/about">ABOUT</a>
-                </div>
-                <div class="navlink">
-                    <a href="/new">SUBMIT</a>
-                </div>
-                <div class="navlink">
-                    <a href="/contact">CONTACT</a>
+                    {% with messages = get_flashed_messages() %}
+                      {% if messages %}
+                        <ul class=flashes>
+                        {% for message in messages %}
+                          <li>{{ message }}</li>
+                        {% endfor %}
+                        </ul>
+                      {% endif %}
+                    {% endwith %}
+                    <img src="{{url_for('static',filename='resources/images/logo.png')}}" class="logo" width="180"/>
+                    <br />
+                    <br />
+                    <div class="navlink">
+                        <a href="/">HOME</a>
+                    </div>
+                    <div class="navlink">
+                        <a href="/about">ABOUT</a>
+                    </div>
+                    <div class="navlink">
+                        <a href="/new">SUBMIT</a>
+                    </div>
+                    <div class="navlink">
+                        <a href="/contact">CONTACT</a>
+                    </div>
                 </div>
             </div>
             </td>

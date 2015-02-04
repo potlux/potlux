@@ -75,10 +75,17 @@ a:hover {
 .sidebar {
 	background: #23d0a5;
 	vertical-align: top;
-	padding-top: 100px;
 	min-height:100%;
 	margin-right:20px;
 	width: 250px;
+}
+
+.sidebar2 {
+	position: fixed;
+	height: 100%;
+	width: 250px;
+	background: #23d0a5;
+	padding-top: 100px;
 }
 
 .sideContent {

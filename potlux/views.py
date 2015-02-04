@@ -9,7 +9,7 @@ from werkzeug.security import generate_password_hash
 
 @app.route('/comingsoon')
 def coming_soon():
-	return 'Coming Soon' #app.send_static_file('comingsoon.html')
+	return app.send_static_file('comingsoon.html')
 
 @app.route('/all')
 # @login_required
