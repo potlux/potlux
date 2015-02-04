@@ -11,4 +11,4 @@
 
 from potlux import app
 print "Starting server..."
-app.run(debug=False)
+app.run(debug=True)

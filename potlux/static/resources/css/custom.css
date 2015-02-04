@@ -191,11 +191,19 @@ table {
 	padding: 10px;
 }
 
+.caroImage {
+	height: 300px;
+}
+
 .projectImages {
 	width: 100%;
     overflow: scroll;
     white-space: nowrap;
     text-overflow: ellipsis;
+}
+
+.carousel {
+	width: 300px;
 }
 
 .addNew {

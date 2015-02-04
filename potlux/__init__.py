@@ -27,6 +27,8 @@ app.config['SECURITY_REGISTERABLE'] = True
 app.config['SECURITY_CONFIRMABLE'] = True
 app.config['SECURITY_RECOVERABLE'] = True
 
+app.jinja_env.globals['len'] = len 
+
 connection = Connection()
 connection.register([Idea, User])
 db = connection.potlux
