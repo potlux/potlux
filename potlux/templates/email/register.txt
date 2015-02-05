@@ -1,0 +1,3 @@
+Congratulations! You have just signed up for Succor.
+
+To finish signing up you must verify your email address by clicking {{ url }}!

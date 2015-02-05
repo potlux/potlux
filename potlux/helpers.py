@@ -1,9 +1,38 @@
-from potlux import app
+from potlux import app, ts
+from flask import render_template
 from PIL import Image
 from werkzeug.security import check_password_hash
 
+import boto.ses
 import models
 import uuid, os	
+
+def send_verification_email(user):
+	token = ts.dumps(user.email, salt=app.config['EMAIL_CONFIRM_KEY'])
+	confirm_url = url_for('verify', token=token, _external=True)
+	subject = "Congratulations on joining potlux!"
+	sender = ""
+	recipients = [user.email]
+	text_body = render_template('email/register.txt', url=confirm_url)
+	html_body = render_template('email/register.html', url=confirm_url)
+
+	send_email(subject, sender, recipients, text_body, html_body)
+
+def send_email(subject, sender, recipients, text_body, html_body):
+	conn = boto.ses.connect_to_region(
+		'us-west-2',
+		aws_access_key_id=app.config['AWS_ACCESS_KEY_ID'],
+		aws_secret_access_key=app.config['AWS_SECRET_KEY_ACCESS']
+	)
+
+	conn.send_email(
+		sender,
+		subject,
+		None,
+		recipients,
+		text_body=text_body,
+		html_body=html_body
+	)
 
 def process_image(file, idea_id):
 

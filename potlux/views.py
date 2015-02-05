@@ -121,15 +121,64 @@ def register():
 			new_user = db.users.User()
 			new_user.email = user_email
 			new_user.password = generate_password_hash(password)
+			new_user.verfied = False
 			new_user.save()
 
 		# log user in
+		send_verification_email(new_user)
 		login_user(new_user)
 		return redirect(url_for('home'))
 	if 'user_email' in session:
 		return render_template('register.html', email=session['user_email'], form=form)
 	else:
 		return render_template('register.html', form=form)
+
+@app.route('/verify/<token>')
+def verify(token):
+    try:
+        email = ts.loads(token, salt=app.config['EMAIL_CONFIRM_KEY'], max_age=86400)
+    except:
+        abort(404)
+
+    user = mongo_db.users.User.find_one({'email' : email})
+    user.verified = True
+    user.save()
+    login_user(user)
+    return redirect(url_for('home'))
+
+@app.route('/reset', methods=["GET", "POST"])
+def reset_password():
+	form = EmailForm()
+    if form.validate_on_submit():
+        user = mongo_db.users.User.find_one({'email' : form.email.data})
+
+        subject = "Succor password reset requested"
+        token = ts.dumps(user.email, salt='recover-key')
+        recover_url = url_for('reset_with_token', token=token, _external=True)
+        body = render_template('email/recover.txt', url=recover_url)
+        html = render_template('email/recover.html', url=recover_url)
+        send_email(subject, app.config['FROM_EMAIL_ADDRESS'], [user.email], body, html)
+
+        flash('Check your email for password reset link')
+        return redirect(url_for('home'))
+    return render_template('reset.html', form=form)
+
+@app.route('/reset/<token>', methods=["GET", "POST"])
+def reset_with_token(token):
+    try:
+        email = ts.loads(token, salt="recover-key", max_age=86400)
+    except:
+        abort(404)
+
+    form = PasswordForm()
+
+    if form.validate_on_submit():
+        user = mongo_db.users.User.find_one({'email' : email})
+        user.password = generate_password_hash(form.password.data)
+        user.save()
+
+        return redirect(url_for('login'))
+    return render_template('reset_with_token.html', form=form, token=token)
 
 @app.route('/try/<beta_key>')
 def beta():

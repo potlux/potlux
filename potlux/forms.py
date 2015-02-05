@@ -3,6 +3,12 @@ from wtforms import TextField, PasswordField, BooleanField, validators
 from potlux import db
 from werkzeug.security import check_password_hash
 
+class EmailForm(Form):
+    email = TextField('Email', validators = [validators.Email(), validators.Required()])
+
+class PasswordForm(Form):
+    password = PasswordField('Password', validators = [validators.Required()])
+
 class LoginForm(Form):
 	email = TextField('Email', [
 		validators.Required()
@@ -23,7 +29,6 @@ class LoginForm(Form):
 
 	def get_user(self):
 		return db.users.User.find_one({'email' : self.email.data})
-
 
 class RegistrationForm(Form):
 	email = TextField('Email', [

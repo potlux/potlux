@@ -11,6 +11,7 @@ class User(Document, UserMixin):
 		'date_creation' : datetime.datetime,
 		'email' : basestring,
 		'password' : basestring,
+		'verified' : bool,
 		'name' : {
 			'first' : basestring,
 			'last' : basestring
@@ -72,7 +73,8 @@ class Idea(Document):
 			'videos': [basestring],
 			'websites': [basestring],
 			'documents': [basestring]
-		}
+		},
+		'owner' : basestring
 	}
 
 	required_fields = ['name', 'categories', 'summary']
