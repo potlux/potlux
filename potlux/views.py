@@ -24,7 +24,7 @@ def new():
 	if request.method == "POST":
 		name = request.form["name"].lower()
 		categories = [cat.lower() for cat in request.form["categories"].split(",")]
-		contact = {'name': request.form["first_name"] + " " request.form["last_name"],
+		contact = {'name': request.form["first_name"] + " " + request.form["last_name"],
 				   'email': request.form["email"]}
 		summary = request.form["summary"]
 		university = request.form["university"].lower()
