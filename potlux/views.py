@@ -38,8 +38,6 @@ def new():
 
 		if current_user.is_authenticated():
 			new_idea.owner = current_user._id
-		else:
-			new_idea.owner = ''
 
 		new_idea.save()
 		return redirect(url_for('show_idea', id=str(new_idea._id)))
