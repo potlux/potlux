@@ -114,7 +114,7 @@
       <div class="projectSummary" id="ideaWords">
       {{idea.summary}} 
       </div>
-      {% if current_user._id=idea.owner: %}
+      {% if current_user._id == idea.owner: %}
       <span id="editButt"><a onClick="editSummary()" href="#" class="projLink">edit</a></span>
       {% endif %}
       <br /><br />
@@ -124,7 +124,7 @@
       <div class="projectSummary" id="ideaWords">
       {{idea.impact}} 
       </div>
-      {% if current_user._id=idea.owner: %}
+      {% if current_user._id == idea.owner: %}
       <span id="editButt"><a onClick="editSummary()" href="#" class="projLink">edit</a></span>
       {% endif %}
       <br /><br />
@@ -134,9 +134,9 @@
       <div class="projectSummary" id="ideaWords">
       {{idea.procedure}} 
       </div>
-      {% if current_user._id=idea.owner: %}
+      {% if current_user._id == idea.owner: %}
       <span id="editButt"><a onClick="editSummary()" href="#" class="projLink">edit</a></span>
-      {% endif% }
+      {% endif %}
       <br /><br />
       <div class="summaryTitle">
       MISTAKES &amp; LESSONS
@@ -146,9 +146,9 @@
       <br />
       {{idea.results.positive}}
       </div>
-      {% if current_user._id=idea.owner: %}
+      {% if current_user._id == idea.owner: %}
       <span id="editButt"><a onClick="editSummary()" href="#" class="projLink">edit</a></span>
-      {% if current_user._id=idea.owner: %}
+      {% endif %}
       <br /><br />
       <div class="summaryTitle">
       FUTURE PLANS
@@ -156,7 +156,7 @@
       <div class="projectSummary" id="ideaWords">
       {{idea.future}} 
       </div>
-      {% if current_user._id=idea.owner: %}
+      {% if current_user._id == idea.owner: %}
       <span id="editButt"><a onClick="editSummary()" href="#" class="projLink">edit</a></span>
       {% endif %}
       <br /><br />

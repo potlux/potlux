@@ -1,4 +1,4 @@
-from mongokit import Document
+from mongokit import Document, ObjectId
 from flask.ext.login import UserMixin
 
 import datetime
@@ -74,10 +74,10 @@ class Idea(Document):
 			'websites': [basestring],
 			'documents': [basestring]
 		},
-		'owner' : basestring
+		'owner' : ObjectId
 	}
 
-	required_fields = ['name', 'categories', 'summary']
+	required_fields = ['name', 'categories', 'summary', 'owner']
 
 	default_values = {
 		'date_creation': datetime.datetime.utcnow

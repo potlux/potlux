@@ -1,6 +1,7 @@
 from potlux import app, db, login_required, login_user, logout_user
 from forms import RegistrationForm, LoginForm, EmailForm, PasswordForm
 from flask import request, render_template, redirect, url_for, session, escape, flash
+from flask.ext.login import login_required, current_user
 from mongokit import *
 import pymongo
 from bson.json_util import dumps
@@ -34,6 +35,11 @@ def new():
 		new_idea.contact = contact
 		new_idea.summary = summary
 		new_idea.university = university
+
+		if current_user.is_authenticated():
+			new_idea.owner = current_user._id
+		else:
+			new_idea.owner = ''
 
 		new_idea.save()
 		return redirect(url_for('show_idea', id=str(new_idea._id)))
