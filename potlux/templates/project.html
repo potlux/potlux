@@ -216,14 +216,25 @@
       <br /><br />
       {% else %}
       {% endif %}
-
+      <br />
+      {% if current_user._id == idea.owner: %}
+      <div class="projectSummary" style="font-size:24px;font-weight:200;">
+        <i>Add Images to your Project</i>
+      </div>
+      <div style="font-size:10px;line-height:10px;">
+            &nbsp;
+            </div>
       <div>
           <form action="/idea/{{idea._id}}" method="post" enctype=multipart/form-data>
             <input type="file" name="imageUpload" />
-            <input type="submit" name="submit" />
+            <div style="font-size:10px;line-height:10px;">
+            &nbsp;
+            </div>
+            <input type="submit" name="submit" class="subButton"/>
           </form>
       </div>
     </div>
+    {% endif %}
     <br />
     <br />
     <br />
