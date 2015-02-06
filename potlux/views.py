@@ -117,12 +117,13 @@ def register():
 		user_email = form.email.data
 		password = form.password.data
 
+		new_user = db.users.User()
+
 		if db.users.User.find({'email' : user_email}).count() > 0:
 			flash('An account with that email already exists!')
 			form = RegistrationForm()
 			return render_template('register.html', form=form)
-		else:
-			new_user = db.users.User()
+		else:	
 			new_user.email = user_email
 			new_user.password = generate_password_hash(password)
 			new_user.verfied = False
