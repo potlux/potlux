@@ -47,7 +47,7 @@
           <td>
             <span class="projectInfo">
             {% for category in idea.categories: %}
-              <a href="{{ url_for('search', tag=category) }}">{{category}}</a>,
+              <a href="{{ url_for('search', tag=category) }}" class="projLink">{{category}}</a>,
             {% endfor %}
             </span>
           </td>
@@ -111,55 +111,112 @@
       <div class="summaryTitle">
       SUMMARY
       </div>
-      <div class="projectSummary" id="ideaWords">
+
+      <div class="projectSummary" id="summary">
       {{idea.summary}} 
       </div>
       {% if current_user._id == idea.owner: %}
-      <span id="editButt"><a onClick="editSummary()" href="#" class="projLink">edit</a></span>
+      <span id="editsummary"><a onClick="editSummary('summary')" href="#" class="projLink">edit</a></span>
       {% endif %}
       <br /><br />
+
+      {% if idea.impact == None and current_user._id == idea.owner: %}
       <div class="summaryTitle">
       IMPACT
       </div>
-      <div class="projectSummary" id="ideaWords">
+      <div class="projectSummary">
+      <i>Add your project's impact:</i>
+      </div>
+      <div id="impact">
+      </div>
+      <span id="editimpact"><a onClick="editSummary('impact')" href="#" class="projLink">Click to add</a></span>
+      <br /><br />
+      {% elif idea.impact != None: %}
+      <div class="summaryTitle">
+      IMPACT
+      </div>
+      <div class="projectSummary" id="impact">
       {{idea.impact}} 
       </div>
       {% if current_user._id == idea.owner: %}
-      <span id="editButt"><a onClick="editSummary()" href="#" class="projLink">edit</a></span>
+      <span id="editimpact"><a onClick="editSummary('impact')" href="#" class="projLink">edit</a></span>
       {% endif %}
       <br /><br />
+      {% else %}
+      {% endif %}
+
+      {% if idea.procedure == [] and current_user._id == idea.owner: %}
       <div class="summaryTitle">
       PROCEDURE
       </div>
-      <div class="projectSummary" id="ideaWords">
+      <div class="projectSummary">
+      <i>Add your project's procedure:</i> 
+      </div>
+      <div id="procedure"></div>
+      <span id="editprocedure"><a onClick="editSummary('procedure')" href="#" class="projLink">Click to add</a></span>
+      <br /><br />
+      {% elif idea.procedure != []: %}
+      <div class="summaryTitle">
+      PROCEDURE
+      </div>
+      <div class="projectSummary" id="procedure">
       {{idea.procedure}} 
       </div>
       {% if current_user._id == idea.owner: %}
-      <span id="editButt"><a onClick="editSummary()" href="#" class="projLink">edit</a></span>
+      <span id="editprocedure"><a onClick="editSummary('procedure')" href="#" class="projLink">edit</a></span>
       {% endif %}
       <br /><br />
+      {% else %}
+      {% endif %}
+
+      {% if idea.results.positive == [] and current_user._id == idea.owner: %}
       <div class="summaryTitle">
       MISTAKES &amp; LESSONS
       </div>
-      <div class="projectSummary" id="ideaWords">
-      {{idea.results.negative}} 
-      <br />
+      <div class="projectSummary">
+        <i>Add results to your project:</i>
+        <div id="results"></div>
+      </div>
+      <span id="editresults"><a onClick="editSummary('results')" href="#" class="projLink">Click to add</a></span>
+      <br /><br />
+      {% elif idea.results.positive != []: %}
+      <div class="summaryTitle">
+      MISTAKES &amp; LESSONS
+      </div>
+      <div class="projectSummary" id="results">
       {{idea.results.positive}}
       </div>
       {% if current_user._id == idea.owner: %}
-      <span id="editButt"><a onClick="editSummary()" href="#" class="projLink">edit</a></span>
+      <span id="editresults"><a onClick="editSummary('results')" href="#" class="projLink">edit</a></span>
       {% endif %}
       <br /><br />
+      {% else %}
+      {% endif %}
+      
+      {% if idea.future == [] and current_user._id == idea.owner: %}
       <div class="summaryTitle">
       FUTURE PLANS
       </div>
-      <div class="projectSummary" id="ideaWords">
+      <div class="projectSummary">
+        <i>Add future plans to your project:</i>
+      </div>
+      <div id="future"></div>
+      <span id="editfuture"><a onClick="editSummary('future')" href="#" class="projLink">Click to add</a></span>
+      <br /><br />
+      {% elif idea.future != []: %}
+      <div class="summaryTitle">
+      FUTURE PLANS
+      </div>
+      <div class="projectSummary" id="future">
       {{idea.future}} 
       </div>
       {% if current_user._id == idea.owner: %}
-      <span id="editButt"><a onClick="editSummary()" href="#" class="projLink">edit</a></span>
+      <span id="editfuture"><a onClick="editSummary('future')" href="#" class="projLink">edit</a></span>
       {% endif %}
       <br /><br />
+      {% else %}
+      {% endif %}
+
       <div>
           <form action="/idea/{{idea._id}}" method="post" enctype=multipart/form-data>
             <input type="file" name="imageUpload" />
@@ -167,21 +224,26 @@
           </form>
       </div>
     </div>
+    <br />
+    <br />
+    <br />
 
 
     <script>
-      function editSummary(){
-        var curSum = document.getElementById('ideaWords').innerHTML;
-        document.getElementById('ideaWords').innerHTML = "<textarea id=\"tarea\" rows=\"4\"cols=\"50\">" + curSum + "</textarea>";
-        document.getElementById('editButt').innerHTML = "<a onClick=\"changeSummary()\" class=\"projLink\" href=\"#\">done</a>";
+      function editSummary(fieldName){
+        var curSum = document.getElementById(fieldName).innerHTML;
+        document.getElementById(fieldName).innerHTML = "<textarea id=\"tarea" + fieldName + "\" rows=\"4\"cols=\"50\">" + curSum + "</textarea>";
+        var buttonName = "edit" + fieldName;
+        document.getElementById(buttonName).innerHTML = "<a onClick=\"changeSummary(\'" + fieldName + "\')\" class=\"projLink\" href=\"#\">done</a>";
       }
 
-      function changeSummary(){
-        var newSum = document.getElementById('tarea').value;
-        post('/idea/{{idea._id}}', newSum);
+      function changeSummary(fieldName){
+        var tareaName = "tarea" + fieldName;
+        var newSum = document.getElementById(tareaName).value;
+        post('/idea/{{idea._id}}', newSum, fieldName);
       }
 
-      function post(path, newSum) {
+      function post(path, newSum, fieldName) {
 
         var form = document.createElement("form");
         form.setAttribute("method", "post");
@@ -189,7 +251,7 @@
 
         var hiddenField = document.createElement("input");
         hiddenField.setAttribute("type", "hidden");
-        hiddenField.setAttribute("name", "summary");
+        hiddenField.setAttribute("name", fieldName);
         hiddenField.setAttribute("value", newSum);
 
         form.appendChild(hiddenField);
