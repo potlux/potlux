@@ -6,7 +6,7 @@ from itsdangerous import URLSafeTimedSerializer
 from flask.ext.login import LoginManager, login_required, login_user, logout_user
 from flask.ext.wtf.csrf import CsrfProtect
 import flask.ext.security
-import os
+import os, binascii
 
 app = Flask(__name__)
 

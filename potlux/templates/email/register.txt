@@ -1,3 +1,3 @@
-Congratulations! You have just signed up for Succor.
+Congratulations! You have just signed up for Potlux.
 
 To finish signing up you must verify your email address by clicking {{ url }}!

@@ -1,5 +1,5 @@
 from potlux import app, db, login_required, login_user, logout_user
-from forms import RegistrationForm, LoginForm
+from forms import RegistrationForm, LoginForm, EmailForm, PasswordForm
 from flask import request, render_template, redirect, url_for, session, escape, flash
 from mongokit import *
 import pymongo
@@ -127,9 +127,8 @@ def register():
 		# log user in
 		send_verification_email(new_user)
 		login_user(new_user)
+		flash('Check your email for verification!')
 		return redirect(url_for('home'))
-	if 'user_email' in session:
-		return render_template('register.html', email=session['user_email'], form=form)
 	else:
 		return render_template('register.html', form=form)
 
@@ -140,7 +139,7 @@ def verify(token):
     except:
         abort(404)
 
-    user = mongo_db.users.User.find_one({'email' : email})
+    user = db.users.User.find_one({'email' : email})
     user.verified = True
     user.save()
     login_user(user)
@@ -148,32 +147,33 @@ def verify(token):
 
 @app.route('/reset', methods=["GET", "POST"])
 def reset_password():
+	print "reseting password"
 	form = EmailForm()
-    if form.validate_on_submit():
-        user = mongo_db.users.User.find_one({'email' : form.email.data})
+	if form.validate_on_submit():
+		user = db.users.User.find_one({'email' : form.email.data})
 
-        subject = "Succor password reset requested"
-        token = ts.dumps(user.email, salt='recover-key')
-        recover_url = url_for('reset_with_token', token=token, _external=True)
-        body = render_template('email/recover.txt', url=recover_url)
-        html = render_template('email/recover.html', url=recover_url)
-        send_email(subject, app.config['FROM_EMAIL_ADDRESS'], [user.email], body, html)
-
-        flash('Check your email for password reset link')
-        return redirect(url_for('home'))
-    return render_template('reset.html', form=form)
+		subject = "Potlux password reset requested"
+		token = ts.dumps(user.email, salt=app.config['RECOVER_KEY'])
+		recover_url = url_for('reset_with_token', token=token, _external=True)
+		body = render_template('email/reset.txt', url=recover_url)
+		html = render_template('email/reset.html', url=recover_url)
+		send_email(subject, app.config['FROM_EMAIL_ADDRESS'], [user.email], body, html)
+		
+		flash('Check your email for password reset link')
+		return redirect(url_for('home'))
+	return render_template('reset.html', form=form)
 
 @app.route('/reset/<token>', methods=["GET", "POST"])
 def reset_with_token(token):
     try:
-        email = ts.loads(token, salt="recover-key", max_age=86400)
+        email = ts.loads(token, salt=app.config['RECOVER_KEY'], max_age=86400)
     except:
         abort(404)
 
     form = PasswordForm()
 
     if form.validate_on_submit():
-        user = mongo_db.users.User.find_one({'email' : email})
+        user = db.users.User.find_one({'email' : email})
         user.password = generate_password_hash(form.password.data)
         user.save()
 

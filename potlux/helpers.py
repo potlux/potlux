@@ -1,5 +1,5 @@
 from potlux import app, ts
-from flask import render_template
+from flask import render_template, url_for
 from PIL import Image
 from werkzeug.security import check_password_hash
 
@@ -10,8 +10,8 @@ import uuid, os
 def send_verification_email(user):
 	token = ts.dumps(user.email, salt=app.config['EMAIL_CONFIRM_KEY'])
 	confirm_url = url_for('verify', token=token, _external=True)
-	subject = "Congratulations on joining potlux!"
-	sender = ""
+	subject = "Congratulations on joining Potlux!"
+	sender = app.config['FROM_EMAIL_ADDRESS']
 	recipients = [user.email]
 	text_body = render_template('email/register.txt', url=confirm_url)
 	html_body = render_template('email/register.html', url=confirm_url)

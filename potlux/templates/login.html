@@ -12,7 +12,7 @@
 
 	<form method="post" action="/login">
 	  <dl>
-	  	{{ form.csrf_token }}
+	  	<input type="hidden" name="_csrf_token" value="{{ csrf_token() }}" />
 	    {{ render_field(form.email) }}
 	    {{ render_field(form.password) }}
 	    {{ render_field(form.remember) }}
@@ -20,5 +20,7 @@
 	  <p><input type=submit value="Log In">
 	</form>
 
-	Don't have an account yet? <a href='/register'>Click here</a> to make one!
+	<p>Forgot your password? Click <a href="{{ url_for('reset_password') }}">here</a>.</p>
+
+	<p>Don't have an account yet? <a href='/register'>Click here</a> to make one!</p>
 {% endblock %}
