@@ -220,6 +220,10 @@ table {
 	height:200px;
 }
 
+.loginpage {
+	padding: 50px;
+}
+
 .addNew {
 	background: #c9c8c3;
 	height: 100%;

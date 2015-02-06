@@ -10,6 +10,8 @@
 {% block content %}
 	{% from "_templatehelpers.html" import render_field %}
 
+	<div class="loginpage">
+
 	<form method="post" action="/login">
 	  <dl>
 	  	<input type="hidden" name="_csrf_token" value="{{ csrf_token() }}" />
@@ -17,10 +19,11 @@
 	    {{ render_field(form.password) }}
 	    {{ render_field(form.remember) }}
 	  </dl>
-	  <p><input type=submit value="Log In">
+	  <p><input type="submit" value="Log In" class="subButton">
 	</form>
 
-	<p>Forgot your password? Click <a href="{{ url_for('reset_password') }}">here</a>.</p>
+	<p>Forgot your password? Click <a class="projLink" href="{{ url_for('reset_password') }}">here</a>.</p>
 
-	<p>Don't have an account yet? <a href='/register'>Click here</a> to make one!</p>
+	<p>Don't have an account yet? <a class="projLink" href='/register'>Click here</a> to make one!</p>
+</div>
 {% endblock %}
