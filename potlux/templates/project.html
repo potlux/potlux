@@ -219,12 +219,12 @@
       <br />
       {% if current_user._id == idea.owner: %}
       <div class="projectSummary" style="font-size:24px;font-weight:200;">
-        <i>Add Images to your Project</i>
+        Add Images of your Project
       </div>
       <div style="font-size:10px;line-height:10px;">
             &nbsp;
             </div>
-      <div>
+      <div class="textBlock" style="width:250px">
           <form action="/idea/{{idea._id}}" method="post" enctype=multipart/form-data>
             <input type="file" name="imageUpload" />
             <div style="font-size:10px;line-height:10px;">
