@@ -226,6 +226,7 @@
             </div>
       <div class="textBlock" style="width:250px">
           <form action="/idea/{{idea._id}}" method="post" enctype=multipart/form-data>
+            <input type="hidden" name="_csrf_token" value="{{ csrf_token() }}" />
             <input type="file" name="imageUpload" />
             <div style="font-size:10px;line-height:10px;">
             &nbsp;

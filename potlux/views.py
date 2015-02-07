@@ -45,7 +45,7 @@ def new():
 		return render_template('submit.html')
 
 @app.route('/idea/<id>', methods=["GET", "POST"])
-# @login_required
+@login_required
 def show_idea(id):
 	idea = db.ideas.Idea.find_one({"_id" : ObjectId(id)})
 
