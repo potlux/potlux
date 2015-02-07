@@ -116,7 +116,7 @@
       {{idea.summary}} 
       </div>
       {% if current_user._id == idea.owner: %}
-      <span id="editsummary"><a onClick="editSummary('summary')" href="#" class="projLink">edit</a></span>
+      <span id="editsummary"><a onClick="editSummary('summary')" href="#summary" class="projLink">edit</a></span>
       {% endif %}
       <br /><br />
 
@@ -129,7 +129,7 @@
       </div>
       <div id="impact">
       </div>
-      <span id="editimpact"><a onClick="editSummary('impact')" href="#" class="projLink">Click to add</a></span>
+      <span id="editimpact"><a onClick="editSummary('impact')" href="#impact" class="projLink">Click to add</a></span>
       <br /><br />
       {% elif idea.impact != None: %}
       <div class="summaryTitle">
@@ -139,7 +139,7 @@
       {{idea.impact}} 
       </div>
       {% if current_user._id == idea.owner: %}
-      <span id="editimpact"><a onClick="editSummary('impact')" href="#" class="projLink">edit</a></span>
+      <span id="editimpact"><a onClick="editSummary('impact')" href="#impact" class="projLink">edit</a></span>
       {% endif %}
       <br /><br />
       {% else %}
@@ -153,7 +153,7 @@
       <i>Add your project's procedure:</i> 
       </div>
       <div id="procedure"></div>
-      <span id="editprocedure"><a onClick="editSummary('procedure')" href="#" class="projLink">Click to add</a></span>
+      <span id="editprocedure"><a onClick="editSummary('procedure')" href="#procedure" class="projLink">Click to add</a></span>
       <br /><br />
       {% elif idea.procedure != []: %}
       <div class="summaryTitle">
@@ -163,7 +163,7 @@
       {{idea.procedure}} 
       </div>
       {% if current_user._id == idea.owner: %}
-      <span id="editprocedure"><a onClick="editSummary('procedure')" href="#" class="projLink">edit</a></span>
+      <span id="editprocedure"><a onClick="editSummary('procedure')" href="#procedure" class="projLink">edit</a></span>
       {% endif %}
       <br /><br />
       {% else %}
@@ -177,7 +177,7 @@
         <i>Add results to your project:</i>
         <div id="results"></div>
       </div>
-      <span id="editresults"><a onClick="editSummary('results')" href="#" class="projLink">Click to add</a></span>
+      <span id="editresults"><a onClick="editSummary('results')" href="#results" class="projLink">Click to add</a></span>
       <br /><br />
       {% elif idea.results.positive != []: %}
       <div class="summaryTitle">
@@ -187,7 +187,7 @@
       {{idea.results.positive}}
       </div>
       {% if current_user._id == idea.owner: %}
-      <span id="editresults"><a onClick="editSummary('results')" href="#" class="projLink">edit</a></span>
+      <span id="editresults"><a onClick="editSummary('results')" href="#results" class="projLink">edit</a></span>
       {% endif %}
       <br /><br />
       {% else %}
@@ -201,7 +201,7 @@
         <i>Add future plans to your project:</i>
       </div>
       <div id="future"></div>
-      <span id="editfuture"><a onClick="editSummary('future')" href="#" class="projLink">Click to add</a></span>
+      <span id="editfuture"><a onClick="editSummary('future')" href="#future" class="projLink">Click to add</a></span>
       <br /><br />
       {% elif idea.future != []: %}
       <div class="summaryTitle">
@@ -211,7 +211,7 @@
       {{idea.future}} 
       </div>
       {% if current_user._id == idea.owner: %}
-      <span id="editfuture"><a onClick="editSummary('future')" href="#" class="projLink">edit</a></span>
+      <span id="editfuture"><a onClick="editSummary('future')" href="#future" class="projLink">edit</a></span>
       {% endif %}
       <br /><br />
       {% else %}
@@ -221,7 +221,7 @@
       <div class="projectSummary" style="font-size:24px;font-weight:200;">
         Add Images of your Project
       </div>
-      <div style="font-size:10px;line-height:10px;">
+      <div style="font-size:8px;line-height:8px;">
             &nbsp;
             </div>
       <div class="textBlock" style="width:250px">
@@ -246,7 +246,7 @@
         var curSum = document.getElementById(fieldName).innerHTML;
         document.getElementById(fieldName).innerHTML = "<textarea id=\"tarea" + fieldName + "\" rows=\"4\"cols=\"50\">" + curSum + "</textarea>";
         var buttonName = "edit" + fieldName;
-        document.getElementById(buttonName).innerHTML = "<a onClick=\"changeSummary(\'" + fieldName + "\')\" class=\"projLink\" href=\"#\">done</a>";
+        document.getElementById(buttonName).innerHTML = "<a onClick=\"changeSummary(\'" + fieldName + "\')\" class=\"projLink\" href=\"#" + fieldName + "\">done</a>";
       }
 
       function changeSummary(fieldName){
