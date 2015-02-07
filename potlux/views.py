@@ -19,7 +19,7 @@ def show_all():
 	return 'all' # dumps([idea for idea in ideas])
 
 @app.route('/new', methods=["POST", "GET"])
-# @login_required
+@login_required
 def new():
 	if request.method == "POST":
 		name = request.form["name"].lower()
@@ -48,7 +48,7 @@ def new():
 def show_idea(id):
 	idea = db.ideas.Idea.find_one({"_id" : ObjectId(id)})
 
-	if request.method == "POST":
+	if request.method == "POST" and current_user.is_authenticated():
 		print request.files
 		if 'imageUpload' in request.files:
 			# handle image upload
