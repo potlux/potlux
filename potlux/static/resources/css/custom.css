@@ -283,9 +283,9 @@ table {
 
 .textCenter {
 	background: #fff;
-}.textCenterB {
+}
+.textCenterB {
 	background: #c9c8c3;
-	padding-top:45%;
 }
 
 /* front pane, placed above back */
@@ -310,6 +310,7 @@ table {
 
 .sumContent {
 	padding: 20px;
+	font-size: 18px;
 }
 .aboutPic {
 	text-align:center;
