@@ -1,4 +1,4 @@
-from flask import Flask, abort
+from flask import Flask, abort, request
 from models import Idea, User
 from mongokit import *
 from inflection import titleize
@@ -59,7 +59,7 @@ def load_user(user_id):
 
 @app.before_request
 def csrf_protect():
-    if request.method == "POST":
+    if request.method == "POST" and "idea" not in str(request.url_rule):
         token = session.pop('_csrf_token', None)
         print "CSRF Token from form", request.form.get("_csrf_token")
         print "CSRF Token from session:", token
