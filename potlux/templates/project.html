@@ -55,17 +55,17 @@
       {% endif %}
 
       <br />
-      {% if current_user._id == idea.owner: %}
-        <a href="{{ url_for('edit_idea', project_id=idea._id) }}" class="projLink">Edit Your Idea</a>
-      {% endif %}
-      <br />
 
+      <br />
+      {% if current_user._id == idea.owner: %}
+        <a href="{{ url_for('edit_idea', project_id=idea._id) }}" class="projLink">Click Here to Edit Your Idea</a>
+      {% endif %}
       <div class="summaryTitle">
       SUMMARY
       </div>
       <div class="projectSummary" id="summary">
       {% if idea.summary: %}
-        {{idea.summary}} 
+        {{idea.summary}}
       {% else: %}
         <i>Add your project summary here</i>
       {% endif %}
@@ -77,7 +77,7 @@
       </div>
       <div class="projectSummary" id="impact">
       {% if idea.impact: %}
-        {{idea.impact}} 
+        {{idea.impact}}
       {% else: %}
         <i>Add the impact of your project here</i>
       {% endif %}
@@ -89,7 +89,7 @@
       </div>
       <div class="projectSummary" id="procedure">
       {% if idea.procedure: %}
-        {{idea.procedure}} 
+        {{idea.procedure}}
       {% else: %}
         <i>Add the procedure of your project here</i>
       {% endif %}
@@ -111,7 +111,7 @@
       </div>
       <div class="projectSummary" id="future">
       {% if idea.future: %}
-        {{idea.future}} 
+        {{idea.future}}
       {% else: %}
         <i>Add your future plans here</i>
       {% endif %}
