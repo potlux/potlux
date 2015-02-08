@@ -62,12 +62,9 @@ class Idea(Document):
 		},
 		'summary': basestring,
 		'impact': basestring,
-		'procedure': [basestring], # list of steps
-		'results': { # mistakes made and lessons learned
-			'positive': [basestring],
-			'negative': [basestring],
-		},
-		'future': [basestring], # list of future plans
+		'procedure': basestring, 
+		'results': basestring,
+		'future': basestring, 
 		'resources': { # lists of links
 			'images': [basestring],
 			'videos': [basestring],

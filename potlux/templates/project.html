@@ -7,64 +7,12 @@
   </style>
 {% endblock %}
 
+{% from "_templatehelpers.html" import render_project_info %}
+
 {% block content %}
 
     <div class="content about">
-      <div class="projectName">
-      {{idea.name}}
-      </div>
-      <table border="0">
-        <tr>
-          <td>
-            <span class="projectTitle">
-            INITIATIVE NAME
-            </span>
-          </td>
-          <td>
-            <span class="projectInfo">
-            {{idea.name}}
-            </span>
-          </td>
-        </tr>
-        <tr>
-          <td>
-            <span class="projectTitle">
-            UNIVERSITY
-            </span>
-          </td>
-          <td>
-            <span class="projectInfo">
-            {{titleize(idea.university)}}
-            </span>
-          </td>
-        </tr>
-        <tr>
-          <td>
-            <span class="projectTitle">
-            CATEGORY
-            </span>
-          </td>
-          <td>
-            <span class="projectInfo">
-            {% for category in idea.categories: %}
-              <a href="{{ url_for('search', tag=category) }}" class="projLink">{{category}}</a>,
-            {% endfor %}
-            </span>
-          </td>
-        </tr>
-        <tr>
-          <td>
-            <span class="projectTitle">
-            CONTACT
-            </span>
-          </td>
-          <td>
-            <span class="projectInfo">
-            {{idea.contact.name}} &lt;<a class="projLink" href="mailto:{{idea.contact.email}}">{{idea.contact.email}}</a>&gt;
-            </span>
-          </td>
-        </tr>
-      </table>
+      {{ render_project_info(idea) }}
       <br />
       <br />
 
@@ -107,116 +55,71 @@
       {% endif %}
 
       <br />
+      {% if current_user._id == idea.owner: %}
+        <a href="{{ url_for('edit_idea', project_id=idea._id) }}" class="projLink">Edit Your Idea</a>
+      {% endif %}
       <br />
       <div class="summaryTitle">
       SUMMARY
       </div>
-
       <div class="projectSummary" id="summary">
-      {{idea.summary}} 
-      </div>
-      {% if current_user._id == idea.owner: %}
-      <span id="editsummary"><a onClick="editSummary('summary')" href="#" class="projLink">edit</a></span>
+      {% if idea.summary: %}
+        {{idea.summary}} 
+      {% else: %}
+        <i>Add your project summary here</i>
       {% endif %}
+      </div>
       <br /><br />
 
-      {% if idea.impact == None and current_user._id == idea.owner: %}
-      <div class="summaryTitle">
-      IMPACT
-      </div>
-      <div class="projectSummary">
-      <i>Add your project's impact:</i>
-      </div>
-      <div id="impact">
-      </div>
-      <span id="editimpact"><a onClick="editSummary('impact')" href="#" class="projLink">Click to add</a></span>
-      <br /><br />
-      {% elif idea.impact != None: %}
       <div class="summaryTitle">
       IMPACT
       </div>
       <div class="projectSummary" id="impact">
-      {{idea.impact}} 
+      {% if idea.impact: %}
+        {{idea.impact}} 
+      {% else: %}
+        <i>Add the impact of your project here</i>
+      {% endif %}
       </div>
-      {% if current_user._id == idea.owner: %}
-      <span id="editimpact"><a onClick="editSummary('impact')" href="#" class="projLink">edit</a></span>
-      {% endif %}
       <br /><br />
-      {% else %}
-      {% endif %}
 
-      {% if idea.procedure == [] and current_user._id == idea.owner: %}
-      <div class="summaryTitle">
-      PROCEDURE
-      </div>
-      <div class="projectSummary">
-      <i>Add your project's procedure:</i> 
-      </div>
-      <div id="procedure"></div>
-      <span id="editprocedure"><a onClick="editSummary('procedure')" href="#" class="projLink">Click to add</a></span>
-      <br /><br />
-      {% elif idea.procedure != []: %}
       <div class="summaryTitle">
       PROCEDURE
       </div>
       <div class="projectSummary" id="procedure">
-      {{idea.procedure}} 
+      {% if idea.procedure: %}
+        {{idea.procedure}} 
+      {% else: %}
+        <i>Add the procedure of your project here</i>
+      {% endif %}
       </div>
-      {% if current_user._id == idea.owner: %}
-      <span id="editprocedure"><a onClick="editSummary('procedure')" href="#" class="projLink">edit</a></span>
-      {% endif %}
       <br /><br />
-      {% else %}
-      {% endif %}
 
-      {% if idea.results.positive == [] and current_user._id == idea.owner: %}
-      <div class="summaryTitle">
-      MISTAKES &amp; LESSONS
-      </div>
-      <div class="projectSummary">
-        <i>Add results to your project:</i>
-        <div id="results"></div>
-      </div>
-      <span id="editresults"><a onClick="editSummary('results')" href="#" class="projLink">Click to add</a></span>
-      <br /><br />
-      {% elif idea.results.positive != []: %}
       <div class="summaryTitle">
       MISTAKES &amp; LESSONS
       </div>
       <div class="projectSummary" id="results">
-      {{idea.results.positive}}
-      </div>
-      {% if current_user._id == idea.owner: %}
-      <span id="editresults"><a onClick="editSummary('results')" href="#" class="projLink">edit</a></span>
+      {% if idea.results: %}
+        {{idea.results.positive}}
+      {% else: %}
+        <i>Add the results of your project here</i>
       {% endif %}
-      <br /><br />
-      {% else %}
-      {% endif %}
-      
-      {% if idea.future == [] and current_user._id == idea.owner: %}
-      <div class="summaryTitle">
-      FUTURE PLANS
       </div>
-      <div class="projectSummary">
-        <i>Add future plans to your project:</i>
-      </div>
-      <div id="future"></div>
-      <span id="editfuture"><a onClick="editSummary('future')" href="#" class="projLink">Click to add</a></span>
       <br /><br />
-      {% elif idea.future != []: %}
+
       <div class="summaryTitle">
       FUTURE PLANS
       </div>
       <div class="projectSummary" id="future">
-      {{idea.future}} 
+      {% if idea.future: %}
+        {{idea.future}} 
+      {% else: %}
+        <i>Add your future plans here</i>
+      {% endif %}
       </div>
-      {% if current_user._id == idea.owner: %}
-      <span id="editfuture"><a onClick="editSummary('future')" href="#" class="projLink">edit</a></span>
-      {% endif %}
       <br /><br />
-      {% else %}
-      {% endif %}
       <br />
+
       {% if current_user._id == idea.owner: %}
       <div class="projectSummary" style="font-size:24px;font-weight:200;">
         Add Images of your Project

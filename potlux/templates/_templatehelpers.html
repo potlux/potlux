@@ -10,3 +10,74 @@
   {% endif %}
   </dd>
 {% endmacro %}
+
+{% macro render_project_edit_field(label, current_text) %}
+  <div class="summaryTitle">
+    {{ label.upper() }}
+  </div>
+  <div class="projectSummary">
+    <i>Add your project's {{ label }}:</i>
+  </div>
+  <div id="procedure">
+      <textarea rows=4 cols=50 name="{{ label }}">{{ current_text }}</textarea>
+  </div>
+  <br/><br/>
+{% endmacro %}
+
+{% macro render_project_info(idea) %}
+  <div class="projectName">
+  {{ titleize(idea.name) }}
+  </div>
+  <table border="0">
+    <tr>
+      <td>
+        <span class="projectTitle">
+        INITIATIVE NAME
+        </span>
+      </td>
+      <td>
+        <span class="projectInfo">
+        {{ titleize(idea.name) }}
+        </span>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="projectTitle">
+        UNIVERSITY
+        </span>
+      </td>
+      <td>
+        <span class="projectInfo">
+        {{ titleize(idea.university) }}
+        </span>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="projectTitle">
+        CATEGORY
+        </span>
+      </td>
+      <td>
+        <span class="projectInfo">
+        {% for category in idea.categories: %}
+          <a href="{{ url_for('search', tag=category) }}" class="projLink">{{category}}</a>,
+        {% endfor %}
+        </span>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="projectTitle">
+        CONTACT
+        </span>
+      </td>
+      <td>
+        <span class="projectInfo">
+        {{ titleize(idea.contact.name) }} &lt;<a class="projLink" href="mailto:{{idea.contact.email}}">{{idea.contact.email}}</a>&gt;
+        </span>
+      </td>
+    </tr>
+  </table>
+{% endmacro %}

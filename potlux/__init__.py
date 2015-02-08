@@ -59,7 +59,7 @@ def load_user(user_id):
 
 @app.before_request
 def csrf_protect():
-    if request.method == "POST" and "idea" not in str(request.url_rule):
+    if request.method == "POST":
         token = session.pop('_csrf_token', None)
         print "CSRF Token from form", request.form.get("_csrf_token")
         print "CSRF Token from session:", token

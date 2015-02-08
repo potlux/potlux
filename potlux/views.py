@@ -68,6 +68,26 @@ def show_idea(id):
 			
 	return render_template('project.html', idea=idea)
 
+@app.route('/idea/edit/<project_id>', methods=["GET", "POST"])
+@login_required
+def edit_idea(project_id):
+	idea = db.ideas.Idea.find_one({"_id" : ObjectId(project_id)})
+
+	if request.method == "POST":
+		print request.form
+
+		idea.impact = request.form['impact']
+		idea.procedure = request.form['procedure']
+		idea.future = request.form['future plans']
+		idea.results = request.form['mistakes & lessons']
+		idea.summary = request.form['summary']
+
+		idea.save()
+
+		return redirect(url_for('show_idea', id=project_id))
+
+	return render_template('edit_project.html', idea=idea, idea_id=str(idea._id))
+
 ##
 # Route to search by tag.
 ##
