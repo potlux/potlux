@@ -59,6 +59,7 @@
         <a href="{{ url_for('edit_idea', project_id=idea._id) }}" class="projLink">Edit Your Idea</a>
       {% endif %}
       <br />
+
       <div class="summaryTitle">
       SUMMARY
       </div>
@@ -93,19 +94,17 @@
         <i>Add the procedure of your project here</i>
       {% endif %}
       </div>
-      <br /><br />
 
       <div class="summaryTitle">
       MISTAKES &amp; LESSONS
       </div>
       <div class="projectSummary" id="results">
       {% if idea.results: %}
-        {{idea.results.positive}}
+        {{idea.results}}
       {% else: %}
         <i>Add the results of your project here</i>
       {% endif %}
       </div>
-      <br /><br />
 
       <div class="summaryTitle">
       FUTURE PLANS
@@ -118,13 +117,12 @@
       {% endif %}
       </div>
       <br /><br />
-      <br />
 
       {% if current_user._id == idea.owner: %}
       <div class="projectSummary" style="font-size:24px;font-weight:200;">
         Add Images of your Project
       </div>
-      <div style="font-size:10px;line-height:10px;">
+      <div style="font-size:8px;line-height:8px;">
             &nbsp;
             </div>
       <div class="textBlock" style="width:250px">
@@ -149,7 +147,7 @@
         var curSum = document.getElementById(fieldName).innerHTML;
         document.getElementById(fieldName).innerHTML = "<textarea id=\"tarea" + fieldName + "\" rows=\"4\"cols=\"50\">" + curSum + "</textarea>";
         var buttonName = "edit" + fieldName;
-        document.getElementById(buttonName).innerHTML = "<a onClick=\"changeSummary(\'" + fieldName + "\')\" class=\"projLink\" href=\"#\">done</a>";
+        document.getElementById(buttonName).innerHTML = "<a onClick=\"changeSummary(\'" + fieldName + "\')\" class=\"projLink\" href=\"#" + fieldName + "\">done</a>";
       }
 
       function changeSummary(fieldName){
