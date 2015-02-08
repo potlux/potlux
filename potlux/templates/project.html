@@ -7,7 +7,7 @@
   </style>
 {% endblock %}
 
-{% from "_templatehelpers.html" import render_project_info %}
+{% from "_templatehelpers.html" import render_project_info, render_project_field %}
 
 {% block content %}
 
@@ -60,63 +60,25 @@
       {% endif %}
       <br />
 
-      <div class="summaryTitle">
-      SUMMARY
-      </div>
-      <div class="projectSummary" id="summary">
-      {% if idea.summary: %}
-        {{idea.summary}} 
-      {% else: %}
-        <i>Add your project summary here</i>
+      {% if current_user._id == idea.owner or idea.summary: %}
+        {{ render_project_field("summary", idea.summary) }}
       {% endif %}
-      </div>
-      <br /><br />
 
-      <div class="summaryTitle">
-      IMPACT
-      </div>
-      <div class="projectSummary" id="impact">
-      {% if idea.impact: %}
-        {{idea.impact}} 
-      {% else: %}
-        <i>Add the impact of your project here</i>
+      {% if current_user._id == idea.owner or idea.impact: %}
+        {{ render_project_field("impact", idea.impact) }}
       {% endif %}
-      </div>
-      <br /><br />
 
-      <div class="summaryTitle">
-      PROCEDURE
-      </div>
-      <div class="projectSummary" id="procedure">
-      {% if idea.procedure: %}
-        {{idea.procedure}} 
-      {% else: %}
-        <i>Add the procedure of your project here</i>
+      {% if current_user._id == idea.owner or idea.procedure: %}
+        {{ render_project_field("procedure", idea.procedure) }}
       {% endif %}
-      </div>
 
-      <div class="summaryTitle">
-      MISTAKES &amp; LESSONS
-      </div>
-      <div class="projectSummary" id="results">
-      {% if idea.results: %}
-        {{idea.results}}
-      {% else: %}
-        <i>Add the results of your project here</i>
+      {% if current_user._id == idea.owner or idea.results: %}
+        {{ render_project_field("mistakes & lessons", idea.results) }}
       {% endif %}
-      </div>
 
-      <div class="summaryTitle">
-      FUTURE PLANS
-      </div>
-      <div class="projectSummary" id="future">
-      {% if idea.future: %}
-        {{idea.future}} 
-      {% else: %}
-        <i>Add your future plans here</i>
+      {% if current_user._id == idea.owner or idea.future: %}
+        {{ render_project_field("future plans", idea.future) }}
       {% endif %}
-      </div>
-      <br /><br />
 
       {% if current_user._id == idea.owner: %}
       <div class="projectSummary" style="font-size:24px;font-weight:200;">
