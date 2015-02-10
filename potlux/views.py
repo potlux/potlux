@@ -79,7 +79,7 @@ def edit_idea(project_id):
 		idea.impact = request.form['impact']
 		idea.procedure = request.form['procedure']
 		idea.future = request.form['future plans']
-		idea.results = request.form['mistakes & lessons']
+		idea.results = request.form['mistakes & lessons learned']
 		idea.summary = request.form['summary']
 
 		idea.save()

@@ -75,7 +75,7 @@
       {% endif %}
 
       {% if current_user._id == idea.owner or idea.results: %}
-        {{ render_project_field("mistakes & lessons", idea.results) }}
+        {{ render_project_field("mistakes & lessons learned", idea.results) }}
       {% endif %}
 
       {% if current_user._id == idea.owner or idea.future: %}
