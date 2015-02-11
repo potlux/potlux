@@ -6,3 +6,5 @@ runserver.py
 config.py
 
 user_images/**
+
+my_scripts/
