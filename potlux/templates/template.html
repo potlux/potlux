@@ -50,15 +50,7 @@
                     {% endif %}
                 </div>
                 <div class="sideContent">
-                    {% with messages = get_flashed_messages() %}
-                      {% if messages %}
-                        <ul class=flashes>
-                        {% for message in messages %}
-                          <li>{{ message }}</li>
-                        {% endfor %}
-                        </ul>
-                      {% endif %}
-                    {% endwith %}
+
                     <a href="/"><img src="{{url_for('static',filename='resources/images/logo.png')}}" class="logo" width="180"/></a>
                     <br />
                     <br />
@@ -75,6 +67,21 @@
                     <div class="navlink">
                         <a href="/contact">CONTACT</a>
                     </div>
+                    {% with messages = get_flashed_messages() %}
+                      {% if messages %}
+                      <br /> <br /> <br />
+                      {% for message in messages %}
+                        <div class="alert alert-warning alert-dismissible" role="alert">
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        
+                          {{ message }}
+                    
+                        </div>
+                        <br />
+                        <br />
+                        {% endfor %}
+                      {% endif %}
+                    {% endwith %}
                 </div>
             </td>
             <td class="allMyBuns">{% block content %}{% endblock %}</td>
