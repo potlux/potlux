@@ -98,6 +98,10 @@ a:hover {
 	width: 240px;
 }
 
+.alert {
+	margin-left: 25px;
+}
+
 .logInOut a, .logInOut a:link, .logInOut a:visited, .logInOut a:active {
 	font-size: 12px;
 	font-weight: 300;
