@@ -8,7 +8,9 @@
 {% endblock %}
 {% block content %}
 <div class="sortSearch">
+	
 	<form action="{{ url_for('search') }}" method="GET">
+	<p class="nowrap">
 		SORT BY:
 		<select name="search_type">
 		  <option value="recent">MOST RECENT</option>
@@ -16,7 +18,9 @@
 		  <option value="university">UNIVERSITY</option>
 		</select>
 		<input class="submitBubble" type="text" name="search" placeholder="Search"/>
+	</p>
 	</form>
+	
 </div>
 <div class="row">
 	<div class="col-lg-3 col-sm-6 project">

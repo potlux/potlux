@@ -64,6 +64,10 @@ a:hover {
 	color: #4e4e4e;
 }
 
+.nowrap {
+	white-space: nowrap;
+}
+
 .summBubble {
 	width: 300px;
 	background: #CECECE;
