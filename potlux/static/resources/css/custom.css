@@ -100,11 +100,11 @@ a:hover {
 
 .logInOut a, .logInOut a:link, .logInOut a:visited, .logInOut a:active {
 	font-size: 12px;
-	font-weight: 100;
+	font-weight: 300;
 }
 
 .logInOut a:hover {
-	font-weight: 300;
+	text-decoration: underline;
 }
 
 .sideContent {
