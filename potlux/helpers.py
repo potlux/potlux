@@ -41,29 +41,35 @@ def process_image(file, idea_id):
 	filename = str(uuid.uuid4()) + ".png"
 
 	# change image to better size
-	print "Processing image"
 	image = Image.open(file)
-	print "Opened image:", image
-	image.thumbnail((300,300), Image.ANTIALIAS)
-	print "Processed image:", image
 
-	#save image as png
+	# Create directories for full size image and for thumbnail image.
 	print "saving as png"
-	filepath = os.path.join(app.config['UPLOAD_FOLDER'], idea_id)
-	print "Saved at:", filepath
-	print "searching for existance of directory"
-	if not os.path.exists(filepath):
-		print "changing permissions of directory"
+	full_size_filepath = os.path.join(app.config['UPLOAD_FOLDER'], 'full_size', idea_id)
+	thumbnail_filepath = os.path.join(app.config['UPLOAD_FOLDER'], 'thumbnails', idea_id)
+	if not (os.path.exists(full_size_filepath) and os.path.exists(thumbnail_filepath)):
 		os.chmod(app.config['UPLOAD_FOLDER'], 0o777)
-		print "making new directory"
-		os.mkdir(filepath)
-	print "directory made"
-	full_path = os.path.join(filepath, filename)
-	image.save(full_path, "png")
+		os.mkdir(full_size_filepath)
+		os.mkdir(thumbnail_filepath)
 
-	relative_path = os.path.join('resources', 'user_images', idea_id, filename)
+	# Save full size image.
+	full_size_path = os.path.join(full_size_filepath, filename)
+	image.save(full_size_path, "png")
 
-	return relative_path
+	# Save thumbnail image.
+	image.thumbnail((300,300), Image.ANTIALIAS)
+	thumbnail_path = os.path.join(thumbnail_filepath, filename)
+	image.save(thumbnail_path, "png")
+
+	thumbnail_relative_path = os.path.join(
+		'resources', 'user_images', 'thumbnails', idea_id, filename)
+	full_size_relative_path = os.path.join(
+		'resources', 'user_images', 'full_size', idea_id, filename)
+
+	return {
+		'thumbnail' : thumbnail_relative_path,
+		'full_size' : full_size_relative_path
+	}
 
 def is_allowed(beta_key):
 	#check if beta_key is in beta_key database, return True

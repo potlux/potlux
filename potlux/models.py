@@ -66,7 +66,10 @@ class Idea(Document):
 		'results': basestring,
 		'future': basestring, 
 		'resources': { # lists of links
-			'images': [basestring],
+			'images': [{
+				'thumbnail': basestring,
+				'full_size' : basestring
+			}],
 			'videos': [basestring],
 			'websites': [basestring],
 			'documents': [basestring]

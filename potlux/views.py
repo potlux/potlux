@@ -55,9 +55,9 @@ def show_idea(id):
 		print request.files
 		if 'imageUpload' in request.files:
 			# handle image upload
-			filename = process_image(request.files['imageUpload'], id)
-			print filename
-			idea['resources']['images'].append(filename)
+			filenames = process_image(request.files['imageUpload'], id)
+			print filenames
+			idea['resources']['images'].append(filenames)
 			idea.save()
 		else:
 			if 'summary' in request.form:
