@@ -7,6 +7,12 @@ import boto.ses
 import models
 import uuid, os	
 
+def text_or_none(text):
+	if text == "None":
+		return ""
+	else:
+		return text
+
 def sanitize_link(link):
 	if 'http' not in link:
 		return 'http://' + link
