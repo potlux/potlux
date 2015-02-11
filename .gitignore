@@ -5,5 +5,4 @@ runserver.py
 
 config.py
 
-user_images/full_size/**/*.png
-user_images/thumbnail/**/*.png
+user_images/**
