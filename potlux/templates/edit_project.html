@@ -59,14 +59,33 @@
 
       <form method="POST" action="/idea/edit/{{ idea_id }}">
       	<input type="hidden" name="_csrf_token" value="{{ csrf_token() }}" />
-		{{ render_project_edit_field("summary", idea.summary) }}
-		{{ render_project_edit_field("impact", idea.impact) }}
-		{{ render_project_edit_field("procedure", idea.procedure) }}
-		{{ render_project_edit_field("mistakes & lessons learned", idea.results) }}
-		{{ render_project_edit_field("future plans", idea.future) }}
-		<input type="submit" name="submit" class="subButton"/>
+    		{{ render_project_edit_field("summary", idea.summary) }}
+    		{{ render_project_edit_field("impact", idea.impact) }}
+    		{{ render_project_edit_field("procedure", idea.procedure) }}
+    		{{ render_project_edit_field("mistakes & lessons learned", idea.results) }}
+    		{{ render_project_edit_field("future plans", idea.future) }}
+    		<input type="submit" name="submit" class="subButton"/>
       </form>
 
-  <br/><br/><br/>
+  <br/><br/>
+
+      <div class="projectSummary" style="font-size:24px;font-weight:200;">
+        Add Images of your Project
+      </div>
+      <div style="font-size:8px;line-height:8px;">
+            &nbsp;
+            </div>
+      <div class="textBlock" style="width:250px">
+          <form action="/idea/edit/{{idea._id}}" method="post" enctype=multipart/form-data>
+            <input type="hidden" name="_csrf_token" value="{{ csrf_token() }}" />
+            <input type="file" name="imageUpload" />
+            <div style="font-size:10px;line-height:10px;">
+            &nbsp;
+            </div>
+            <input type="submit" name="submit" class="subButton"/>
+          </form>
+      </div>
+
+      <br/><br/><br/>
 
 {% endblock %}

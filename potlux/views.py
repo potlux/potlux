@@ -50,24 +50,6 @@ def new():
 @app.route('/idea/<id>', methods=["GET", "POST"])
 def show_idea(id):
 	idea = db.ideas.Idea.find_one({"_id" : ObjectId(id)})
-
-	if request.method == "POST" and current_user.is_authenticated():
-		print request.files
-		if 'imageUpload' in request.files:
-			# handle image upload
-			filenames = process_image(request.files['imageUpload'], id)
-			print filenames
-			idea['resources']['images'].append(filenames)
-			idea.save()
-		else:
-			if 'summary' in request.form:
-				idea['summary'] = request.form['summary']
-			# for arg in request.args:
-			# 	if isinstance(idea[arg], list):
-			# 		idea[arg].append(request.args.get(arg))
-			# 	else:
-			# 		idea[arg] = request.args.get(arg)
-			idea.save()
 			
 	return render_template('project.html', idea=idea)
 
@@ -77,17 +59,25 @@ def edit_idea(project_id):
 	idea = db.ideas.Idea.find_one({"_id" : ObjectId(project_id)})
 
 	if request.method == "POST":
-		print request.form
+		if 'imageUpload' in request.files:
+			# handle image upload
+			filenames = process_image(request.files['imageUpload'], project_id)
+			print filenames
+			idea['resources']['images'].append(filenames)
+			idea.save()
 
-		idea.impact = request.form['impact']
-		idea.procedure = request.form['procedure']
-		idea.future = request.form['future plans']
-		idea.results = request.form['mistakes & lessons learned']
-		idea.summary = request.form['summary']
+		else:
+			print request.form
 
-		idea.save()
+			idea.impact = request.form['impact']
+			idea.procedure = request.form['procedure']
+			idea.future = request.form['future plans']
+			idea.results = request.form['mistakes & lessons learned']
+			idea.summary = request.form['summary']
 
-		return redirect(url_for('show_idea', id=project_id))
+			idea.save()
+
+			return redirect(url_for('show_idea', id=project_id))
 
 	return render_template('edit_project.html', idea=idea, idea_id=str(idea._id))
 
