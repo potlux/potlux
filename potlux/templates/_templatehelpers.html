@@ -78,7 +78,7 @@
       <td>
         <span class="projectInfo">
         {% for category in idea.categories: %}
-          <a href="{{ url_for('search', tag=category) }}" class="projLink">{{category}}</a>,
+          <a href="{{ url_for('search', tag=category) }}" class="projLink">{{category}} </a>|
         {% endfor %}
         </span>
       </td>
@@ -92,6 +92,20 @@
       <td>
         <span class="projectInfo">
         {{ titleize(idea.contact.name) }} &lt;<a class="projLink" href="mailto:{{idea.contact.email}}">{{idea.contact.email}}</a>&gt;
+        </span>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="projectTitle">
+          WEBSITES
+        </span>
+      </td>
+      <td>
+        <span class="projectInfo">
+          {% for website in idea.resources.websites: %}
+            <a href="{{website}}" class="projLink">{{ website }} </a>|
+          {% endfor %}
         </span>
       </td>
     </tr>
