@@ -234,18 +234,18 @@ def about():
 def contact():
 	return render_template('contact.html')
 
-# @app.route('/schools_list')
-# def schools():
-# 	root_path = os.path.dirname(os.path.abspath(__file__))
-# 	schools_file_path = os.path.join(root_path, 'static', 'resources', 'universities')
-# 	f = open(schools_file_path)
-# 	schools_list = []
-# 	term = request.args.get('term')
-# 	for i in range(len(term)):
-# 		print "Checking letter:", term[i]
-# 		for line in f:
-# 			print "Checking school:", line
-# 			if line[i].lower() is term[i].lower():
-# 				schools_list.append(line)
-# 	return dumps(schools_list)
+@app.route('/schools_list')
+def schools():
+	root_path = os.path.dirname(os.path.abspath(__file__))
+	schools_file_path = os.path.join(root_path, 'static', 'resources', 'universities')
+	f = open(schools_file_path)
+	schools_list = []
+	term = request.args.get('term')
+	for i in range(len(term)):
+		print "Checking letter:", term[i]
+		for line in f:
+			print "Checking school:", line
+			if line[i].lower() is term[i].lower():
+				schools_list.append(line)
+	return dumps(schools_list)
 	
