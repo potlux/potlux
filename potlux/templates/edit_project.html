@@ -5,6 +5,9 @@
   <style type="text/css">
     .important { color: #336699; }
   </style>
+  <script src="http://js.nicedit.com/nicEdit-latest.js" type="text/javascript"></script>
+<script type="text/javascript">bkLib.onDomLoaded(nicEditors.allTextAreas);</script>
+  
 {% endblock %}
 
 {% from "_templatehelpers.html" import render_project_edit_field, render_project_info %}
@@ -37,7 +40,7 @@
           {% else %}
           <div class="item">
           {% endif %}
-            <img class="caroImage" src="{{ url_for('static', filename=image_url.thumbnail) }}">
+            <img class="caroImage" src="{{ url_for('static', filename=image_url.full_size) }}">
           </div>
           {% endfor %}
         </div>
