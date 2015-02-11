@@ -14,7 +14,7 @@ def text_or_none(text):
 		return text
 
 def sanitize_link(link):
-	if 'http' not in link:
+	if link and 'http' not in link:
 		return 'http://' + link
 
 def send_verification_email(user):
