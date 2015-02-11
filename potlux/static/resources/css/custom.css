@@ -396,3 +396,12 @@ table {
 ul .flashes {
 	list-style: none;
 }
+
+.ui-autocomplete {
+	list-style: None;
+	color: #ffffff;
+	background-color: #36C88E; /*#EBEBEB;*/
+	width: 300px;
+	border-bottom-right-radius: 5px;
+	border-bottom-left-radius: 5px;
+}

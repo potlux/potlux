@@ -82,6 +82,11 @@
 				</div>
 
 				<script>
-
+				$(function() {
+					$('#university-input').autocomplete({
+						source: ['Wesleyan'],
+						autoFocus: true
+					});
+				});
 				</script>
 {%endblock%}
