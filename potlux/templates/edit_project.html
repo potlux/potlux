@@ -37,7 +37,7 @@
           {% else %}
           <div class="item">
           {% endif %}
-            <img class="caroImage" src="{{ url_for('static', filename=image_url) }}">
+            <img class="caroImage" src="{{ url_for('static', filename=image_url.thumbnail) }}">
           </div>
           {% endfor %}
         </div>
