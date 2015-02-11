@@ -7,6 +7,10 @@ import boto.ses
 import models
 import uuid, os	
 
+def sanitize_link(link):
+	if 'http' not in link:
+		return 'http://' + link
+
 def send_verification_email(user):
 	token = ts.dumps(user.email, salt=app.config['EMAIL_CONFIRM_KEY'])
 	confirm_url = url_for('verify', token=token, _external=True)

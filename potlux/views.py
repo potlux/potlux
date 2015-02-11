@@ -29,7 +29,7 @@ def new():
 				   'email': current_user.email}
 		summary = request.form["summary"]
 		university = request.form["university"].lower()
-		website = request.form["website"].lower()
+		website = sanitize_link(request.form["website"].lower())
 
 		new_idea = db.ideas.Idea()
 		new_idea.name = name
