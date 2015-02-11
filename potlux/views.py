@@ -7,6 +7,7 @@ import pymongo
 from bson.json_util import dumps
 from helpers import *
 from werkzeug.security import generate_password_hash
+import os
 
 @app.route('/comingsoon')
 def coming_soon():
@@ -25,9 +26,10 @@ def new():
 		name = request.form["name"].lower()
 		categories = [cat.lower() for cat in request.form["categories"].split(",")]
 		contact = {'name': request.form["first_name"] + " " + request.form["last_name"],
-				   'email': request.form["email"]}
+				   'email': current_user.email}
 		summary = request.form["summary"]
 		university = request.form["university"].lower()
+		website = request.form["website"].lower()
 
 		new_idea = db.ideas.Idea()
 		new_idea.name = name
@@ -35,6 +37,7 @@ def new():
 		new_idea.contact = contact
 		new_idea.summary = summary
 		new_idea.university = university
+		new_idea.resources.websites = [website]
 
 		if current_user.is_authenticated():
 			new_idea.owner = current_user._id
@@ -79,7 +82,7 @@ def edit_idea(project_id):
 		idea.impact = request.form['impact']
 		idea.procedure = request.form['procedure']
 		idea.future = request.form['future plans']
-		idea.results = request.form['mistakes & lessons']
+		idea.results = request.form['mistakes & lessons learned']
 		idea.summary = request.form['summary']
 
 		idea.save()
@@ -230,4 +233,19 @@ def about():
 @app.route('/contact')
 def contact():
 	return render_template('contact.html')
+
+# @app.route('/schools_list')
+# def schools():
+# 	root_path = os.path.dirname(os.path.abspath(__file__))
+# 	schools_file_path = os.path.join(root_path, 'static', 'resources', 'universities')
+# 	f = open(schools_file_path)
+# 	schools_list = []
+# 	term = request.args.get('term')
+# 	for i in range(len(term)):
+# 		print "Checking letter:", term[i]
+# 		for line in f:
+# 			print "Checking school:", line
+# 			if line[i].lower() is term[i].lower():
+# 				schools_list.append(line)
+# 	return dumps(schools_list)
 	

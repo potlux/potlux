@@ -2,9 +2,12 @@
 <html>
   <head>
     {% block head %}
+    <link rel="shortcut icon" href="{{ url_for('static', filename='resources/images/favicon.ico') }}" type="image/x-icon">
+    <link rel="icon" href="{{ url_for('static', filename='resources/images/favicon.ico') }}" type="image/x-icon">
     <link href='http://fonts.googleapis.com/css?family=Raleway:400,500,600,700,800,900,300,200,100' rel='stylesheet' type='text/css'>
     <link href="{{url_for('static',filename='resources/css/bootstrap.min.css')}}" rel="stylesheet">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.11.2/jquery-ui.min.js"></script>
     <script src="{{url_for('static',filename='resources/js/bootstrap.min.js')}}"></script>
     <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">

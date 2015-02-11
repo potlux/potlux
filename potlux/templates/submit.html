@@ -36,7 +36,7 @@
 			    		<tr>
 			    			<td class="formtd">UNIVERSITY</td>
 			    			<td>
-			    				<input class="submitBubble" type="text" name="university"/>
+			    				<input id="university-input" class="submitBubble" type="text" name="university"/>
 			    			</td>
 			    		</tr>
 			    		<tr>
@@ -53,9 +53,9 @@
 			    			<td class="spacer">&nbsp;</td>
 			    		</tr>
 			    		<tr>
-			    			<td class="formtd">EMAIL</td>
+			    			<td class="formtd">WEBSITE</td>
 			    			<td>
-			    				<input class="submitBubble" type="text" name="email"/>
+			    				<input class="submitBubble" type="text" name="website"/>
 			    			</td>
 			    		</tr>
 			    		<tr>
@@ -80,4 +80,24 @@
 			    	</table>
 			    </form>
 				</div>
+
+				<script>
+					// function autocomplete_response() {
+					// 	return ['list', 'words', 'hello'];
+					// }
+					// $('#university-input').autocomplete({
+					// 	source: function(term, autocomplete_response) {
+					// 		console.log(term);
+
+					// 		var autocomplete_list = ['hello'];
+					// 		// $.ajax({
+					// 		// 	url: "{{ url_for('schools') }}",
+					// 		// 	success: function(data, status, response) {
+					// 		// 		autocomplete_list = data;
+					// 		// 	}
+					// 		// });
+					// 		//return autocomplete_list;
+					// 	}
+					// });
+				</script>
 {%endblock%}
