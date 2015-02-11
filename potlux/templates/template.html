@@ -32,6 +32,20 @@
     <table id="content">
         <tr>
             <td class="sidebar">
+                <div class="logInOut">
+                    {% if current_user.is_authenticated(): %}
+                        <!--<div class="navlink">
+                            <a href="#">ACCOUNT</a>
+                        </div>-->
+                        <div class="navlink">
+                            <a href="/logout">logout</a>
+                        </div>
+                    {% else: %}
+                        <div class="navlink">
+                            <a href="/login">login</a>
+                        </div>
+                    {% endif %}
+                </div>
                 <div class="sideContent">
                     {% with messages = get_flashed_messages() %}
                       {% if messages %}
@@ -48,18 +62,7 @@
                     <div class="navlink">
                         <a href="/">HOME</a>
                     </div>
-                    {% if current_user.is_authenticated(): %}
-                        <!--<div class="navlink">
-                            <a href="#">ACCOUNT</a>
-                        </div>-->
-                        <div class="navlink">
-                            <a href="/logout">LOGOUT</a>
-                        </div>
-                    {% else: %}
-                        <div class="navlink">
-                            <a href="/login">LOGIN</a>
-                        </div>
-                    {% endif %}
+                    
                     <div class="navlink">
                         <a href="/about">ABOUT</a>
                     </div>

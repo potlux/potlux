@@ -75,13 +75,29 @@ a:hover {
 .sidebar {
 	background: #23d0a5;
 	vertical-align: top;
-	padding-top: 100px;
+	padding-top: 0px;
 	min-height:100%;
-	margin-right:20px;
 	width: 250px;
 }
 
+.logInOut {
+	text-align: right;
+	padding: 10px;
+	position:fixed;
+	width: 240px;
+}
+
+.logInOut a, .logInOut a:link, .logInOut a:visited, .logInOut a:active {
+	font-size: 12px;
+	font-weight: 500;
+}
+
+.logInOut a:hover {
+	font-weight: bold;
+}
+
 .sideContent {
+	margin-top: 100px;
 	position:fixed;
 }
 
@@ -290,6 +306,7 @@ table {
 }
 .textCenterB {
 	background: #c9c8c3;
+	overflow: hidden;
 }
 
 /* front pane, placed above back */
@@ -305,11 +322,13 @@ table {
 .projName {
 	font-size: 28px;
 	font-weight: 300;
+	padding: 0 10px 0 10px;
 }
 
 .uniName {
 	font-size: 18px;
-	font-weight: 100;
+	font-weight: 300;
+	font-style: italic;
 }
 
 .sumContent {

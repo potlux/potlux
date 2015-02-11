@@ -2,4 +2,8 @@ Flask
 Pillow
 Flask-PyMongo
 Flask-MongoKit
-
+Flask-Login
+Inflection
+Flask-wtf
+Flask-Security
+Boto
