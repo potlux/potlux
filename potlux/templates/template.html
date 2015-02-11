@@ -36,18 +36,20 @@
         <tr>
             <td class="sidebar">
                 <div class="logInOut">
+                    <div class="innerlog">
                     {% if current_user.is_authenticated(): %}
                         <!--<div class="navlink">
                             <a href="#">ACCOUNT</a>
                         </div>-->
-                        <div class="navlink">
-                            <a href="/logout">logout</a>
+                        <div class="navlink2">
+                            <a href="/logout">LOGOUT</a>
                         </div>
                     {% else: %}
-                        <div class="navlink">
-                            <a href="/login">login</a>
+                        <div class="navlink2">
+                            <a href="/login">LOGIN</a>
                         </div>
                     {% endif %}
+                    </div>
                 </div>
                 <div class="sideContent">
 

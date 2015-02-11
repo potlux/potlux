@@ -97,6 +97,47 @@ a:hover {
 	padding: 10px;
 	position:fixed;
 	width: 240px;
+	
+}
+
+.navlink3 {
+	font-size: 14px;
+	font-weight: 300;
+	text-decoration: none;
+}
+
+.darshdeep {
+	opacity: 0.7;
+}
+
+.darshdeep:hover {
+	opacity: 1;
+}
+
+.navlink3:hover {
+	font-weight:;
+}
+
+.innerlog {
+	background: #20BB94;
+	text-align:center;
+	width: 65px;
+	padding: 4px;
+	margin-left: 165px;
+	border-radius: 5px;
+	cursor: pointer;
+}
+
+.editButtn {
+	background: #20BB94;
+	text-align:center;
+	padding: 0 10px 0 10px;
+	font-size: 30px;
+	border-radius: 5px;
+}
+
+.innerlog:hover {
+	background: #1CA684;
 }
 
 .alert {
@@ -106,10 +147,6 @@ a:hover {
 .logInOut a, .logInOut a:link, .logInOut a:visited, .logInOut a:active {
 	font-size: 12px;
 	font-weight: 300;
-}
-
-.logInOut a:hover {
-	text-decoration: underline;
 }
 
 .sideContent {
@@ -169,6 +206,10 @@ table {
 	margin-left: 40px;
 	font-size: 16px;
 	line-height: 18px;
+}
+
+.navlink2{
+	font-size: 16px;
 }
 
 .active {
@@ -345,7 +386,7 @@ table {
 }
 
 .sumContent {
-	padding: 20px;
+	padding: 30px;
 	font-size: 18px;
 }
 .aboutPic {

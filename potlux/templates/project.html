@@ -12,6 +12,7 @@
 {% block content %}
 
     <div class="content about">
+      
       {{ render_project_info(idea) }}
       <br />
       <br />
@@ -56,10 +57,6 @@
 
       <br />
 
-      <br />
-      {% if current_user._id == idea.owner: %}
-        <a href="{{ url_for('edit_idea', project_id=idea._id) }}" class="projLink">Click Here to Edit Your Idea</a><br />
-      {% endif %}
       <br />
 
       {% if current_user._id == idea.owner or idea.summary: %}
