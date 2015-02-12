@@ -17,7 +17,7 @@
   </div>
   <div class="projectSummary" id="{{ label }}">
     {% if current_text: %}
-      {{ current_text }} 
+      {{ current_text|safe }} 
     {% else: %}
       <i>Add the {{ label }} of your project here</i>
     {% endif %}

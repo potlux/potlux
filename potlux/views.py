@@ -57,6 +57,8 @@ def show_idea(id):
 @login_required
 def edit_idea(project_id):
 	idea = db.ideas.Idea.find_one({"_id" : ObjectId(project_id)})
+	if not current_user._id == idea.owner:
+		return app.login_manager.unauthorized()
 
 	if request.method == "POST":
 		if 'imageUpload' in request.files:
@@ -67,8 +69,6 @@ def edit_idea(project_id):
 			idea.save()
 
 		else:
-			print request.form
-
 			idea.impact = text_or_none(request.form['impact'].strip())
 			idea.procedure = text_or_none(request.form['procedure'].strip())
 			idea.future = text_or_none(request.form['future plans'].strip())
