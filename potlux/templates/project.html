@@ -13,7 +13,7 @@
 
     <div class="content about">
       
-      {{ render_project_info(idea) }}
+      {{ render_project_info(idea, current_user._id == idea.owner) }}
       <br />
       <br />
 

@@ -58,6 +58,7 @@ def show_idea(id):
 def edit_idea(project_id):
 	idea = db.ideas.Idea.find_one({"_id" : ObjectId(project_id)})
 	if not current_user._id == idea.owner:
+		flash("You're not allowed to do that!")
 		return app.login_manager.unauthorized()
 
 	if request.method == "POST":
