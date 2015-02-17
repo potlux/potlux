@@ -142,6 +142,7 @@ a:hover {
 
 .alert {
 	margin-left: 25px;
+	max-width: 200px;
 }
 
 .logInOut a, .logInOut a:link, .logInOut a:visited, .logInOut a:active {
