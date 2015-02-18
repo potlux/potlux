@@ -84,7 +84,10 @@
       <td>
         <span class="projectInfo">
         {% for category in idea.categories: %}
-          <a href="{{ url_for('search', tag=category) }}" class="projLink">{{category}} </a>|
+          <a href="{{ url_for('search', tag=category) }}" class="projLink">{{category}} </a>
+          {% if loop.index != len(idea.categories) %}
+          |
+          {% endif %}
         {% endfor %}
         </span>
       </td>
@@ -110,7 +113,10 @@
       <td>
         <span class="projectInfo">
           {% for website in idea.resources.websites: %}
-            <a href="{{website}}" class="projLink">{{ website }} </a>|
+            <a href="{{website}}" class="projLink">{{ website }} </a>
+            {% if loop.index != len(idea.resources.websites) %}
+          |
+          {% endif %}
           {% endfor %}
         </span>
       </td>
