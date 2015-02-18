@@ -361,7 +361,6 @@ table {
 }
 .textCenterB {
 	background: #c9c8c3;
-	overflow: hidden;
 }
 
 /* front pane, placed above back */
@@ -387,8 +386,10 @@ table {
 }
 
 .sumContent {
-	padding: 30px;
+	margin:30px;
+	overflow: hidden;
 	font-size: 18px;
+	max-height: 315px;
 }
 .aboutPic {
 	text-align:center;
