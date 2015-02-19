@@ -12,12 +12,12 @@
 	<form action="{{ url_for('search') }}" method="GET">
 	<p class="nowrap">
 		SORT BY:
-		<select name="search_type">
-		  <option value="recent">MOST RECENT</option>
-		  <option value="category">CATEGORY</option>
-		  <option value="university">UNIVERSITY</option>
+		<select name="search_type" id="type" onchange="addArrow()">
+		  <option value="recent" selected="selected" id="recent">MOST RECENT &nbsp;&nbsp; &#9660;</option>
+		  <option value="category" id="category">CATEGORY</option>
+		  <option value="university" id="university">UNIVERSITY</option>
 		</select>
-		<input class="submitBubble" type="text" name="search" placeholder="Search"/>
+		<input class="searchBub" type="text" name="search" placeholder="Search"/>
 	</p>
 	</form>
 	
@@ -67,5 +67,17 @@
 	</div>
 	{%endfor%}
 </div>
+
+<script>
+	function addArrow() {
+		document.getElementById("recent").innerHTML = "MOST RECENT"
+		document.getElementById("category").innerHTML = "CATEGORY"
+		document.getElementById("university").innerHTML = "UNIVERSITY"
+		var e = document.getElementById("type");
+		var strUser = e.options[e.selectedIndex].value;
+		document.getElementById(strUser).innerHTML = document.getElementById(strUser).innerHTML + "&nbsp;&nbsp; &#9660;"
+	}
+
+</script>
 
 {% endblock %}

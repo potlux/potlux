@@ -7,10 +7,16 @@ body, html {
 }
 
 select {
-   background: #CECECE;
+   background: #DDD;
    border:none;
-   padding: 5px;
+   padding: 0 10px 0 10px;
    margin: 0 15px 0 10px;
+   -webkit-appearance: none;
+   -moz-appearance: none;
+   height: 30px;
+   line-height: 30px;
+   border-radius: 5px;
+   font-size: 12px;
 }
 
 select ul li {
@@ -24,7 +30,7 @@ a, a:link{
 
 a:hover {
 	color: #fff;
-	font-weight: bold;
+	font-weight: 600;
 	text-decoration: none;
 }
 
@@ -48,7 +54,7 @@ a:hover {
 
 .submitBubble {
 	width: 300px;
-	background: #CECECE;
+	background: #DDD;
 	border: none;
 	padding: 5px;
 	border-radius: 5px;
@@ -60,7 +66,7 @@ a:hover {
 
 .contactBubble {
 	width: 148px;
-	background: #CECECE;
+	background: #DDD;
 	border: none;
 	padding: 5px;
 	border-radius: 5px;
@@ -77,7 +83,7 @@ a:hover {
 
 .summBubble {
 	width: 300px;
-	background: #CECECE;
+	background: #DDD;
 	border: none;
 	padding: 5px;
 	border-radius: 5px;
@@ -188,6 +194,7 @@ table {
 	font-weight: 400;
 	width: 100px;
 	font-family: 'Raleway', sans-serif;
+	color: #fff;
 }
 
 .subButton:hover {
@@ -206,7 +213,7 @@ table {
 .navlink{
 	margin-left: 40px;
 	font-size: 16px;
-	line-height: 18px;
+	height:18px;
 }
 
 .navlink2{
@@ -300,7 +307,7 @@ table {
 }
 
 .addNew {
-	background: #c9c8c3;
+	background: #ddd;
 	height: 100%;
 	width: 100%;
 	text-align: center;
@@ -360,7 +367,7 @@ table {
 	background: #fff;
 }
 .textCenterB {
-	background: #c9c8c3;
+	background: #ddd;
 }
 
 /* front pane, placed above back */
@@ -423,9 +430,9 @@ table {
 }
 
 .textBlock {
-	background: #CDCDCD;
+	background: #DDD;
 	border-radius: 10px;
-	padding: 10px;
+	padding: 25px;
 	margin-top: 10px;
 	max-width: 80%;
 	font-weight: 300;
@@ -433,7 +440,7 @@ table {
 
 .submit {
 	vertical-align: top;
-	padding: 100px;
+	padding: 100px 0 0 70px;
 }
 
 ul .flashes {
@@ -447,4 +454,19 @@ ul .flashes {
 	width: 300px;
 	border-bottom-right-radius: 5px;
 	border-bottom-left-radius: 5px;
+}
+
+.searchBub {
+	height: 30px;
+	font-size: 12px;
+	padding: 0 10px 0 10px;
+	width: 300px;
+	background: #DDD;
+	border: none;
+	border-radius: 5px;
+   	line-height: 30px;
+}
+
+.searchBub:focus {
+	background: #fff;
 }

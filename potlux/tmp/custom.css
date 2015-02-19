@@ -27,7 +27,7 @@ a:hover {
 
 .submitBubble {
 	width: 300px;
-	background: #CECECE;
+	background: #DDD;
 	border: none;
 	padding: 5px;
 	border-radius: 5px;
@@ -39,7 +39,7 @@ a:hover {
 
 .contactBubble {
 	width: 148px;
-	background: #CECECE;
+	background: #DDD;
 	border: none;
 	padding: 5px;
 	border-radius: 5px;
@@ -47,7 +47,7 @@ a:hover {
 
 .summBubble {
 	width: 300px;
-	background: #CECECE;
+	background: #DDD;
 	border: none;
 	padding: 5px;
 	border-radius: 5px;
