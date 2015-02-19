@@ -191,7 +191,7 @@ table {
 	border: none;
 	padding: 8px;
 	border-radius: 5px;
-	font-weight: 400;
+	font-weight: 300;
 	width: 100px;
 	font-family: 'Raleway', sans-serif;
 	color: #fff;
@@ -404,7 +404,7 @@ table {
 .personName {
 	margin-top:72%;
 	color: #fff;
-	font-weight: 400;
+	font-weight: 300;
 	font-size: 20px;
 	line-height:18px;
 }
