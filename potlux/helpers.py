@@ -14,8 +14,9 @@ def text_or_none(text):
 		return text
 
 def sanitize_link(link):
-	if link and 'http' not in link:
-		return 'http://' + link
+	if link and 'http://' in link:
+		return link[7:]
+	return link
 
 def send_verification_email(user):
 	token = ts.dumps(user.email, salt=app.config['EMAIL_CONFIRM_KEY'])

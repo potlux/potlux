@@ -1,5 +1,6 @@
 {% extends "template.html" %}
 {% block title %}Submit{% endblock %}
+{% from '_templatehelpers.html' import render_submit_field %}
 {% block head %}
   {{ super() }}
   <style type="text/css">
@@ -14,62 +15,34 @@
 			    <form action="new" method="post" class="formy">
 			    	<input type="hidden" name="_csrf_token" value="{{ csrf_token() }}" />
 			    	<table class="submitTable">
-
-			    		<tr>
-			    			<td class="formtd">PROJECT NAME</td>
-			    			<td>
-			    				<input class="submitBubble" type="text" name="name"/>
-			    			</td>
-			    		</tr>
-			    		<tr>
-			    			<td class="spacer">&nbsp;</td>
-			    		</tr>
-			    		<tr>
-			    			<td class="formtd">CATEGORY</td>
-			    			<td>
-			    				<input class="submitBubble" type="text" name="categories"/>
-			    			</td>
-			    		</tr>
-			    		<tr>
-			    			<td class="spacer">&nbsp;</td>
-			    		</tr>
-			    		<tr>
-			    			<td class="formtd">UNIVERSITY</td>
-			    			<td>
-			    				<input id="university-input" class="submitBubble" type="text" name="university"/>
-			    			</td>
-			    		</tr>
-			    		<tr>
-			    			<td class="spacer">&nbsp;</td>
-			    		</tr>
+						{{ render_submit_field(form.name, 'PROJECT NAME', class='submitBubble') }}
+						{{ render_submit_field(form.categories, 'CATEGORY', class='submitBubble') }}
+						{{ render_submit_field(form.university, 'UNIVERSITY', class='submitBubble') }}
 			    		<tr>
 			    			<td class="formtd">YOUR NAME</td>
 			    			<td>
-			    				<input class="contactBubble" type="text" name="first_name" placeholder="First" />
-			    				<input class="contactBubble" type="text" name="last_name" placeholder="Last" />
+			    				{{ form.first_name(class='contactBubble', placeholder='First')|safe }}
+			    				{{ form.last_name(class='contactBubble', placeholder='Last')|safe }}
+			    				{% if form.first_name.errors or form.last_name.errors %}
+							    	<ul class=errors>
+							    	{% for error in form.first_name.errors %}
+								      <li>{{ error }}</li>
+								    {% endfor %}
+								    {% for error in form.last_name.errors %}
+								      <li>{{ error }}</li>
+								    {% endfor %}
+								    </ul>
+							  	{% endif %}
 			    			</td>
 			    		</tr>
 			    		<tr>
 			    			<td class="spacer">&nbsp;</td>
 			    		</tr>
-			    		<tr>
-			    			<td class="formtd">WEBSITE</td>
-			    			<td>
-			    				<input class="submitBubble" type="text" name="website"/>
-			    			</td>
-			    		</tr>
-			    		<tr>
-			    			<td class="spacer">&nbsp;</td>
-			    		</tr>`
-			    		<tr>
-			    			<td class="formtd">SUMMARY</td>
-			    			<td>
-			    				<textarea class="summBubble" rows="5" name="summary" placeholder="Short summary of project (200 characters)"></textarea>
-			    			</td>
-			    		</tr>
-			    		<tr>
-			    			<td class="spacer">&nbsp;</td>
-			    		</tr>
+			    		{{ render_submit_field(form.website, 'WEBSITE', class='submitBubble') }}
+			    		{{ render_submit_field(form.summary, 'SUMMARY', 
+			    			class='submitBubble', 
+			    			rows=5,
+			    			placeholder='Short summary of project (200 characters)') }}
 			    		<tr>
 			    			<td></td>
 			    			<td class="buttonHolder">

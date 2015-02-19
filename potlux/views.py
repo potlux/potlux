@@ -1,5 +1,5 @@
 from potlux import app, db, login_required, login_user, logout_user
-from forms import RegistrationForm, LoginForm, EmailForm, PasswordForm
+from forms import RegistrationForm, LoginForm, EmailForm, PasswordForm, ProjectSubmitForm
 from flask import request, render_template, redirect, url_for, session, escape, flash
 from flask.ext.login import login_required, current_user
 from mongokit import *
@@ -22,14 +22,15 @@ def show_all():
 @app.route('/new', methods=["POST", "GET"])
 @login_required
 def new():
-	if request.method == "POST":
-		name = request.form["name"].lower()
-		categories = [cat.lower() for cat in request.form["categories"].split(",")]
-		contact = {'name': request.form["first_name"] + " " + request.form["last_name"],
+	form = ProjectSubmitForm(request.form)
+	if form.validate_on_submit():
+		name = form.name.data.lower()
+		categories = [cat.lower() for cat in form.categories.data.split(",")]
+		contact = {'name': form.first_name.data + " " + form.last_name.data,
 				   'email': current_user.email}
-		summary = request.form["summary"]
-		university = request.form["university"].lower()
-		website = sanitize_link(request.form["website"].lower())
+		summary = form.summary.data
+		university = form.university.data.lower()
+		website = sanitize_link(form.website.data.lower())
 
 		new_idea = db.ideas.Idea()
 		new_idea.name = name
@@ -45,7 +46,8 @@ def new():
 		new_idea.save()
 		return redirect(url_for('show_idea', id=str(new_idea._id)))
 	else: 
-		return render_template('submit.html')
+		print form.errors
+		return render_template('submit.html', form=form)
 
 @app.route('/idea/<id>', methods=["GET", "POST"])
 def show_idea(id):

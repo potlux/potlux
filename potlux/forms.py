@@ -1,7 +1,30 @@
 from flask.ext.wtf import Form
-from wtforms import TextField, PasswordField, BooleanField, validators
+from wtforms import TextField, PasswordField, BooleanField, TextAreaField, validators
 from potlux import db
 from werkzeug.security import check_password_hash
+
+import requests, re
+
+class ProjectSubmitForm(Form):
+	name = TextField('PROJECT NAME', validators = [validators.Required()])
+	categories = TextField('CATEGORIES')
+	university = TextField('UNIVERSITY', validators = [validators.Required()])
+	first_name = TextField()
+	last_name = TextField()
+	website = TextField('WEBSITE')
+	summary = TextAreaField('SUMMARY')
+
+	def validate_website(self, field):
+		if self.website.data:
+			if 'http://' not in self.website.data:
+				if requests.get('http://' + self.website.data).status_code is not 200:
+					raise validators.ValidationError('Invalid link')
+			elif requests.get(self.website.data).status_code is not 200:
+				raise validators.ValidationError('Invalid link')
+
+		# IP_REGEX = "^([01]?\\d\\d?|2[0-4]\\d|25[0-5])\\.([01]?\\d\\d?|2[0-4]\\d|25[0-5])\\.([01]?\\d\\d?|2[0-4]\\d|25[0-5])\\.([01]?\\d\\d?|2[0-4]\\d|25[0-5])$"
+		# if re.match(self.website.data, IP_REGEX):
+		# 	raise validators.ValidationError('We do not accept IP Adresses!')
 
 class EmailForm(Form):
     email = TextField('Email', validators = [validators.Email(), validators.Required()])
