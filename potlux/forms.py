@@ -41,13 +41,16 @@ class LoginForm(Form):
 
 	remember = BooleanField('Remember me')
 
-	def validate_password(self, field):
+	def validate_email(self, field):
 		user = self.get_user()
 
 		if user is None:
 			raise validators.ValidationError('Email does not exist')
 
-		if not check_password_hash(user.password, self.password.data):
+	def validate_password(self, field):
+		user = self.get_user()
+
+		if self.get_user() and not check_password_hash(user.password, self.password.data):
 			raise validators.ValidationError('Invalid password')
 
 	def get_user(self):
