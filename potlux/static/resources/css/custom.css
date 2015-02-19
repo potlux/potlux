@@ -103,7 +103,7 @@ a:hover {
 	padding: 10px;
 	position:fixed;
 	width: 240px;
-	
+
 }
 
 .navlink3 {
@@ -398,8 +398,7 @@ table {
 
 .uniName {
 	font-size: 18px;
-	font-weight: 300;
-	font-style: italic;
+	font-weight: 200;
 }
 
 .whiteFont {
