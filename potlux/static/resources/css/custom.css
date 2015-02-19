@@ -410,6 +410,7 @@ table {
 
 .clickbl {
 	cursor: pointer;
+	margin-bottom: 3px;
 }
 
 .clickbl:hover {
