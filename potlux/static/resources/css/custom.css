@@ -103,7 +103,7 @@ a:hover {
 	padding: 10px;
 	position:fixed;
 	width: 240px;
-	
+
 }
 
 .navlink3 {
@@ -147,8 +147,15 @@ a:hover {
 }
 
 .alert {
-	margin-left: 25px;
 	max-width: 200px;
+}
+
+.karen {
+	margin-left: 25px;
+}
+
+.darshd {
+	margin: 10px 0 10px 0;
 }
 
 .logInOut a, .logInOut a:link, .logInOut a:visited, .logInOut a:active {
@@ -198,7 +205,7 @@ table {
 }
 
 .subButton:hover {
-	background: #4BFFC7;
+	background: #1ebe98;
 }
 
 .buttonHolder {
@@ -398,8 +405,16 @@ table {
 
 .uniName {
 	font-size: 18px;
-	font-weight: 300;
-	font-style: italic;
+	font-weight: 200;
+}
+
+.clickbl {
+	cursor: pointer;
+	margin-bottom: 3px;
+}
+
+.clickbl:hover {
+	opacity: 0.9;
 }
 
 .whiteFont {

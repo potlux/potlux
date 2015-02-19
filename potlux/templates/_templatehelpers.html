@@ -21,9 +21,8 @@
   <dt>{{ field.label }}
   <dd>{{ field(**kwargs)|safe }}
   {% if field.errors %}
-    <ul class=errors>
     {% for error in field.errors %}
-      <li>{{ error }}</li>
+    <div class="alert alert-danger alert-dismissible darshd" role="alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>{{ error }}</div>
     {% endfor %}
     </ul>
   {% endif %}
@@ -36,7 +35,7 @@
   </div>
   <div class="projectSummary" id="{{ label }}">
     {% if current_text: %}
-      {{ current_text|safe }} 
+      {{ current_text|safe }}
     {% else: %}
       <i>Add the {{ label }} of your project here</i>
     {% endif %}
