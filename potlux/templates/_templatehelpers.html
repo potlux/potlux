@@ -33,6 +33,7 @@
   <div class="summaryTitle">
     {{ label.upper() }}
   </div>
+  <div class="textBlock">
   <div class="projectSummary" id="{{ label }}">
     {% if current_text: %}
       {{ current_text|safe }}
@@ -40,6 +41,7 @@
       <i>Add the {{ label }} of your project here</i>
     {% endif %}
   </div>
+</div>
   <br /><br />
 {% endmacro %}
 
