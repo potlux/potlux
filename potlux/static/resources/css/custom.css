@@ -505,3 +505,7 @@ ul .flashes {
 .activeLink {
 	color: #25876F;
 }
+
+.activeLink:hover {
+	color: #25876F;
+}
