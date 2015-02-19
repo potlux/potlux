@@ -401,6 +401,14 @@ table {
 	font-weight: 200;
 }
 
+.clickbl {
+	cursor: pointer;
+}
+
+.clickbl:hover {
+	opacity: 0.9;
+}
+
 .whiteFont {
 	color:white;
 }
