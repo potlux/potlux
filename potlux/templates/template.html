@@ -52,7 +52,11 @@
                         </div>
                     {% else: %}
                         <div class="navlink2">
-                            <a href="/login">LOGIN</a>
+                            {% if active_page == 'login': %}
+                                <a class='activeLink' href="/login">LOGIN</a>
+                            {% else: %}
+                                <a href="/login">LOGIN</a>
+                            {% endif %}
                         </div>
                     {% endif %}
                     </div>
@@ -63,18 +67,37 @@
                     <br />
                     <br />
                     <div class="navlink">
-                        <a href="/">HOME</a>
+                        {% if active_page == 'home': %}
+                            <a class='activeLink' href="/">HOME</a>
+                        {% else: %}
+                            <a href="/">HOME</a>
+                        {% endif %}
                     </div>
 
                     <div class="navlink">
-                        <a href="/about">ABOUT</a>
+                        {% if active_page == 'about': %}
+                            <a class='activeLink' href="/about">ABOUT</a>
+                        {% else: %}
+                            <a href="/about">ABOUT</a>
+                        {% endif %}
                     </div>
+
                     <div class="navlink">
-                        <a href="/new">SUBMIT</a>
+                        {% if active_page == 'submit': %}
+                            <a class='activeLink' href="/new">SUBMIT</a>
+                        {% else: %}
+                            <a href="/new">SUBMIT</a>
+                        {% endif %}
                     </div>
+
                     <div class="navlink">
-                        <a href="/contact">CONTACT</a>
+                        {% if active_page == 'contact': %}
+                            <a class='activeLink' href="/contact">CONTACT</a>
+                        {% else: %}
+                            <a href="/contact">CONTACT</a>
+                        {% endif %}
                     </div>
+
                     {% with messages = get_flashed_messages() %}
                       {% if messages %}
                       <br /> <br /> <br />
