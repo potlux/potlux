@@ -8,7 +8,7 @@
 {% endblock %}
 {% block content %}
 <div class="sortSearch">
-	
+
 	<form action="{{ url_for('search') }}" method="GET">
 	<p class="nowrap">
 		SORT BY:
@@ -20,7 +20,7 @@
 		<input class="searchBub" type="text" name="search" placeholder="Search"/>
 	</p>
 	</form>
-	
+
 </div>
 <div class="row">
 	<div class="col-lg-3 col-md-4 col-sm-6 project">
@@ -67,7 +67,9 @@
 					<tr>
 					<td>
 					<div class="sumContent">
+					<div class="KONVICT">
 					{{ idea.summary|safe }}
+					</div>
 					</div>
 					</td>
 					</tr>

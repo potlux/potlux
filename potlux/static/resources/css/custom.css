@@ -428,6 +428,7 @@ table {
 	max-height: 315px;
 	text-align:center;
 }
+
 .aboutPic {
 	text-align:center;
 }
@@ -499,4 +500,8 @@ ul .flashes {
 
 .searchBub:focus {
 	background: #fff;
+}
+
+.activeLink {
+	color: #25876F;
 }
