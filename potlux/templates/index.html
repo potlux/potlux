@@ -93,6 +93,23 @@
 		document.getElementById(strUser).innerHTML = document.getElementById(strUser).innerHTML + "&nbsp;&nbsp; &#9660;"
 	}
 
+	function truncateSummary(element) {
+		var maxWordCount = 200;
+		if (element.innerText.length > 200) {
+			element.innerText = element.innerText.substr(0, maxWordCount) + "...";
+		}
+	}
+
+	window.onload = function() {
+		var cards = document.getElementsByClassName('KONVICT');
+		console.log(cards);
+		for (var i = 0; i < cards.length; i++) {
+			var cardText = cards[i];
+			console.log(cardText);
+			truncateSummary(cardText);
+		}
+	}
+
 </script>
 
 {% endblock %}
