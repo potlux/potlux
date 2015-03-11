@@ -66,7 +66,28 @@ a:hover {
 	border-radius: 5px;
 }
 
-.submitBubble:focus, .contactBubble:focus, .summBubble:focus {
+#email, #password {
+	width: 300px;
+	background: #DDD;
+	border: none;
+	padding: 5px 10px 5px 10px;
+	border-radius: 5px;
+	margin-bottom: 30px;
+}
+
+#remember {
+	margin-bottom: 10px;
+}
+
+.alert-warning {
+	background-image: none;
+}
+
+.alert-danger {
+	background-image: none;
+}
+
+.submitBubble:focus, .contactBubble:focus, .summBubble:focus, #email:focus, #password:focus {
 	background: #fff;
 }
 
