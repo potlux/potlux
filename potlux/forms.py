@@ -57,6 +57,14 @@ class LoginForm(Form):
 		return db.users.User.find_one({'email' : self.email.data})
 
 class RegistrationForm(Form):
+	first_name = TextField('First name', [
+		validators.Required()
+	])
+
+	last_name = TextField('Last name', [
+		validators.Required()
+	])
+
 	email = TextField('Email', [
 		validators.Required(),
 		validators.length(min=6, max=50),

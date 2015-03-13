@@ -132,6 +132,9 @@ def register():
 		user_email = form.email.data
 		password = form.password.data
 
+		first_name = form.first_name.data
+		last_name = form.last_name.data
+
 		new_user = db.users.User()
 
 		if db.users.User.find({'email' : user_email}).count() > 0:
@@ -141,6 +144,8 @@ def register():
 		else:	
 			new_user.email = user_email
 			new_user.password = generate_password_hash(password)
+			new_user.name.first = first_name
+			new_user.name.last = last_name
 			new_user.verfied = False
 			new_user.save()
 
