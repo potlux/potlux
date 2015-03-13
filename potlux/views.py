@@ -211,7 +211,7 @@ def beta():
 @app.route('/')
 # @login_required
 def home():
-	new_ideas = db.ideas.Idea.find().sort('date_creation', pymongo.DESCENDING).limit(10)
+	new_ideas = db.ideas.Idea.find().sort('date_creation', pymongo.DESCENDING).limit(20)
 	return render_template('index.html', ideas=new_ideas)
 
 @app.route('/logout')
