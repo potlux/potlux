@@ -56,7 +56,7 @@ class Idea(Document):
 		'name': basestring,
 		'categories': [basestring],
 		'university': basestring,
-		'contact': [{
+		'contacts': [{
 			'name': basestring,
 			'email': basestring,
 		}],
