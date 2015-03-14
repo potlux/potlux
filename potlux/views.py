@@ -1,5 +1,5 @@
-from potlux import app, db, login_required, login_user, logout_user
-from forms import RegistrationForm, LoginForm, EmailForm, PasswordForm, ProjectSubmitForm
+from potlux import app, db, login_required, login_user, logout_user, universities_trie
+from forms import RegistrationForm, LoginForm, EmailForm, PasswordForm
 from flask import request, render_template, redirect, url_for, session, escape, flash
 from flask.ext.login import login_required, current_user
 from mongokit import *
@@ -248,18 +248,8 @@ def contact():
 		flash('Thanks for your feedback!')
 	return render_template('contact.html')
 
-# @app.route('/schools_list')
-# def schools():
-# 	root_path = os.path.dirname(os.path.abspath(__file__))
-# 	schools_file_path = os.path.join(root_path, 'static', 'resources', 'universities')
-# 	f = open(schools_file_path)
-# 	schools_list = []
-# 	term = request.args.get('term')
-# 	for i in range(len(term)):
-# 		print "Checking letter:", term[i]
-# 		for line in f:
-# 			print "Checking school:", line
-# 			if line[i].lower() is term[i].lower():
-# 				schools_list.append(line)
-# 	return dumps(schools_list)
+@app.route('/schools_list')
+def schools():
+	prefix = request.args.get('term')
+	return dumps(universities_trie.keys(prefix))
 	

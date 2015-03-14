@@ -56,11 +56,8 @@
 				</div>
 
 				<script>
-				$(function() {
 					$('#university-input').autocomplete({
-						source: ['Wesleyan University'],
-						autoFocus: true
+						source: "{{ url_for('schools') }}"
 					});
-				});
 				</script>
 {%endblock%}
