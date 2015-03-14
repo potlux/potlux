@@ -74,7 +74,7 @@ class Idea(Document):
 			'websites': [basestring],
 			'documents': [basestring]
 		},
-		'owner' : ObjectId
+		'owners' : [ObjectId]
 	}
 
 	required_fields = ['name', 'summary']
