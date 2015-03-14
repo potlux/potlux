@@ -1,5 +1,5 @@
 from potlux import app, db, login_required, login_user, logout_user, universities_trie
-from forms import RegistrationForm, LoginForm, EmailForm, PasswordForm
+from forms import RegistrationForm, LoginForm, EmailForm, PasswordForm, ProjectSubmitForm
 from flask import request, render_template, redirect, url_for, session, escape, flash
 from flask.ext.login import login_required, current_user
 from mongokit import *
