@@ -6,7 +6,7 @@ from itsdangerous import URLSafeTimedSerializer
 from flask.ext.login import LoginManager, login_required, login_user, logout_user
 from flask.ext.wtf.csrf import CsrfProtect
 import flask.ext.security
-import os, binascii
+import os, binascii, marisa_trie
 
 app = Flask(__name__)
 
@@ -50,6 +50,16 @@ login_manager.init_app(app)
 login_manager.login_view = 'login'
 
 ts = URLSafeTimedSerializer(app.config['SECRET_KEY'])
+
+##
+# Set up trie containing univeristy names for quick access
+# in autocomplete dropdown.
+# 
+# Check here (https://github.com/kmike/marisa-trie) for docs.
+##
+uni_file = open(os.path.join(APP_ROOT, 'static', 'resources', 'universities'), 'r')
+uni_list = [line.strip().lower() for line in uni_file]
+universities_trie = marisa_trie.Trie(uni_list)
 
 from potlux.views import *
 
