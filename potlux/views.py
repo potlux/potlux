@@ -96,11 +96,30 @@ def edit_project_tag(project_id):
 				}})
 		return redirect(url_for('edit_idea', project_id=project_id))
 	if request.method == "DELETE":
-		print request.args
 		delete_cat = request.args.get('del_cat')
 		db.ideas.update({'_id' : ObjectId(project_id)},
 			{'$pull' : {
 				'categories' : delete_cat
+			}})
+		return 'Success!'
+	abort(404)
+
+@app.route('/idea/edit/websites/<project_id>', methods=["POST", "DELETE"])
+@login_required
+def edit_project_website(project_id):
+	if request.method == "POST":
+		new_website = request.form['new_site'].strip().lower()
+		if new_website:
+			db.ideas.update({'_id' : ObjectId(project_id)},
+				{'$addToSet' : {
+					'resources.websites' : new_website
+				}})
+		return redirect(url_for('edit_idea', project_id=project_id))
+	if request.method == "DELETE":
+		delete_site = request.args.get('del_site')
+		db.ideas.update({'_id' : ObjectId(project_id)},
+			{'$pull' : {
+				'resources.websites' : delete_site
 			}})
 		return 'Success!'
 	abort(404)

@@ -84,6 +84,19 @@
               }
             });
           });
+
+          $('.remove-website-icon').click(function() {
+            var base_url = "{{ url_for('edit_project_website', project_id=idea._id) }}"
+            var delete_url = base_url + "?del_site=" + $(this).attr('data-site');
+            console.log(delete_url);
+            $.ajax({
+              url: delete_url,
+              method: "DELETE",
+              success: function() {
+                location.reload();
+              }
+            });
+          });
         });
       </script>
 

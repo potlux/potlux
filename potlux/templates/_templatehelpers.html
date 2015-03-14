@@ -146,10 +146,22 @@
         <span class="projectInfo">
           {% for website in idea.resources.websites: %}
             <a href="{{'http://' + website}}" class="projLink">{{ website }} </a>
+            {% if edit_page: %}
+              <span class="remove-website-icon" data-site="{{website}}">x</span>
+            {% endif %}
             {% if loop.index != len(idea.resources.websites) %}
           |
           {% endif %}
           {% endfor %}
+          {% if edit_page: %}
+          <span>
+            <form action="{{ url_for('edit_project_website', project_id=idea._id) }}"
+                  method="POST">
+              <input type="hidden" name="_csrf_token" value="{{ csrf_token() }}" />
+              <input type="text" placeholder="add website" name="new_site" />
+            </form>
+          </span>
+        {% endif %}
         </span>
       </td>
     </tr>

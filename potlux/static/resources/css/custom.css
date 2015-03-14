@@ -550,3 +550,12 @@ ul .flashes {
 	color: #F42C2C;
 	cursor: pointer;
 }
+
+.remove-website-icon {
+	color: #9B9B9B;
+}
+
+.remove-website-icon:hover {
+	color: #F42C2C;
+	cursor: pointer;
+}
