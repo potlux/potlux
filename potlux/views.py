@@ -35,13 +35,13 @@ def new():
 		new_idea = db.ideas.Idea()
 		new_idea.name = name
 		new_idea.categories = categories
-		new_idea.contact = contact
+		new_idea.contacts = [contact]
 		new_idea.summary = summary
 		new_idea.university = university
 		new_idea.resources.websites = [website]
 
 		if current_user.is_authenticated():
-			new_idea.owner = current_user._id
+			new_idea.owners = [current_user._id]
 
 		new_idea.save()
 		return redirect(url_for('show_idea', id=str(new_idea._id)))

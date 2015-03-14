@@ -132,7 +132,9 @@
       </td>
       <td>
         <span class="projectInfo">
-        {{ titleize(idea.contact.name) }} &lt;<a class="projLink" href="mailto:{{idea.contact.email}}">{{idea.contact.email}}</a>&gt;
+        {% for contact in idea.contacts: %}
+          {{ titleize(contact.name) }} &lt;<a class="projLink" href="mailto:{{contact.email}}">{{contact.email}}</a>&gt;
+        {% endfor %}
         </span>
       </td>
     </tr>
