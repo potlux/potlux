@@ -6,11 +6,13 @@ def change_idea_owners_to_list():
 	collection = db.ideas
 	for doc in collection.find():
 		owner = doc['owner']
+		contact = doc['contact']
 		print owner
 		collection.update({'_id' : doc['_id']},
 			{'$set': 
 				{
-					'owners' : [owner]
+					'owners' : [owner],
+					'contacts' : [contact]
 				}
 			})
 

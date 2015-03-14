@@ -56,10 +56,10 @@ class Idea(Document):
 		'name': basestring,
 		'categories': [basestring],
 		'university': basestring,
-		'contact': {
+		'contact': [{
 			'name': basestring,
 			'email': basestring,
-		},
+		}],
 		'summary': basestring,
 		'impact': basestring,
 		'procedure': basestring, 
