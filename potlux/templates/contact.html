@@ -13,7 +13,8 @@
 					<div class="subHeading">Please contact us with any questions, comments, feedback, or love at <a href="mailto:potluxnetwork@gmail.com" style="color:#23d0a5;font-weight:400;">potluxnetwork@gmail.com</a></div>
 					<br /><br />
 
-			    <form action="MAILTO:potluxnetwork@gmail.com" method="post" class="formy" enctype+"text/plain">
+			    <form action="{{ url_for('contact') }}" method="post" class="formy">
+			    	<input type="hidden" name="_csrf_token" value="{{ csrf_token() }}" />
 			    	<table class="submitTable">
 
 			    		<tr>

@@ -228,8 +228,24 @@ def logout():
 def about():
 	return render_template('about.html')
 
-@app.route('/contact')
+@app.route('/contact', methods=["GET", "POST"])
 def contact():
+	if request.method == "POST":
+		name = request.form['name']
+		email = request.form['mail']
+		message = request.form['comment']
+
+		subject = 'Potlux Feedback'
+		sender = app.config['FROM_EMAIL_ADDRESS']
+		recipients = [app.config['FROM_EMAIL_ADDRESS']]
+		text_body = render_template('email/feedback.txt', 
+			message=message, name=name, email=email)
+		html_body = render_template('email/feedback.html', 
+			message=message, name=name, email=email)
+
+		send_email(subject, sender, recipients, text_body, html_body)
+
+		flash('Thanks for your feedback!')
 	return render_template('contact.html')
 
 # @app.route('/schools_list')
