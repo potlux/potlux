@@ -1,0 +1,3 @@
+{{ name }} ({{ email }}) has sent some feedback about Potlux! Here it is: 
+
+{{ message }}
