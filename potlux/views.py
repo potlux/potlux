@@ -234,7 +234,8 @@ def about():
 def contact():
 	return render_template('contact.html')
 
-@app.route('/schools_list/<prefix>')
-def schools(prefix):
+@app.route('/schools_list')
+def schools():
+	prefix = request.args.get('term')
 	return dumps(universities_trie.keys(prefix))
 	

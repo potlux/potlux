@@ -82,22 +82,8 @@
 				</div>
 
 				<script>
-					// function autocomplete_response() {
-					// 	return ['list', 'words', 'hello'];
-					// }
-					// $('#university-input').autocomplete({
-					// 	source: function(term, autocomplete_response) {
-					// 		console.log(term);
-
-					// 		var autocomplete_list = ['hello'];
-					// 		// $.ajax({
-					// 		// 	url: "{{ url_for('schools') }}",
-					// 		// 	success: function(data, status, response) {
-					// 		// 		autocomplete_list = data;
-					// 		// 	}
-					// 		// });
-					// 		//return autocomplete_list;
-					// 	}
-					// });
+					$('#university-input').autocomplete({
+						source: "{{ url_for('schools') }}"
+					});
 				</script>
 {%endblock%}
