@@ -105,10 +105,22 @@
         <span class="projectInfo">
         {% for category in idea.categories: %}
           <a href="{{ url_for('search', tag=category) }}" class="projLink">{{category}} </a>
+          {% if edit_page: %}
+            <span class="remove-category-icon" data-cat="{{category}}">x</span>
+          {% endif %}
           {% if loop.index != len(idea.categories) %}
           |
           {% endif %}
         {% endfor %}
+        {% if edit_page: %}
+          <span>
+            <form action="{{ url_for('edit_project_tag', project_id=idea._id) }}"
+                  method="POST">
+              <input type="hidden" name="_csrf_token" value="{{ csrf_token() }}" />
+              <input type="text" placeholder="add category" name="new_cat" />
+            </form>
+          </span>
+        {% endif %}
         </span>
       </td>
     </tr>

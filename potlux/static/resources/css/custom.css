@@ -541,3 +541,12 @@ ul .flashes {
 .activeLink:hover {
 	color: #25876F;
 }
+
+.remove-category-icon {
+	color: #9B9B9B;
+}
+
+.remove-category-icon:hover {
+	color: #F42C2C;
+	cursor: pointer;
+}

@@ -70,4 +70,21 @@
 
       <br/><br/><br/>
 
+      <script>
+        $(function() {
+          $('.remove-category-icon').click(function() {
+            var base_url = "{{ url_for('edit_project_tag', project_id=idea._id) }}"
+            var delete_url = base_url + "?del_cat=" + $(this).attr('data-cat');
+            console.log(delete_url);
+            $.ajax({
+              url: delete_url,
+              method: "DELETE",
+              success: function() {
+                location.reload();
+              }
+            });
+          });
+        });
+      </script>
+
 {% endblock %}

@@ -1,6 +1,6 @@
 from potlux import app, db, login_required, login_user, logout_user, universities_trie
-from forms import RegistrationForm, LoginForm, EmailForm, PasswordForm
-from flask import request, render_template, redirect, url_for, session, escape, flash
+from forms import RegistrationForm, LoginForm, EmailForm, PasswordForm, ProjectSubmitForm
+from flask import request, render_template, redirect, url_for, session, escape, flash, abort
 from flask.ext.login import login_required, current_user
 from mongokit import *
 import pymongo
@@ -83,6 +83,27 @@ def edit_idea(project_id):
 			return redirect(url_for('show_idea', id=project_id))
 
 	return render_template('edit_project.html', idea=idea, idea_id=str(idea._id))
+
+@app.route('/idea/edit/tags/<project_id>', methods=["POST", "DELETE"])
+@login_required
+def edit_project_tag(project_id):
+	if request.method == "POST":
+		new_category = request.form['new_cat'].strip().lower()
+		if new_category:
+			db.ideas.update({'_id' : ObjectId(project_id)},
+				{'$addToSet' : {
+					'categories' : new_category
+				}})
+		return redirect(url_for('edit_idea', project_id=project_id))
+	if request.method == "DELETE":
+		print request.args
+		delete_cat = request.args.get('del_cat')
+		db.ideas.update({'_id' : ObjectId(project_id)},
+			{'$pull' : {
+				'categories' : delete_cat
+			}})
+		return 'Success!'
+	abort(404)
 
 ##
 # Route to search by tag.

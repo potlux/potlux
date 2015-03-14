@@ -77,7 +77,7 @@ class Idea(Document):
 		'owner' : ObjectId
 	}
 
-	required_fields = ['name', 'categories', 'summary']
+	required_fields = ['name', 'summary']
 
 	default_values = {
 		'date_creation': datetime.datetime.utcnow
