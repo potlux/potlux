@@ -97,6 +97,20 @@
               }
             });
           });
+
+          $('#add-contact').click(function() {
+            var popup_div = $('div').css({
+              'width': '400px',
+              'height': '200px',
+              'position': 'absolute',
+              'top': '0',
+              'left': '0', 
+              'background-color': '#DDDDDD',
+              'box-shadow': '2px 2px 5px #A9A9A9',
+              'z-index': '100'
+              });
+            $('body').append(popup_div)
+          });
         });
       </script>
 

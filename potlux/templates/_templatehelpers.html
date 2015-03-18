@@ -106,7 +106,7 @@
         {% for category in idea.categories: %}
           <a href="{{ url_for('search', tag=category) }}" class="projLink">{{category}} </a>
           {% if edit_page: %}
-            <span class="remove-category-icon" data-cat="{{category}}">x</span>
+            <span class="remove-category-icon action-text-icon" data-cat="{{category}}">x</span>
           {% endif %}
           {% if loop.index != len(idea.categories) %}
           |
@@ -136,6 +136,9 @@
           {{ titleize(contact.name) }} &lt;<a class="projLink" href="mailto:{{contact.email}}">{{contact.email}}</a>&gt;
         {% endfor %}
         </span>
+        {% if edit_page: %}
+          <span class="action-text-icon" id="add-contact">add</span>
+        {% endif %}
       </td>
     </tr>
     <tr>
@@ -149,7 +152,7 @@
           {% for website in idea.resources.websites: %}
             <a href="{{'http://' + website}}" class="projLink">{{ website }} </a>
             {% if edit_page: %}
-              <span class="remove-website-icon" data-site="{{website}}">x</span>
+              <span class="remove-website-icon action-text-icon" data-site="{{website}}">x</span>
             {% endif %}
             {% if loop.index != len(idea.resources.websites) %}
           |
