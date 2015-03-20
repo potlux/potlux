@@ -124,6 +124,62 @@ def edit_project_website(project_id):
 		return 'Success!'
 	abort(404)
 
+@app.route('/idea/edit/contacts/<project_id>', methods=["POST", "DELETE"])
+@login_required
+def edit_project_contacts(project_id):
+	if request.method == "POST":
+		# add email to list of contacts
+
+		# if email belongs to a user with an account, notify that user that he/she
+		# is being added as a contact and ask for confirmation.
+		email = request.form['email']
+		token_string = email + "&" + project_id
+		token = ts.dumps(token_string, salt=app.config['EMAIL_CONFIRM_KEY'])
+		confirm_url = url_for('contact_confirm', token=token, _external=True)
+		if current_user.name.first:
+			subject = current_user.name.first + " would like you to join their project!"
+		else:
+			subject = current_user.email + " would like you to join their project!"
+		sender = app.config['FROM_EMAIL_ADDRESS']
+		recipients = [email]
+		text_body = render_template('email/contact_confirm.txt', url=confirm_url)
+		html_body = render_template('email/contact_confirm.html', url=confirm_url)
+		send_email(subject, sender, recipients, text_body, html_body)
+
+	elif request.method == "DELETE":
+		# delete email from list of contacts.
+
+@app.route('/idea/edit/contacts/confirm/<token>')
+def contact_confirm(token):
+	try:
+        token_string = ts.loads(token, salt=app.config['EMAIL_CONFIRM_KEY'], max_age=86400)
+    except:
+        abort(404)
+
+    email = token_string.split('&')[0]
+    project_id = token_string.split('&')[1]
+
+    added_user = db.ideas.find_one({'email' : email})
+    if added_user:
+	    db.ideas.update({'_id' : project_id},
+	    	{'$addToSet' : {
+	    		'contacts' : {
+	    			'name' : added_user.name.full,
+	    			'email' : added_user.email
+	    		},
+	    		'owners' : added_user._id
+	    	}})
+	else:
+		db.ideas.udpate({'_id' : project_id},
+			{'$addToSet' : {
+				'contacts' : {
+					'name' : None
+					'email' : email
+				}
+			}})
+	flash('You have been added as a contact for this project.')
+	return redirect(url_for('show_idea', id=project_id))
+
 ##
 # Route to search by tag.
 ##
