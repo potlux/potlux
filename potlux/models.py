@@ -14,7 +14,8 @@ class User(Document, UserMixin):
 		'verified' : bool,
 		'name' : {
 			'first' : basestring,
-			'last' : basestring
+			'last' : basestring,
+			'full' : basestring
 		}
 	}
 
