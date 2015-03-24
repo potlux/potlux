@@ -126,7 +126,8 @@ def edit_project_website(project_id):
 
 ##
 # Deletes or adds contact to a project.
-# Responds to url /idea/edit/contacts/<project_id>?contact_email=<contact_email>
+# Responds to url /idea/edit/contacts/<project_id>
+# Form value: contact_email=<contact_email>
 #
 # If the email entered is associated with an account on Potlux, that user will be
 # added/deleted as an owner of the project as well as his/her contact info being 
@@ -134,16 +135,14 @@ def edit_project_website(project_id):
 # confirm the action before any change is made in the database. This email will link
 # to /idea/edit/contacts/confirm/<token>, which updates project in the database when
 # clicked.
-#  
-# This route should only be called in Javascript, never in the browser/as a link.
 ##
 @app.route('/idea/edit/contacts/<project_id>', methods=["POST", "DELETE"])
 @login_required
 def edit_project_contacts(project_id):
 	
 	# find user associated with email.
-	email = request.args.get('contact_email')
-	user = db.users.User.find({'email' : email})
+	email = request.form['contact_email']
+	user = db.users.User.find_one({'email' : email})
 
 	# generate token and url to send in url to user being added/deleted.
 	token_string = email + "&" + project_id
@@ -159,18 +158,22 @@ def edit_project_contacts(project_id):
 	recipients = [email]
 
 	if request.method == "POST":
-		# generate confirmation email body.		
+		# generate confirmation email body.
+		if user and user.name:
+			name = user.name.first
+		else:
+			name = "Environmental warrior"	
 		text_body = render_template('email/contact_confirm.txt', 
-			url=confirm_url, name=(user.name.first or "Environmental warrior"))
+			url=confirm_url, name=name)
 		html_body = render_template('email/contact_confirm.html', 
-			url=confirm_url, name=(user.name.first or "Environmental warrior"))
+			url=confirm_url, name=name)
 
 	elif request.method == "DELETE":
 		# delete email from list of contacts.
 		email = request.args.get('contact_email')
-		user = db.users.User.find({'email' : email})
+		user = db.users.User.find_one({'email' : email})
 		if user:
-			db.ideas.update({'_id' : project_id},
+			db.ideas.update({'_id' : ObjectId(project_id)},
 				{'$pull' : {
 					'contacts' : {
 						'email' : user.email
@@ -178,46 +181,51 @@ def edit_project_contacts(project_id):
 					'owners' : user._id
 				}})
 		else:
-			db.ideas.update({'_id' : project_id},
+			db.ideas.update({'_id' : ObjectId(project_id)},
 				{'$pull' : {
 					'contacts' : {
 						'email' : email
 					}
 				}})
 		text_body = render_template('email/contact_delete_confirm.txt', 
-			url=confirm_url, name=(user.name.first or "Environmental warrior"))
+			url=confirm_url, 
+			name=(user.name.first or "Environmental warrior"),
+			asker=(current_user.name.full or current_user.email))
 		html_body = render_template('email/contact_delete_confirm.html',
-			url=confirm_url, name=(user.name.first or "Environmental warrior"))
+			url=confirm_url, 
+			name=(user.name.first or "Environmental warrior"),
+			asker=(current_user.name.full or current_user.email))
 
 	# send email and redirect user back to edit page.
 	send_email(subject, sender, recipients, text_body, html_body)
-	return 'Success'
+	flash('An email has been sent to accept your invitation')
+	return redirect(url_for('edit_idea', project_id=project_id))
 
 @app.route('/idea/edit/contacts/confirm/<token>')
 def contact_confirm(token):
 	try:
-        token_string = ts.loads(token, salt=app.config['EMAIL_CONFIRM_KEY'], max_age=86400)
-    except:
-        abort(404)
+		token_string = ts.loads(token, salt=app.config['EMAIL_CONFIRM_KEY'], max_age=86400)
+	except:
+		abort(404)
 
-    email = token_string.split('&')[0]
-    project_id = token_string.split('&')[1]
+	email = token_string.split('&')[0]
+	project_id = token_string.split('&')[1]
 
-    added_user = db.ideas.find_one({'email' : email})
-    if added_user:
-	    db.ideas.update({'_id' : project_id},
-	    	{'$addToSet' : {
-	    		'contacts' : {
-	    			'name' : added_user.name.full,
-	    			'email' : added_user.email
-	    		},
-	    		'owners' : added_user._id
-	    	}})
-	else:
-		db.ideas.udpate({'_id' : project_id},
+	added_user = db.users.User.find_one({'email' : email})
+	if added_user:
+		db.ideas.update({'_id' : ObjectId(project_id)},
 			{'$addToSet' : {
 				'contacts' : {
-					'name' : None
+					'name' : added_user.name.full,
+					'email' : added_user.email
+				},
+				'owners' : added_user._id
+			}})
+	else:
+		db.ideas.update({'_id' : ObjectId(project_id)},
+			{'$addToSet' : {
+				'contacts' : {
+					'name' : '',
 					'email' : email
 				}
 			}})
@@ -232,19 +240,16 @@ def contact_confirm(token):
 def search(tag=None):
 	ideas = None
 	search_by = request.args.get('search_type')
-	print "Searching by:", search_by
 	if not tag:
 		tag = request.args.get('search')
 	
 	if search_by == "recent":
 		ideas = db.ideas.Idea.find().sort('date_creation', pymongo.DESCENDING).limit(10)
 	elif search_by == "category":
-		print "searching by category"
 		ideas = db.ideas.Idea.find({"categories" : { "$all" : [tag]}})
 	elif search_by == "university":
 		ideas = db.ideas.Idea.find({"university" : tag})
 	else:
-		print "didn't find a match"
 		ideas = db.ideas.Idea.find().sort('date_creation', pymongo.DESCENDING).limit(10)
 	
 	return render_template('index.html', ideas=ideas)
@@ -312,7 +317,6 @@ def verify(token):
 
 @app.route('/reset', methods=["GET", "POST"])
 def reset_password():
-	print "reseting password"
 	form = EmailForm()
 	if form.validate_on_submit():
 		user = db.users.User.find_one({'email' : form.email.data})
