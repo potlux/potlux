@@ -139,15 +139,17 @@ def edit_project_website(project_id):
 @app.route('/idea/edit/contacts/<project_id>', methods=["POST", "DELETE"])
 @login_required
 def edit_project_contacts(project_id):
+	# print "editing project contacts"
 	
-	# find user associated with email.
-	email = request.form['contact_email']
-	user = db.users.User.find_one({'email' : email})
+	# # find user associated with email.
+	# email = request.form['contact_email']
+	# print "got email"
+	# user = db.users.User.find_one({'email' : email})
 
-	# generate token and url to send in url to user being added/deleted.
-	token_string = email + "&" + project_id
-	token = ts.dumps(token_string, salt=app.config['EMAIL_CONFIRM_KEY'])
-	confirm_url = url_for('contact_confirm', token=token, _external=True)
+	# # generate token and url to send in url to user being added/deleted.
+	# token_string = email + "&" + project_id
+	# token = ts.dumps(token_string, salt=app.config['EMAIL_CONFIRM_KEY'])
+	# confirm_url = url_for('contact_confirm', token=token, _external=True)
 
 	# generate email fields.
 	if current_user.name.first:
@@ -155,24 +157,46 @@ def edit_project_contacts(project_id):
 	else:
 		subject = current_user.email + " would like you to join their project!"
 	sender = app.config['FROM_EMAIL_ADDRESS']
-	recipients = [email]
 
 	if request.method == "POST":
+
+		# find user associated with email.
+		email = request.form['contact_email']
+		user = db.users.User.find_one({'email' : email})
+
+		# generate token and url to send in url to user being added/deleted.
+		token_string = email + "&" + project_id
+		token = ts.dumps(token_string, salt=app.config['EMAIL_CONFIRM_KEY'])
+		confirm_url = url_for('contact_confirm', token=token, _external=True)
+
 		# generate confirmation email body.
 		if user and user.name:
 			name = user.name.first
 		else:
 			name = "Environmental warrior"	
+
+		recipients = [email]
 		text_body = render_template('email/contact_confirm.txt', 
 			url=confirm_url, name=name)
 		html_body = render_template('email/contact_confirm.html', 
 			url=confirm_url, name=name)
 
 	elif request.method == "DELETE":
+		print "deleting contact"
 		# delete email from list of contacts.
-		email = request.args.get('contact_email')
+		email = request.args.get('del_email')
+		print "email:", email
 		user = db.users.User.find_one({'email' : email})
+		print "user:", user
+
+		# generate token and url to send in url to user being added/deleted.
+		token_string = email + "&" + project_id
+		token = ts.dumps(token_string, salt=app.config['EMAIL_CONFIRM_KEY'])
+		confirm_url = url_for('contact_confirm', token=token, _external=True)
+		print "confirm url:", confirm_url
+
 		if user:
+			print "found user, deleting owner and contact from project"
 			db.ideas.update({'_id' : ObjectId(project_id)},
 				{'$pull' : {
 					'contacts' : {
@@ -181,20 +205,31 @@ def edit_project_contacts(project_id):
 					'owners' : user._id
 				}})
 		else:
+			print "could not find user, deleting contact"
 			db.ideas.update({'_id' : ObjectId(project_id)},
 				{'$pull' : {
 					'contacts' : {
 						'email' : email
 					}
 				}})
+
+		if user and user.name:
+			name = user.name.first
+		else:
+			name = "Environmental warrior"
+
+		potlux_url = url_for('show_idea', id=project_id, _external=True)
 		text_body = render_template('email/contact_delete_confirm.txt', 
 			url=confirm_url, 
-			name=(user.name.first or "Environmental warrior"),
-			asker=(current_user.name.full or current_user.email))
+			name=name,
+			potlux_url=potlux_url)
 		html_body = render_template('email/contact_delete_confirm.html',
 			url=confirm_url, 
-			name=(user.name.first or "Environmental warrior"),
-			asker=(current_user.name.full or current_user.email))
+			name=name,
+			potlux_url=potlux_url)
+		recipients = [email]
+		send_email(subject, sender, recipients, text_body, html_body)
+		return 'Success!'
 
 	# send email and redirect user back to edit page.
 	send_email(subject, sender, recipients, text_body, html_body)

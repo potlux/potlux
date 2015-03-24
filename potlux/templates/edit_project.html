@@ -98,6 +98,19 @@
             });
           });
 
+          $('.remove-contact-icon').click(function() {
+            var base_url = "{{ url_for('edit_project_contacts', project_id=idea._id) }}";
+            var delete_url = base_url + "?del_email=" + encodeURIComponent($(this).attr('data-contact'));
+            console.log(delete_url);
+            $.ajax({
+              url: delete_url,
+              method: "DELETE",
+              success: function() {
+                location.reload();
+              }
+            });
+          });
+
           $('#add-contact').click(function() {
             email_input.appendTo(email_form);
             // var popup_div = $('<div></div>').css({
