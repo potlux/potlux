@@ -60,11 +60,11 @@
   <br/><br/>
 {% endmacro %}
 
-{% macro render_project_info(idea, edit_page=False) %}
+{% macro render_project_info(idea, editable, edit_page=False) %}
   <div class="projectName">
   {{ titleize(idea.name) }}
    <a href="{{ url_for('edit_idea', project_id=idea._id) }}" class="projLink">
-   {% if not edit_page: %}
+   {% if editable and not edit_page: %}
     <img src="{{url_for('static',filename='resources/images/editbtn2.png')}}" height="40" width="40" class="darshdeep">
   {% endif %}
   </a>
