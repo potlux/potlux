@@ -14,7 +14,8 @@ class User(Document, UserMixin):
 		'verified' : bool,
 		'name' : {
 			'first' : basestring,
-			'last' : basestring
+			'last' : basestring,
+			'full' : basestring
 		}
 	}
 
@@ -56,10 +57,10 @@ class Idea(Document):
 		'name': basestring,
 		'categories': [basestring],
 		'university': basestring,
-		'contact': {
+		'contacts': [{
 			'name': basestring,
 			'email': basestring,
-		},
+		}],
 		'summary': basestring,
 		'impact': basestring,
 		'procedure': basestring, 
@@ -74,10 +75,10 @@ class Idea(Document):
 			'websites': [basestring],
 			'documents': [basestring]
 		},
-		'owner' : ObjectId
+		'owners' : [ObjectId]
 	}
 
-	required_fields = ['name', 'categories', 'summary']
+	required_fields = ['name', 'summary']
 
 	default_values = {
 		'date_creation': datetime.datetime.utcnow

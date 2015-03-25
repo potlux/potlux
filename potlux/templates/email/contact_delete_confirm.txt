@@ -1,0 +1,5 @@
+Hey {{ name }},
+
+You have been deleted as an admin from your Potlux project, {{ potlux_url }}.
+
+If you think this is a mistake click {{ url }} to add yourself back.

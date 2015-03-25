@@ -1,6 +1,6 @@
 from potlux import app, db, login_required, login_user, logout_user, universities_trie
 from forms import RegistrationForm, LoginForm, EmailForm, PasswordForm, ProjectSubmitForm
-from flask import request, render_template, redirect, url_for, session, escape, flash
+from flask import request, render_template, redirect, url_for, session, escape, flash, abort
 from flask.ext.login import login_required, current_user
 from mongokit import *
 import pymongo
@@ -35,13 +35,13 @@ def new():
 		new_idea = db.ideas.Idea()
 		new_idea.name = name
 		new_idea.categories = categories
-		new_idea.contact = contact
+		new_idea.contacts = [contact]
 		new_idea.summary = summary
 		new_idea.university = university
 		new_idea.resources.websites = [website]
 
 		if current_user.is_authenticated():
-			new_idea.owner = current_user._id
+			new_idea.owners = [current_user._id]
 
 		new_idea.save()
 		return redirect(url_for('show_idea', id=str(new_idea._id)))
@@ -59,7 +59,7 @@ def show_idea(id):
 @login_required
 def edit_idea(project_id):
 	idea = db.ideas.Idea.find_one({"_id" : ObjectId(project_id)})
-	if not current_user._id == idea.owner:
+	if not current_user._id in idea.owners:
 		flash("You're not allowed to do that!")
 		return app.login_manager.unauthorized()
 
@@ -84,6 +84,187 @@ def edit_idea(project_id):
 
 	return render_template('edit_project.html', idea=idea, idea_id=str(idea._id))
 
+@app.route('/idea/edit/tags/<project_id>', methods=["POST", "DELETE"])
+@login_required
+def edit_project_tag(project_id):
+	if request.method == "POST":
+		new_category = request.form['new_cat'].strip().lower()
+		if new_category:
+			db.ideas.update({'_id' : ObjectId(project_id)},
+				{'$addToSet' : {
+					'categories' : new_category
+				}})
+		return redirect(url_for('edit_idea', project_id=project_id))
+	if request.method == "DELETE":
+		delete_cat = request.args.get('del_cat')
+		db.ideas.update({'_id' : ObjectId(project_id)},
+			{'$pull' : {
+				'categories' : delete_cat
+			}})
+		return 'Success!'
+	abort(404)
+
+@app.route('/idea/edit/websites/<project_id>', methods=["POST", "DELETE"])
+@login_required
+def edit_project_website(project_id):
+	if request.method == "POST":
+		new_website = request.form['new_site'].strip().lower()
+		if new_website:
+			db.ideas.update({'_id' : ObjectId(project_id)},
+				{'$addToSet' : {
+					'resources.websites' : new_website
+				}})
+		return redirect(url_for('edit_idea', project_id=project_id))
+	if request.method == "DELETE":
+		delete_site = request.args.get('del_site')
+		db.ideas.update({'_id' : ObjectId(project_id)},
+			{'$pull' : {
+				'resources.websites' : delete_site
+			}})
+		return 'Success!'
+	abort(404)
+
+##
+# Deletes or adds contact to a project.
+# Responds to url /idea/edit/contacts/<project_id>
+# Form value: contact_email=<contact_email>
+#
+# If the email entered is associated with an account on Potlux, that user will be
+# added/deleted as an owner of the project as well as his/her contact info being 
+# added to the project. An email will be sent to the user being added/deleted to
+# confirm the action before any change is made in the database. This email will link
+# to /idea/edit/contacts/confirm/<token>, which updates project in the database when
+# clicked.
+##
+@app.route('/idea/edit/contacts/<project_id>', methods=["POST", "DELETE"])
+@login_required
+def edit_project_contacts(project_id):
+	sender = app.config['FROM_EMAIL_ADDRESS']
+
+	if request.method == "POST":
+
+		# find user associated with email.
+		email = request.form['contact_email']
+		user = db.users.User.find_one({'email' : email})
+
+		# generate token and url to send in url to user being added/deleted.
+		token_string = email + "&" + project_id
+		token = ts.dumps(token_string, salt=app.config['EMAIL_CONFIRM_KEY'])
+		confirm_url = url_for('contact_confirm', token=token, _external=True)
+
+		# generate confirmation email body.
+		if user and user.name:
+			name = user.name.first
+		else:
+			name = "Environmental warrior"	
+
+		# generate email fields.
+		if current_user.name and current_user.name.first:
+			subject = current_user.name.first + " would like you to join their project!"
+		else:
+			subject = current_user.email + " would like you to join their project!"
+
+		recipients = [email]
+		text_body = render_template('email/contact_confirm.txt', 
+			url=confirm_url, name=name)
+		html_body = render_template('email/contact_confirm.html', 
+			url=confirm_url, name=name)
+
+		# send email and redirect user back to edit page.
+		send_email(subject, sender, recipients, text_body, html_body)
+		flash('An email has been sent to accept your invitation')
+		return redirect(url_for('edit_idea', project_id=project_id))
+
+	elif request.method == "DELETE":
+		print "deleting contact"
+		# delete email from list of contacts.
+		email = request.args.get('del_email')
+		print "email:", email
+		user = db.users.User.find_one({'email' : email})
+		print "user:", user
+
+		# generate token and url to send in url to user being added/deleted.
+		token_string = email + "&" + project_id
+		token = ts.dumps(token_string, salt=app.config['EMAIL_CONFIRM_KEY'])
+		confirm_url = url_for('contact_confirm', token=token, _external=True)
+		print "confirm url:", confirm_url
+
+		# Delete user from project.
+		if user:
+			print "found user, deleting owner and contact from project"
+			db.ideas.update({'_id' : ObjectId(project_id)},
+				{'$pull' : {
+					'contacts' : {
+						'email' : user.email
+					},
+					'owners' : user._id
+				}})
+		else:
+			print "could not find user, deleting contact"
+			db.ideas.update({'_id' : ObjectId(project_id)},
+				{'$pull' : {
+					'contacts' : {
+						'email' : email
+					}
+				}})
+
+		# generate email fields.
+		if user and user.name:
+			name = user.name.first
+		else:
+			name = "Environmental warrior"
+
+		if current_user.name and current_user.name.first:
+			subject = current_user.name.first + " would like to remove you from their project!"
+		else:
+			subject = current_user.email + " would like to remove you from their project!"
+
+		potlux_url = url_for('show_idea', id=project_id, _external=True)
+		text_body = render_template('email/contact_delete_confirm.txt', 
+			url=confirm_url, 
+			name=name,
+			potlux_url=potlux_url)
+		html_body = render_template('email/contact_delete_confirm.html',
+			url=confirm_url, 
+			name=name,
+			potlux_url=potlux_url)
+		recipients = [email]
+		send_email(subject, sender, recipients, text_body, html_body)
+		return 'Success!'
+
+	return abort(404)
+
+@app.route('/idea/edit/contacts/confirm/<token>')
+def contact_confirm(token):
+	try:
+		token_string = ts.loads(token, salt=app.config['EMAIL_CONFIRM_KEY'], max_age=86400)
+	except:
+		abort(404)
+
+	email = token_string.split('&')[0]
+	project_id = token_string.split('&')[1]
+
+	added_user = db.users.User.find_one({'email' : email})
+	if added_user:
+		db.ideas.update({'_id' : ObjectId(project_id)},
+			{'$addToSet' : {
+				'contacts' : {
+					'name' : added_user.name.full,
+					'email' : added_user.email
+				},
+				'owners' : added_user._id
+			}})
+	else:
+		db.ideas.update({'_id' : ObjectId(project_id)},
+			{'$addToSet' : {
+				'contacts' : {
+					'name' : '',
+					'email' : email
+				}
+			}})
+	flash('You have been added as a contact for this project.')
+	return redirect(url_for('show_idea', id=project_id))
+
 ##
 # Route to search by tag.
 ##
@@ -92,19 +273,16 @@ def edit_idea(project_id):
 def search(tag=None):
 	ideas = None
 	search_by = request.args.get('search_type')
-	print "Searching by:", search_by
 	if not tag:
 		tag = request.args.get('search')
 	
 	if search_by == "recent":
 		ideas = db.ideas.Idea.find().sort('date_creation', pymongo.DESCENDING).limit(10)
 	elif search_by == "category":
-		print "searching by category"
 		ideas = db.ideas.Idea.find({"categories" : { "$all" : [tag]}})
 	elif search_by == "university":
 		ideas = db.ideas.Idea.find({"university" : tag})
 	else:
-		print "didn't find a match"
 		ideas = db.ideas.Idea.find().sort('date_creation', pymongo.DESCENDING).limit(10)
 	
 	return render_template('index.html', ideas=ideas)
@@ -172,7 +350,6 @@ def verify(token):
 
 @app.route('/reset', methods=["GET", "POST"])
 def reset_password():
-	print "reseting password"
 	form = EmailForm()
 	if form.validate_on_submit():
 		user = db.users.User.find_one({'email' : form.email.data})

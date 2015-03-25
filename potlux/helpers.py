@@ -16,6 +16,8 @@ def text_or_none(text):
 def sanitize_link(link):
 	if link and 'http://' in link:
 		return link[7:]
+	elif link and 'https://' in link:
+		return link[8:]
 	return link
 
 def send_verification_email(user):

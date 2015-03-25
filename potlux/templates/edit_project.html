@@ -16,7 +16,7 @@
 {% block content %}
 
 	<div class="content about">
-      {{ render_project_info(idea, True) }}
+      {{ render_project_info(idea, current_user._id in idea.owners, True) }}
       <br />
       <br />
 
@@ -69,5 +69,65 @@
 
 
       <br/><br/><br/>
+
+      <script>
+        $(function() {
+          $('.remove-category-icon').click(function() {
+            var base_url = "{{ url_for('edit_project_tag', project_id=idea._id) }}"
+            var delete_url = base_url + "?del_cat=" + $(this).attr('data-cat');
+            console.log(delete_url);
+            $.ajax({
+              url: delete_url,
+              method: "DELETE",
+              success: function() {
+                location.reload();
+              }
+            });
+          });
+
+          $('.remove-website-icon').click(function() {
+            var base_url = "{{ url_for('edit_project_website', project_id=idea._id) }}"
+            var delete_url = base_url + "?del_site=" + $(this).attr('data-site');
+            console.log(delete_url);
+            $.ajax({
+              url: delete_url,
+              method: "DELETE",
+              success: function() {
+                location.reload();
+              }
+            });
+          });
+
+          $('.remove-contact-icon').click(function() {
+            var base_url = "{{ url_for('edit_project_contacts', project_id=idea._id) }}";
+            var delete_url = base_url + "?del_email=" + encodeURIComponent($(this).attr('data-contact'));
+            console.log(delete_url);
+            $.ajax({
+              url: delete_url,
+              method: "DELETE",
+              success: function() {
+                location.reload();
+              }
+            });
+          });
+
+          $('#add-contact').click(function() {
+            email_input.appendTo(email_form);
+            // var popup_div = $('<div></div>').css({
+            //   'width': '400px',
+            //   'height': '200px',
+            //   'position': 'absolute',
+            //   'top': '30vh',
+            //   'left': '30%', 
+            //   'background-color': '#DDDDDD',
+            //   'box-shadow': '2px 2px 5px #A9A9A9',
+            //   'z-index': '100'
+            //   });
+            // popup_div.append('<input />').attr('id', 'new_email');
+            // popup_div.append()
+            $('body').append(email_form);
+          });
+        });
+      </script>
 
 {% endblock %}

@@ -541,3 +541,12 @@ ul .flashes {
 .activeLink:hover {
 	color: #25876F;
 }
+
+.action-text-icon {
+	color: #9B9B9B;
+}
+
+.action-text-icon:hover {
+	color: #F42C2C;
+	cursor: pointer;
+}
