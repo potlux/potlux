@@ -16,6 +16,16 @@ def change_idea_owners_to_list():
 				}
 			})
 
+def add_full_name_to_user_model():
+	client = MongoClient()
+	db = client.potlux
+	collection = db.users
+	for doc in collection.find():
+		first_name = doc['name.first']
+		last_name = doc['name.last']
+		full_name = first_name + ' ' + last_name
+		doc['full_name'] = full_name
 
 if __name__ == '__main__':
 	change_idea_owners_to_list()
+	add_full_name_to_user_model()
