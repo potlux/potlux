@@ -10,7 +10,7 @@
 
 {% block content %}
 	{% from "_templatehelpers.html" import render_field %}
-
+	<div class="register">
 	<form method="post" action="/register">
 	  <dl>
 	  	<input type="hidden" name="_csrf_token" value="{{ csrf_token() }}" />
@@ -22,4 +22,5 @@
 	  </dl>
 	  <p><input type=submit value=Register class=subButton>
 	</form>
+	</div>
 {% endblock %}
