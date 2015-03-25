@@ -139,23 +139,6 @@ def edit_project_website(project_id):
 @app.route('/idea/edit/contacts/<project_id>', methods=["POST", "DELETE"])
 @login_required
 def edit_project_contacts(project_id):
-	# print "editing project contacts"
-	
-	# # find user associated with email.
-	# email = request.form['contact_email']
-	# print "got email"
-	# user = db.users.User.find_one({'email' : email})
-
-	# # generate token and url to send in url to user being added/deleted.
-	# token_string = email + "&" + project_id
-	# token = ts.dumps(token_string, salt=app.config['EMAIL_CONFIRM_KEY'])
-	# confirm_url = url_for('contact_confirm', token=token, _external=True)
-
-	# generate email fields.
-	if current_user.name.first:
-		subject = current_user.name.first + " would like you to join their project!"
-	else:
-		subject = current_user.email + " would like you to join their project!"
 	sender = app.config['FROM_EMAIL_ADDRESS']
 
 	if request.method == "POST":
@@ -175,11 +158,22 @@ def edit_project_contacts(project_id):
 		else:
 			name = "Environmental warrior"	
 
+		# generate email fields.
+		if current_user.name and current_user.name.first:
+			subject = current_user.name.first + " would like you to join their project!"
+		else:
+			subject = current_user.email + " would like you to join their project!"
+
 		recipients = [email]
 		text_body = render_template('email/contact_confirm.txt', 
 			url=confirm_url, name=name)
 		html_body = render_template('email/contact_confirm.html', 
 			url=confirm_url, name=name)
+
+		# send email and redirect user back to edit page.
+		send_email(subject, sender, recipients, text_body, html_body)
+		flash('An email has been sent to accept your invitation')
+		return redirect(url_for('edit_idea', project_id=project_id))
 
 	elif request.method == "DELETE":
 		print "deleting contact"
@@ -195,6 +189,7 @@ def edit_project_contacts(project_id):
 		confirm_url = url_for('contact_confirm', token=token, _external=True)
 		print "confirm url:", confirm_url
 
+		# Delete user from project.
 		if user:
 			print "found user, deleting owner and contact from project"
 			db.ideas.update({'_id' : ObjectId(project_id)},
@@ -213,10 +208,16 @@ def edit_project_contacts(project_id):
 					}
 				}})
 
+		# generate email fields.
 		if user and user.name:
 			name = user.name.first
 		else:
 			name = "Environmental warrior"
+
+		if current_user.name and current_user.name.first:
+			subject = current_user.name.first + " would like to remove you from their project!"
+		else:
+			subject = current_user.email + " would like to remove you from their project!"
 
 		potlux_url = url_for('show_idea', id=project_id, _external=True)
 		text_body = render_template('email/contact_delete_confirm.txt', 
@@ -231,10 +232,7 @@ def edit_project_contacts(project_id):
 		send_email(subject, sender, recipients, text_body, html_body)
 		return 'Success!'
 
-	# send email and redirect user back to edit page.
-	send_email(subject, sender, recipients, text_body, html_body)
-	flash('An email has been sent to accept your invitation')
-	return redirect(url_for('edit_idea', project_id=project_id))
+	return abort(404)
 
 @app.route('/idea/edit/contacts/confirm/<token>')
 def contact_confirm(token):
