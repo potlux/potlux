@@ -66,13 +66,18 @@ a:hover {
 	border-radius: 5px;
 }
 
-#email, #password {
+#email, #password, #first_name, #last_name, #confirm {
 	width: 300px;
 	background: #DDD;
 	border: none;
 	padding: 5px 10px 5px 10px;
 	border-radius: 5px;
 	margin-bottom: 30px;
+}
+
+.register {
+	padding-top:50px;
+	padding-left:50px;
 }
 
 #remember {
@@ -87,7 +92,7 @@ a:hover {
 	background-image: none;
 }
 
-.submitBubble:focus, .contactBubble:focus, .summBubble:focus, #email:focus, #password:focus {
+.submitBubble:focus, .contactBubble:focus, .summBubble:focus, #email:focus, #password:focus, #first_name:focus, #last_name:focus, #confirm:focus {
 	background: #fff;
 }
 
