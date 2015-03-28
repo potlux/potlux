@@ -37,7 +37,9 @@ class LoginForm(Form):
 		validators.Required()
 	])
 
-	password = PasswordField('Password')
+	password = PasswordField('Password', [
+		validators.Required()
+	])
 
 	remember = BooleanField('Remember me')
 
