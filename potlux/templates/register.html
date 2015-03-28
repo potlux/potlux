@@ -12,15 +12,16 @@
 	{% from "_templatehelpers.html" import render_field %}
 	<div class="register">
 	<form method="post" action="/register">
-	  <dl>
 	  	<input type="hidden" name="_csrf_token" value="{{ csrf_token() }}" />
-	  	{{ render_field(form.first_name) }}
-	  	{{ render_field(form.last_name) }}
-	    {{ render_field(form.email) }}
-	    {{ render_field(form.password) }}
-	    {{ render_field(form.confirm) }}
-	  </dl>
-	  <p><input type=submit value=Register class=subButton>
+	  	<table>
+	  	{{ render_field(form.first_name, 'FIRST NAME', class='submitBubble') }}
+	  	{{ render_field(form.last_name, 'LAST NAME', class='submitBubble') }}
+	    {{ render_field(form.email, 'EMAIL', class='submitBubble') }}
+	    {{ render_field(form.password, 'PASSWORD', class='submitBubble') }}
+	    {{ render_field(form.confirm, 'CONFIRM', class='submitBubble') }}
+		</table>
+		<br />
+	  <p><input type="submit" value="Register" class="subButton">
 	</form>
 	</div>
 {% endblock %}

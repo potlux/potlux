@@ -4,7 +4,7 @@
     <td>
       {{ field(**kwargs)|safe }}
       {% if field.errors %}
-        <ul class=errors>
+        <ul class="errors">
         {% for error in field.errors %}
           <li>{{ error }}</li>
         {% endfor %}
@@ -17,16 +17,24 @@
   </tr>
 {% endmacro %}
 
-{% macro render_field(field) %}
-  <dt>{{ field.label }}
-  <dd>{{ field(**kwargs)|safe }}
-  {% if field.errors %}
-    {% for error in field.errors %}
-    <div class="alert alert-danger alert-dismissible darshd" role="alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>{{ error }}</div>
-    {% endfor %}
-    </ul>
+{% macro render_field(field, label) %}
+  <tr>
+    <td class="formtd">{{ label }}</td>
+    <td>
+      {{ field(**kwargs)|safe }}
+    </td>
+    {% if field.errors %}
+    <td>&nbsp;&nbsp;&nbsp;&nbsp;</td>
+    <td>
+      {% for error in field.errors %}
+      <div class="alert alert-danger alert-dismissible darshd" role="alert" style="padding:4px 30px 4px 7px;margin:0;"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>{{ error }}</div>
+      {% endfor %}
+    </td>
   {% endif %}
-  </dd>
+  </tr>
+  <tr>
+    <td class="spacer">&nbsp;</td>
+  </tr>
 {% endmacro %}
 
 {% macro render_project_field(label, current_text) %}
