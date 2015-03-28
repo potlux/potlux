@@ -162,6 +162,9 @@
           {% if edit_page: %}
             <span class="remove-contact-icon action-text-icon" data-contact="{{contact.email}}">x</span>
           {% endif %}
+          {% if loop.index != len(idea.contacts): %}
+            |
+          {% endif %}
         {% endfor %}
         </span>
 
