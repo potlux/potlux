@@ -32,9 +32,7 @@ app.config['SECURITY_RECOVERABLE'] = True
 
 def generate_csrf_token():
     if '_csrf_token' not in session:
-    	print "Generating CSRF token..."
         session['_csrf_token'] = binascii.hexlify(os.urandom(24))
-   	print "Session contains CSRF token:", session['_csrf_token']
     return session['_csrf_token']
 
 app.jinja_env.globals['len'] = len 
@@ -71,8 +69,6 @@ def load_user(user_id):
 def csrf_protect():
     if request.method == "POST":
         token = session.pop('_csrf_token', None)
-        print "CSRF Token from form", request.form.get("_csrf_token")
-        print "CSRF Token from session:", token
         if not token or token != request.form.get('_csrf_token'):
             abort(403)
 

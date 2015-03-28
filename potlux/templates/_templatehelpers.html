@@ -141,7 +141,10 @@
       <td>
         <span class="projectInfo">
         {% for contact in idea.contacts: %}
-          {{ titleize(contact.name) }} &lt;<a class="projLink" href="mailto:{{contact.email}}">{{contact.email}}</a>&gt;
+          {% if contact.name: %}
+            {{ titleize(contact.name) }}
+          {% endif %} 
+          &lt;<a class="projLink" href="mailto:{{contact.email}}">{{contact.email}}</a>&gt;
           {% if edit_page: %}
             <span class="remove-contact-icon action-text-icon" data-contact="{{contact.email}}">x</span>
           {% endif %}
