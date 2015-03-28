@@ -59,11 +59,11 @@
 
       <form method="POST" action="/idea/edit/{{ idea_id }}">
       	<input type="hidden" name="_csrf_token" value="{{ csrf_token() }}" />
-    		{{ render_project_edit_field("summary", idea.summary) }}
-    		{{ render_project_edit_field("impact", idea.impact) }}
-    		{{ render_project_edit_field("procedure", idea.procedure) }}
-    		{{ render_project_edit_field("mistakes & lessons learned", idea.results) }}
-    		{{ render_project_edit_field("future plans", idea.future) }}
+    		{{ render_project_edit_field("summary", idea.summary, leading_qs['summary']) }}
+    		{{ render_project_edit_field("impact", idea.impact, leading_qs['impact']) }}
+    		{{ render_project_edit_field("procedure", idea.procedure, leading_qs['procedure']) }}
+    		{{ render_project_edit_field("mistakes & lessons learned", idea.results, leading_qs['mistakes & lessons learned']) }}
+    		{{ render_project_edit_field("future plans", idea.future, leading_qs['future plans']) }}
     		<input type="submit" name="submit" class="subButton" value="Save Changes"/ style="width:130px">
       </form>
 

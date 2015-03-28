@@ -29,7 +29,7 @@
   </dd>
 {% endmacro %}
 
-{% macro render_project_field(label, current_text) %}
+{% macro render_project_field(label, current_text, leading_q) %}
   <div class="summaryTitle">
     {{ label.upper() }}
   </div>
@@ -38,19 +38,19 @@
     {% if current_text: %}
       {{ current_text|safe }}
     {% else: %}
-      <i>Add the {{ label }} of your project here</i>
+      <i>{{ leading_q }}</i>
     {% endif %}
   </div>
 </div>
   <br /><br />
 {% endmacro %}
 
-{% macro render_project_edit_field(label, current_text) %}
+{% macro render_project_edit_field(label, current_text, leading_q) %}
   <div class="summaryTitle">
     {{ label.upper() }}
   </div>
   <div class="projectSummary">
-    <i>Add your project's {{ label }}:</i>
+    <i>{{ leading_q }}</i>
   </div>
   <div id="procedure">
       <textarea rows=4 cols=50 name="{{ label }}">

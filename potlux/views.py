@@ -1,10 +1,10 @@
-from potlux import app, db, login_required, login_user, logout_user, universities_trie
+from potlux import app, db, login_required, login_user, logout_user, universities_trie, APP_ROOT
 from forms import RegistrationForm, LoginForm, EmailForm, PasswordForm, ProjectSubmitForm
 from flask import request, render_template, redirect, url_for, session, escape, flash, abort
 from flask.ext.login import login_required, current_user
 from mongokit import *
 import pymongo
-from bson.json_util import dumps
+from bson.json_util import dumps, loads
 from helpers import *
 from werkzeug.security import generate_password_hash
 import os
@@ -53,7 +53,10 @@ def new():
 def show_idea(id):
 	idea = db.ideas.Idea.find_one({"_id" : ObjectId(id)})
 			
-	return render_template('project.html', idea=idea)
+	# Dictionary of leading questions to be printed if there is no content.
+	leading_qs = loads(open(APP_ROOT + '/leading_questions.json').read())
+	
+	return render_template('project.html', idea=idea, leading_qs=leading_qs)
 
 @app.route('/idea/edit/<project_id>', methods=["GET", "POST"])
 @login_required
@@ -82,7 +85,11 @@ def edit_idea(project_id):
 
 			return redirect(url_for('show_idea', id=project_id))
 
-	return render_template('edit_project.html', idea=idea, idea_id=str(idea._id))
+	# Dictionary of leading questions to be printed if there is no content.
+	leading_qs = loads(open(APP_ROOT + '/leading_questions.json').read())
+	
+	return render_template('edit_project.html', 
+		idea=idea, idea_id=str(idea._id), leading_qs=leading_qs)
 
 @app.route('/idea/edit/tags/<project_id>', methods=["POST", "DELETE"])
 @login_required

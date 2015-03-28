@@ -40,23 +40,23 @@
       <br />
 
       {% if current_user._id in idea.owners or idea.summary: %}
-        {{ render_project_field("summary", idea.summary) }}
+        {{ render_project_field("summary", idea.summary, leading_qs['summary']) }}
       {% endif %}
 
       {% if current_user._id in idea.owners or idea.impact: %}
-        {{ render_project_field("impact", idea.impact) }}
+        {{ render_project_field("impact", idea.impact, leading_qs['impact']) }}
       {% endif %}
 
       {% if current_user._id in idea.owners or idea.procedure: %}
-        {{ render_project_field("procedure", idea.procedure) }}
+        {{ render_project_field("procedure", idea.procedure, leading_qs['procedure']) }}
       {% endif %}
 
       {% if current_user._id in idea.owners or idea.results: %}
-        {{ render_project_field("mistakes & lessons learned", idea.results) }}
+        {{ render_project_field("mistakes & lessons learned", idea.results, leading_qs['mistakes & lessons learned']) }}
       {% endif %}
 
       {% if current_user._id in idea.owners or idea.future: %}
-        {{ render_project_field("future plans", idea.future) }}
+        {{ render_project_field("future plans", idea.future, leading_qs['future plans']) }}
       {% endif %}
 
     <br />
