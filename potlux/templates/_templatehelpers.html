@@ -110,7 +110,18 @@
         </span>
       </td>
       <td>
+{% if edit_page: %}
+          <span>
+            <form action="{{ url_for('edit_project_tag', project_id=idea._id) }}"
+                  method="POST" style="display:inline;">
+              <input type="hidden" name="_csrf_token" value="{{ csrf_token() }}" />
+              <input type="text" placeholder="add category" name="new_cat" class="editBubbly"/>
+            </form>
+          </span>
+        {% endif %}
         <span class="projectInfo">
+
+        <span>
         {% for category in idea.categories: %}
           <a href="{{ url_for('search', tag=category) }}" class="projLink">{{category}} </a>
           {% if edit_page: %}
@@ -120,17 +131,11 @@
           |
           {% endif %}
         {% endfor %}
-        {% if edit_page: %}
-          <span>
-            <form action="{{ url_for('edit_project_tag', project_id=idea._id) }}"
-                  method="POST">
-              <input type="hidden" name="_csrf_token" value="{{ csrf_token() }}" />
-              <input type="text" placeholder="add category" name="new_cat" />
-            </form>
-          </span>
-        {% endif %}
+      </span>
+
         </span>
       </td>
+
     </tr>
     <tr>
       <td>
@@ -139,26 +144,27 @@
         </span>
       </td>
       <td>
+      {% if edit_page: %}
+          <span>
+            <form action="{{ url_for('edit_project_contacts', project_id=idea._id) }}"
+                  method="POST" style="display:inline;">
+              <input type="hidden" name="_csrf_token" value="{{ csrf_token() }}" />
+              <input type="text" placeholder="add contact" name="contact_email" class="editBubbly"/>
+            </form>
+          </span>
+        {% endif %}
         <span class="projectInfo">
         {% for contact in idea.contacts: %}
           {% if contact.name: %}
             {{ titleize(contact.name) }}
-          {% endif %} 
+          {% endif %}
           &lt;<a class="projLink" href="mailto:{{contact.email}}">{{contact.email}}</a>&gt;
           {% if edit_page: %}
             <span class="remove-contact-icon action-text-icon" data-contact="{{contact.email}}">x</span>
           {% endif %}
         {% endfor %}
         </span>
-        {% if edit_page: %}
-          <span>
-            <form action="{{ url_for('edit_project_contacts', project_id=idea._id) }}"
-                  method="POST">
-              <input type="hidden" name="_csrf_token" value="{{ csrf_token() }}" />
-              <input type="text" placeholder="add contact" name="contact_email" />
-            </form>
-          </span>
-        {% endif %}
+
       </td>
     </tr>
     <tr>
@@ -168,6 +174,15 @@
         </span>
       </td>
       <td>
+      {% if edit_page: %}
+          <span>
+            <form action="{{ url_for('edit_project_website', project_id=idea._id) }}"
+                  method="POST" style="display:inline;">
+              <input type="hidden" name="_csrf_token" value="{{ csrf_token() }}" />
+              <input type="text" placeholder="add website" name="new_site" class="editBubbly"/>
+            </form>
+          </span>
+        {% endif %}
         <span class="projectInfo">
           {% for website in idea.resources.websites: %}
             <a href="{{'http://' + website}}" class="projLink">{{ website }} </a>
@@ -178,15 +193,7 @@
           |
           {% endif %}
           {% endfor %}
-          {% if edit_page: %}
-          <span>
-            <form action="{{ url_for('edit_project_website', project_id=idea._id) }}"
-                  method="POST">
-              <input type="hidden" name="_csrf_token" value="{{ csrf_token() }}" />
-              <input type="text" placeholder="add website" name="new_site" />
-            </form>
-          </span>
-        {% endif %}
+
         </span>
       </td>
     </tr>
