@@ -4,7 +4,7 @@
     <td>
       {{ field(**kwargs)|safe }}
       {% if field.errors %}
-        <ul class=errors>
+        <ul class="errors">
         {% for error in field.errors %}
           <li>{{ error }}</li>
         {% endfor %}
@@ -17,16 +17,24 @@
   </tr>
 {% endmacro %}
 
-{% macro render_field(field) %}
-  <dt>{{ field.label }}
-  <dd>{{ field(**kwargs)|safe }}
-  {% if field.errors %}
-    {% for error in field.errors %}
-    <div class="alert alert-danger alert-dismissible darshd" role="alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>{{ error }}</div>
-    {% endfor %}
-    </ul>
+{% macro render_field(field, label) %}
+  <tr>
+    <td class="formtd">{{ label }}</td>
+    <td>
+      {{ field(**kwargs)|safe }}
+    </td>
+    {% if field.errors %}
+    <td>&nbsp;&nbsp;&nbsp;&nbsp;</td>
+    <td>
+      {% for error in field.errors %}
+      <div class="alert alert-danger alert-dismissible darshd" role="alert" style="padding:4px 30px 4px 7px;margin:0;"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>{{ error }}</div>
+      {% endfor %}
+    </td>
   {% endif %}
-  </dd>
+  </tr>
+  <tr>
+    <td class="spacer">&nbsp;</td>
+  </tr>
 {% endmacro %}
 
 {% macro render_project_field(label, current_text, leading_q) %}
@@ -102,7 +110,18 @@
         </span>
       </td>
       <td>
+{% if edit_page: %}
+          <span>
+            <form action="{{ url_for('edit_project_tag', project_id=idea._id) }}"
+                  method="POST" style="display:inline;">
+              <input type="hidden" name="_csrf_token" value="{{ csrf_token() }}" />
+              <input type="text" placeholder="add category" name="new_cat" class="editBubbly"/>
+            </form>
+          </span>
+        {% endif %}
         <span class="projectInfo">
+
+        <span>
         {% for category in idea.categories: %}
           <a href="{{ url_for('search', tag=category) }}" class="projLink">{{category}} </a>
           {% if edit_page: %}
@@ -112,17 +131,11 @@
           |
           {% endif %}
         {% endfor %}
-        {% if edit_page: %}
-          <span>
-            <form action="{{ url_for('edit_project_tag', project_id=idea._id) }}"
-                  method="POST">
-              <input type="hidden" name="_csrf_token" value="{{ csrf_token() }}" />
-              <input type="text" placeholder="add category" name="new_cat" />
-            </form>
-          </span>
-        {% endif %}
+      </span>
+
         </span>
       </td>
+
     </tr>
     <tr>
       <td>
@@ -131,26 +144,27 @@
         </span>
       </td>
       <td>
+      {% if edit_page: %}
+          <span>
+            <form action="{{ url_for('edit_project_contacts', project_id=idea._id) }}"
+                  method="POST" style="display:inline;">
+              <input type="hidden" name="_csrf_token" value="{{ csrf_token() }}" />
+              <input type="text" placeholder="add contact" name="contact_email" class="editBubbly"/>
+            </form>
+          </span>
+        {% endif %}
         <span class="projectInfo">
         {% for contact in idea.contacts: %}
           {% if contact.name: %}
             {{ titleize(contact.name) }}
-          {% endif %} 
+          {% endif %}
           &lt;<a class="projLink" href="mailto:{{contact.email}}">{{contact.email}}</a>&gt;
           {% if edit_page: %}
             <span class="remove-contact-icon action-text-icon" data-contact="{{contact.email}}">x</span>
           {% endif %}
         {% endfor %}
         </span>
-        {% if edit_page: %}
-          <span>
-            <form action="{{ url_for('edit_project_contacts', project_id=idea._id) }}"
-                  method="POST">
-              <input type="hidden" name="_csrf_token" value="{{ csrf_token() }}" />
-              <input type="text" placeholder="add contact" name="contact_email" />
-            </form>
-          </span>
-        {% endif %}
+
       </td>
     </tr>
     <tr>
@@ -160,6 +174,15 @@
         </span>
       </td>
       <td>
+      {% if edit_page: %}
+          <span>
+            <form action="{{ url_for('edit_project_website', project_id=idea._id) }}"
+                  method="POST" style="display:inline;">
+              <input type="hidden" name="_csrf_token" value="{{ csrf_token() }}" />
+              <input type="text" placeholder="add website" name="new_site" class="editBubbly"/>
+            </form>
+          </span>
+        {% endif %}
         <span class="projectInfo">
           {% for website in idea.resources.websites: %}
             <a href="{{'http://' + website}}" class="projLink">{{ website }} </a>
@@ -170,15 +193,7 @@
           |
           {% endif %}
           {% endfor %}
-          {% if edit_page: %}
-          <span>
-            <form action="{{ url_for('edit_project_website', project_id=idea._id) }}"
-                  method="POST">
-              <input type="hidden" name="_csrf_token" value="{{ csrf_token() }}" />
-              <input type="text" placeholder="add website" name="new_site" />
-            </form>
-          </span>
-        {% endif %}
+
         </span>
       </td>
     </tr>

@@ -5,13 +5,14 @@
 {% block title %}Reset Password{% endblock %}
 
 {% block content %}
-	<div class="row info-card">
+	<div class="register">
 	    <form method="post" action="/reset">
-	        <dl>
 	          <input name="_csrf_token" type="hidden" value="{{ csrf_token() }}">
-	          {{ render_field(form.email) }}
-	        </dl>
-	        <p><input type=submit value="Send reset link" class="subButton">
+	          <table>
+	          {{ render_field(form.email, 'EMAIL', class='submitBubble') }}
+		      </table>
+		      <br />
+	        <input type="submit" value="Send Link" class="subButton">
 	    </form>
   </div>
 {% endblock %}

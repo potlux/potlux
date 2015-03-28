@@ -14,12 +14,12 @@
 	<div class="loginpage">
 
 	<form method="post" action="/login">
-	  <dl>
 	  	<input type="hidden" name="_csrf_token" value="{{ csrf_token() }}" />
-	    {{ render_field(form.email) }}
-	    {{ render_field(form.password) }}
-	    {{ render_field(form.remember) }}
-	  </dl>
+	  	<table>
+	    {{ render_field(form.email, 'EMAIL', class='submitBubble') }}
+	    {{ render_field(form.password, 'PASSWORD', class='submitBubble') }}
+	    {{ render_field(form.remember, 'REMEMBER ME') }}
+		</table>
 	  <p><input type="submit" value="Log In" class="subButton">
 	</form>
 
