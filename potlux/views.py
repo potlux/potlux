@@ -2,6 +2,7 @@ from potlux import app, db, login_required, login_user, logout_user, universitie
 from forms import RegistrationForm, LoginForm, EmailForm, PasswordForm, ProjectSubmitForm
 from flask import request, render_template, redirect, url_for, session, escape, flash, abort
 from flask.ext.login import login_required, current_user
+from inflection import titleize
 from mongokit import *
 import pymongo
 from bson.json_util import dumps, loads
@@ -434,6 +435,8 @@ def contact():
 
 @app.route('/schools_list')
 def schools():
-	prefix = request.args.get('term')
-	return dumps(universities_trie.keys(prefix))
+	prefix = request.args.get('term').lower()
+	matches = universities_trie.keys(prefix)
+	matches_capitalized = [titleize(school) for school in matches]
+	return dumps(matches_capitalized)
 	
