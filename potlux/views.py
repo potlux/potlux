@@ -76,19 +76,6 @@ def edit_idea(project_id):
 			idea.save()
 
 		else:
-			# print 'IMPACT:', request.form['impact']
-			# print 'PROCEDURE:', request.form['procedure']
-			# print 'FUTURE PLANS:', request.form['future plans']
-			# print 'MISTAKES & LESSONS LEARNED:', request.form['mistakes & lessons learned']
-			# print 'SUMMARY:', request.form['summary'] 
-			# idea.impact = text_or_none(request.form['impact'].strip())
-			# idea.procedure = text_or_none(request.form['procedure'].strip())
-			# idea.future = text_or_none(request.form['future plans'].strip())
-			# idea.results = text_or_none(request.form['mistakes & lessons learned'].strip())
-			# idea.summary = text_or_none(request.form['summary'].strip())
-
-			# idea.save()
-			print 'updating idea'
 			db.ideas.update({'_id' : ObjectId(project_id)},
 				{
 					'$set': {
@@ -99,9 +86,8 @@ def edit_idea(project_id):
 						'summary' : text_or_none(request.form['summary'].strip())
 					}
 				});
-			print 'updated idea'
 
-			return redirect(url_for('show_idea', id=project_id))
+		return redirect(url_for('show_idea', id=project_id))
 
 	# Dictionary of leading questions to be printed if there is no content.
 	leading_qs = loads(open(APP_ROOT + '/leading_questions.json').read())
