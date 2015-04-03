@@ -76,6 +76,11 @@ def edit_idea(project_id):
 			idea.save()
 
 		else:
+			print 'IMPACT:', request.form['impact']
+			print 'PROCEDURE:', request.form['procedure']
+			print 'FUTURE PLANS:', request.form['future plans']
+			print 'MISTAKES & LESSONS LEARNED:', request.form['mistakes & lessons learned']
+			print 'SUMMARY:', request.form['summary'] 
 			idea.impact = text_or_none(request.form['impact'].strip())
 			idea.procedure = text_or_none(request.form['procedure'].strip())
 			idea.future = text_or_none(request.form['future plans'].strip())
