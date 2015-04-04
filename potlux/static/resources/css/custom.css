@@ -555,3 +555,17 @@ ul .flashes {
 	color: #F42C2C;
 	cursor: pointer;
 }
+
+.plus-button {
+	border: 0px;
+	background: rgba(0,0,0,0);
+	font-size: 12pt;
+	padding:0 5px;
+}
+
+.plus-button:hover {
+	color: #23d0a5;
+}
+.plus-button:active {
+	background-color: #B3B3B3;
+}
