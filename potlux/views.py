@@ -72,8 +72,13 @@ def edit_idea(project_id):
 			# handle image upload
 			filenames = process_image(request.files['imageUpload'], project_id)
 			print filenames
-			idea['resources']['images'].append(filenames)
-			idea.save()
+			db.ideas.update({'_id' : ObjectId(project_id)}, {
+					'$addToSet' : {
+						'resources.images' : filenames
+					}
+				})
+			# idea['resources']['images'].append(filenames)
+			# idea.save()
 
 		else:
 			db.ideas.update({'_id' : ObjectId(project_id)},
