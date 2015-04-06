@@ -361,6 +361,18 @@ def verify(token):
     user = db.users.User.find_one({'email' : email})
     user.verified = True
     user.save()
+
+    # Find all projects with this person as a contact and add this user as an owner.
+    db.ideas.update({'contacts.email' : user.email}, {
+    		'$addToSet' : {
+    			'owners' : user._id
+    		},
+    		'$set' : {
+    			'contacts.$.name' : user.full_name
+    		}},
+    		False,
+    		True)
+
     login_user(user)
     return redirect(url_for('home'))
 
