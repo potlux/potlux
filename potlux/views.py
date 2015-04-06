@@ -52,7 +52,8 @@ def new():
 
 @app.route('/idea/<id>', methods=["GET", "POST"])
 def show_idea(id):
-	idea = db.ideas.Idea.find_one({"_id" : ObjectId(id)})
+	idea = db.ideas.find_one({"_id" : ObjectId(id)})
+	print idea
 			
 	# Dictionary of leading questions to be printed if there is no content.
 	leading_qs = loads(open(APP_ROOT + '/leading_questions.json').read())
