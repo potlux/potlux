@@ -162,7 +162,7 @@ def edit_project_contacts(project_id):
 
 		# find user associated with email.
 		email = request.form['contact_email']
-		user = db.users.User.find_one({'email' : email})
+		user = db.users.find_one({'email' : email})
 
 		# generate token and url to send in url to user being added/deleted.
 		token_string = email + "&" + project_id
@@ -231,10 +231,7 @@ def edit_project_contacts(project_id):
 		else:
 			name = "Environmental warrior"
 
-		if current_user.name and current_user.name.first:
-			subject = current_user.name.first + " would like to remove you from their project!"
-		else:
-			subject = current_user.email + " would like to remove you from their project!"
+		subject = "You're being removed from a potlux project!"
 
 		potlux_url = url_for('show_idea', id=project_id, _external=True)
 		text_body = render_template('email/contact_delete_confirm.txt', 
