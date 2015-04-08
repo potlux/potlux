@@ -280,7 +280,6 @@ table {
 .layer {
     /*background-color: rgba(89, 187, 156, 0.75);*/
     background-color: rgba(22, 136, 108, 0.75);
-    background: #;
     position: absolute;
     top: 0;
     left: 0;
@@ -289,7 +288,7 @@ table {
   	top: 50%;
   	transform: translateY(-50%);
   	-webkit-transform: translateY(-50%);
-  	padding: 13px 0px 15px 0;
+  	padding: 10px 0 16px 0;
 }
 
 .wowLayer {
