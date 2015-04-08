@@ -362,6 +362,7 @@ table {
 	font-size: 150px;
 	font-weight: 100;
 	transition: background 0.5s, color 0.5s;
+	-webkit-transition: background 0.5s, color 0.5s;
 	color: #999;
 }
 
@@ -382,14 +383,17 @@ table {
 /* entire container, keeps perspective */
 .flip-container {
 	perspective: 1000;
+	-webkit-perspective: 1000; /* Chrome, Safari, Opera */
 }
 	/* flip the pane when hovered */
 	.flip-container:hover .flipper, .flip-container.hover .flipper .back {
 		transform: rotateY(180deg);
+		-webkit-transform: rotateY(180deg); /* Safari */
 	}
 
 	.flip-container:hover .flipper .flip-container.hover .flipper .front {
 		transform: rotateY(180deg);
+		-webkit-transform: rotateY(180deg);
 	}
 
 .flip-container, .front, .back {
@@ -400,7 +404,9 @@ table {
 /* flip speed goes here */
 .flipper {
 	transition: 0.6s;
+	-webkit-transition: 0.6s;
 	transform-style: preserve-3d;
+	-webkit-transform-style: preserve-3d;
 	width: 100%;
 	height: 100%;
 
@@ -410,8 +416,11 @@ table {
 /* hide back of pane during swap */
 .front, .back {
 	backface-visibility: hidden;
+	-webkit-backface-visibility: hidden;
 	transition: 0.6s;
+	-webkit-transition: 0.6s;
 	transform-style: preserve-3d;
+	-webkit-transform-style: preserve-3d;
 	position: absolute;
 	top: 0;
 	left: 0;
@@ -429,6 +438,7 @@ table {
 	z-index: 2;
 	/* for firefox 31 */
 	transform: rotateY(0deg);
+	-webkit-transform: rotateY(0deg);
 }
 .aboutDesc {
 	color:#fff;
@@ -483,6 +493,7 @@ table {
 /* back, initially hidden pane */
 .back {
 	transform: rotateY(-180deg);
+	-webkit-transform: rotateY(-180deg);
 }
 
 .heading {
@@ -558,13 +569,17 @@ ul .flashes {
 
 .plus-button {
 	border: 0px;
-	background: rgba(0,0,0,0);
-	font-size: 12pt;
-	padding:0 5px;
+	background: #23d0a5;
+	font-size: 14px;
+	padding:0 7px 0 7px;
+	border-radius: 5px;
+	color: #fff;
+	display: inline-block;
+	vertical-align: middle;
 }
 
 .plus-button:hover {
-	color: #23d0a5;
+	background: #1ebe98;
 }
 .plus-button:active {
 	background-color: #B3B3B3;
