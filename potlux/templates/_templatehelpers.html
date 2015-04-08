@@ -106,7 +106,7 @@
     <tr>
       <td>
         <span class="projectTitle">
-        CATEGORY
+        TAGS
         </span>
       </td>
       <td>
@@ -115,7 +115,7 @@
             <form action="{{ url_for('edit_project_tag', project_id=idea._id) }}"
                   method="POST" style="display:inline;">
               <input type="hidden" name="_csrf_token" value="{{ csrf_token() }}" />
-              <input type="text" placeholder="add category" name="new_cat" class="editBubbly"/>
+              <input type="text" placeholder="add tags" name="new_cat" class="editBubbly"/>
               <input type="submit" value="+" class="plus-button"/>
             </form>
           </span>
