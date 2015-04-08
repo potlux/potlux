@@ -6,8 +6,7 @@
   <style type="text/css">
     .important { color: #336699; }
   </style>
-  <script src="http://js.nicedit.com/nicEdit-latest.js" type="text/javascript"></script>
-<script type="text/javascript">bkLib.onDomLoaded(nicEditors.allTextAreas);</script>
+
 
 {% endblock %}
 
@@ -71,6 +70,11 @@
       <br/><br/><br/>
 
       <script>
+        CKEDITOR.replace( 'summary' );
+        CKEDITOR.replace( 'impact' );
+        CKEDITOR.replace( 'mistakes & lessons learned' );
+        CKEDITOR.replace( 'procedure' );
+        CKEDITOR.replace( 'future plans' );
         $(function() {
           $('.remove-category-icon').click(function() {
             var base_url = "{{ url_for('edit_project_tag', project_id=idea._id) }}"
@@ -118,7 +122,7 @@
             //   'height': '200px',
             //   'position': 'absolute',
             //   'top': '30vh',
-            //   'left': '30%', 
+            //   'left': '30%',
             //   'background-color': '#DDDDDD',
             //   'box-shadow': '2px 2px 5px #A9A9A9',
             //   'z-index': '100'
