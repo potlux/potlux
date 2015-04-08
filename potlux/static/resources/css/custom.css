@@ -530,9 +530,20 @@ ul .flashes {
 	list-style: None;
 	color: #ffffff;
 	background-color: #36C88E; /*#EBEBEB;*/
-	width: 300px;
+	max-width: 300px;
 	border-bottom-right-radius: 5px;
 	border-bottom-left-radius: 5px;
+	padding: 0;
+}
+
+.ui-menu-item {
+	cursor: pointer;
+	padding-left: 10px;
+}
+
+.ui-menu-item:hover {
+	cursor: pointer;
+	background-color: #28956B;
 }
 
 .searchBub {

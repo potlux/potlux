@@ -17,7 +17,7 @@
 			    	<input type="hidden" name="_csrf_token" value="{{ csrf_token() }}" />
 			    	<table class="submitTable">
 						{{ render_submit_field(form.name, 'PROJECT NAME', class='submitBubble') }}
-						{{ render_submit_field(form.categories, 'CATEGORY', class='submitBubble') }}
+						{{ render_submit_field(form.categories, 'TAGS', class='submitBubble') }}
 						{{ render_submit_field(form.university, 'UNIVERSITY', class='submitBubble') }}
 			    		<tr>
 			    			<td class="formtd">YOUR NAME</td>
@@ -40,8 +40,8 @@
 			    			<td class="spacer">&nbsp;</td>
 			    		</tr>
 			    		{{ render_submit_field(form.website, 'WEBSITE', class='submitBubble') }}
-			    		{{ render_submit_field(form.summary, 'SUMMARY', 
-			    			class='submitBubble', 
+			    		{{ render_submit_field(form.summary, 'SUMMARY',
+			    			class='submitBubble',
 			    			rows=5,
 			    			placeholder='Short summary of project (200 characters)') }}
 			    		<tr>
