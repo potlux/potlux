@@ -569,13 +569,17 @@ ul .flashes {
 
 .plus-button {
 	border: 0px;
-	background: rgba(0,0,0,0);
-	font-size: 12pt;
-	padding:0 5px;
+	background: #23d0a5;
+	font-size: 14px;
+	padding:0 7px 0 7px;
+	border-radius: 5px;
+	color: #fff;
+	display: inline-block;
+	vertical-align: middle;
 }
 
 .plus-button:hover {
-	color: #23d0a5;
+	background: #1ebe98;
 }
 .plus-button:active {
 	background-color: #B3B3B3;
