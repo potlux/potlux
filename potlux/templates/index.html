@@ -46,7 +46,7 @@
 					{%if idea.resources.images:%}
 					<div class="layer">
 					{%else:%}
-					<div class="wowLayer">
+					<div class="layer">
 					{%endif%}
 					<table class="layer2" border="0" cellpadding="0" cellspacing="0">
 					<tr>
@@ -55,8 +55,8 @@
 						<div class="projName whiteFont">{{ titleize(idea.name) }}</div>
 						<div class="uniName whiteFont">{{ titleize(idea.university) }}</div>
 						{%else:%}
-						<div class="projName">{{ titleize(idea.name) }}</div>
-						<div class="uniName">{{ titleize(idea.university) }}</div>
+						<div class="projName whiteFont">{{ titleize(idea.name) }}</div>
+						<div class="uniName whiteFont">{{ titleize(idea.university) }}</div>
 						{%endif%}
 					</td>
 					</tr>
