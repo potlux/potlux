@@ -366,7 +366,7 @@ def verify(token):
     			'owners' : user._id
     		},
     		'$set' : {
-    			'contacts.$.name' : user.full_name
+    			'contacts.$.name' : user.name.first + " " + user.name.last
     		}},
     		False,
     		True)
