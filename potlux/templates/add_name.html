@@ -1,0 +1,27 @@
+{% extends "template.html" %}
+{% block title %}Add Your Name{% endblock %}
+{% block head %}
+  {{ super() }}
+  <style type="text/css">
+    .important { color: #336699; }
+  </style>
+{% endblock %}
+
+{% block content %}
+	{% from "_templatehelpers.html" import render_field %}
+
+	<div class="loginpage">
+	<div>Before you proceed Potlux needs to collect some information about you.</div>
+	&nbsp;
+
+	<form method="post" action="{{ url_for('add_name') }}">
+	  	<input type="hidden" name="_csrf_token" value="{{ csrf_token() }}" />
+	  	<table>
+	    {{ render_field(form.first_name, 'FIRST NAME', class='submitBubble') }}
+	    {{ render_field(form.last_name, 'LAST NAME', class='submitBubble') }}
+		</table>
+	  <p><input type="submit" value="Save" class="subButton">
+	</form>
+
+</div>
+{% endblock %}

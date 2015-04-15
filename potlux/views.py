@@ -1,5 +1,5 @@
 from potlux import app, db, login_required, login_user, logout_user, universities_trie, APP_ROOT
-from forms import RegistrationForm, LoginForm, EmailForm, PasswordForm, ProjectSubmitForm
+from forms import RegistrationForm, LoginForm, EmailForm, PasswordForm, ProjectSubmitForm, AddNameForm
 from flask import request, render_template, redirect, url_for, session, escape, flash, abort
 from flask.ext.login import login_required, current_user
 from inflection import titleize
@@ -339,6 +339,7 @@ def register():
 			new_user.password = generate_password_hash(password)
 			new_user.name.first = first_name
 			new_user.name.last = last_name
+			new_user.name.full = first_name + ' ' + last_name
 			new_user.verfied = False
 			new_user.save()
 
@@ -420,8 +421,33 @@ def beta():
 @app.route('/')
 # @login_required
 def home():
+	if current_user.is_authenticated() and not current_user.name.full:
+		return redirect(url_for('add_name'))
 	new_ideas = db.ideas.Idea.find().sort('date_creation', pymongo.DESCENDING).limit(20)
 	return render_template('index.html', ideas=new_ideas)
+
+@app.route('/add_name', methods=["GET", "POST"])
+@login_required
+def add_name():
+	form = AddNameForm(request.form)
+	if form.validate_on_submit():
+		first_name = form.first_name.data
+		print first_name
+		last_name = form.last_name.data
+		print last_name
+		full_name = first_name + ' ' + last_name
+		db.users.update({'_id' : ObjectId(current_user._id)},
+			{	'$set' : {
+					'name' : {
+						'first' : first_name,
+						'last' : last_name,
+						'full' : full_name
+					}
+				}
+			})
+		return redirect(url_for('home'))
+	else:
+		return render_template('add_name.html', form=form)
 
 @app.route('/logout')
 def logout():

@@ -5,6 +5,10 @@ from werkzeug.security import check_password_hash
 
 import requests, re
 
+class AddNameForm(Form):
+	first_name = TextField('FIRST NAME', validators = [validators.Required()])
+	last_name = TextField('LAST NAME', validators = [validators.Required()])
+	
 class ProjectSubmitForm(Form):
 	name = TextField('PROJECT NAME', validators = [validators.Required()])
 	categories = TextField('CATEGORIES')
