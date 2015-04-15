@@ -445,6 +445,7 @@ def add_name():
 					}
 				}
 			})
+		flash('Thank you!')
 		return redirect(url_for('home'))
 	else:
 		return render_template('add_name.html', form=form)
