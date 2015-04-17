@@ -91,7 +91,7 @@ def edit_idea(project_id):
 						'results' : text_or_none(request.form['mistakes & lessons learned'].strip()),
 						'summary' : text_or_none(request.form['summary'].strip())
 					}
-				});
+				})
 
 		return redirect(url_for('show_idea', id=project_id))
 

@@ -8,7 +8,7 @@ import models
 import uuid, os	
 
 def text_or_none(text):
-	if text == "None":
+	if text == "<p>None</p>":
 		return ""
 	else:
 		return text
