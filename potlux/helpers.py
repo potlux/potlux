@@ -47,6 +47,15 @@ def send_email(subject, sender, recipients, text_body, html_body):
 		html_body=html_body
 	)
 
+##
+# Deletes image_id from project_id.
+##
+def delete_image(idea_id, image_id):
+	full_size_image_path = os.path.join(app.config['UPLOAD_FOLDER'], 'full_size', idea_id, image_id + '.png')
+	thumbnail_image_path = os.path.join(app.config['UPLOAD_FOLDER'], 'thumbnails', idea_id, image_id + '.png')
+	os.remove(full_size_image_path)
+	os.remove(thumbnail_image_path)
+
 def process_image(file, idea_id):
 
 	# generate new file name
