@@ -68,6 +68,7 @@ class Idea(Document):
 		'future': basestring, 
 		'resources': { # lists of links
 			'images': [{
+				'image_id' : basestring,
 				'thumbnail': basestring,
 				'full_size' : basestring
 			}],
