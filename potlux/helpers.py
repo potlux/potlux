@@ -71,7 +71,7 @@ def process_image(file, idea_id):
 	full_size_filepath = os.path.join(app.config['UPLOAD_FOLDER'], 'full_size', idea_id)
 	thumbnail_filepath = os.path.join(app.config['UPLOAD_FOLDER'], 'thumbnails', idea_id)
 	if not (os.path.exists(full_size_filepath) and os.path.exists(thumbnail_filepath)):
-		os.chmod(app.config['UPLOAD_FOLDER'], 0o777)
+		os.chmod(app.config['UPLOAD_FOLDER'], 0777)
 		os.mkdir(full_size_filepath)
 		os.mkdir(thumbnail_filepath)
 

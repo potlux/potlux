@@ -1,4 +1,5 @@
 from pymongo import MongoClient
+from PIL import Image
 import os
 
 def change_idea_owners_to_list():
@@ -45,8 +46,24 @@ def add_image_ids_to_idea_images():
 			image_count += 1
 	print 'Done!'
 
+def compress_existing_images():
+	APP_ROOT = os.path.dirname(os.path.abspath(__file__))
+	client = MongoClient()
+	db = client.potlux
+	collection = db.ideas
+	for doc in collection.find():
+		images = doc['resources']['images']
+		for image in images:
+			full_size_image_path = os.path.join(APP_ROOT, 'static', image['full_size'])
+			print full_size_image_path
+			image = Image.open(full_size_image_path)
+			image.thumbnail((750, 750))
+			image.save(full_size_image_path)
+
+
 
 if __name__ == '__main__':
 	# change_idea_owners_to_list()
 	# add_full_name_to_user_model()
 	add_image_ids_to_idea_images()
+	compress_existing_images()
