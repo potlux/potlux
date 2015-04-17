@@ -67,7 +67,9 @@ def process_image(file, idea_id):
 
 	# Save full size image.
 	full_size_path = os.path.join(full_size_filepath, filename)
-	image.save(full_size_path, "png")
+	full_size_image = image.copy()
+	full_size_image.thumbnail((750, 750))
+	full_size_image.save(full_size_path, "png")
 
 	# Save thumbnail image.
 	image.thumbnail((300,300), Image.ANTIALIAS)
