@@ -60,7 +60,8 @@ def process_image(file, idea_id):
 
 	# generate new file name
 	print "Generating new file name"
-	filename = str(uuid.uuid4()) + ".png"
+	image_id = str(uuid.uuid4())
+	filename = image_id + ".png"
 
 	# change image to better size
 	image = Image.open(file)
@@ -89,6 +90,7 @@ def process_image(file, idea_id):
 		'resources', 'user_images', 'full_size', idea_id, filename)
 
 	return {
+		'image_id' : image_id,
 		'thumbnail' : thumbnail_relative_path,
 		'full_size' : full_size_relative_path
 	}
