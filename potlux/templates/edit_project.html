@@ -22,10 +22,10 @@
 
 	 {% if len(idea.resources.images) > 0 %}
       <div class="images">
-      {% for image_url in idea.resources.images: %}
+      {% for image in idea.resources.images: %}
         <div class="image-holder">
-          <div class="image-delete" data-image="{{ image_url.full_size }}">X</div>
-          <img src="{{ url_for('static', filename=image_url.full_size) }}" height="150" class="clickbl"/>
+          <div class="image-delete" data-image="{{ image.image_id }}">X</div>
+          <img src="{{ url_for('static', filename=image.full_size) }}" height="150" class="clickbl"/>
         </div>
       {% endfor %}
       </div>
@@ -115,17 +115,17 @@
           });
 
           $('.image-delete').click(function() {
-            var base_url = "localhost"; //"{ url_for('delete_project_image', project_id=idea._id) }";
+            var base_url = "{{ url_for('delete_project_image', project_id=idea._id) }}";
             var delete_url = base_url + "?del_image=" + encodeURIComponent($(this).attr('data-image'));
 
             console.log(delete_url);
-            // $.ajax({
-            //   url: delete_url,
-            //   method: "DELETE",
-            //   success: function() {
-            //     location.reload();
-            //   }
-            // });
+            $.ajax({
+              url: delete_url,
+              method: "DELETE",
+              success: function() {
+                location.reload();
+              }
+            });
           });
         });
       </script>

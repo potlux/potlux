@@ -101,10 +101,10 @@ def edit_idea(project_id):
 		idea=idea, idea_id=str(idea._id), leading_qs=leading_qs)
 
 @app.route('/idea/edit/remove/image/<project_id>', methods=["DELETE"])
-def remove_image(project_id):
+def delete_project_image(project_id):
 	if request.method == "DELETE":
 		print "deleting image"
-		image_id = request.args.get('image_id')
+		image_id = request.args.get('del_image')
 		db.ideas.update({'_id' : ObjectId(project_id)}, {
 				'$pull' : {
 					'resources.images' : {
