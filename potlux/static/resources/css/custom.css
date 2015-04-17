@@ -601,3 +601,21 @@ ul .flashes {
 .plus-button:active {
 	background-color: #B3B3B3;
 }
+
+.image-holder {
+	position: relative;
+	display: inline-block;
+}
+.image-delete {
+	border: 1px solid;
+	border-radius: 200px;
+	z-index: 99;
+	padding: 2px 8px;
+	position: absolute;
+	bottom: 4px;
+	right: 0;
+}
+.image-delete:hover {
+	color: #F42C2C;
+	cursor: pointer;
+}

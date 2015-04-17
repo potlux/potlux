@@ -47,11 +47,21 @@ def send_email(subject, sender, recipients, text_body, html_body):
 		html_body=html_body
 	)
 
+##
+# Deletes image_id from project_id.
+##
+def delete_image(idea_id, image_id):
+	full_size_image_path = os.path.join(app.config['UPLOAD_FOLDER'], 'full_size', idea_id, image_id + '.png')
+	thumbnail_image_path = os.path.join(app.config['UPLOAD_FOLDER'], 'thumbnails', idea_id, image_id + '.png')
+	os.remove(full_size_image_path)
+	os.remove(thumbnail_image_path)
+
 def process_image(file, idea_id):
 
 	# generate new file name
 	print "Generating new file name"
-	filename = str(uuid.uuid4()) + ".png"
+	image_id = str(uuid.uuid4())
+	filename = image_id + ".png"
 
 	# change image to better size
 	image = Image.open(file)
@@ -61,7 +71,7 @@ def process_image(file, idea_id):
 	full_size_filepath = os.path.join(app.config['UPLOAD_FOLDER'], 'full_size', idea_id)
 	thumbnail_filepath = os.path.join(app.config['UPLOAD_FOLDER'], 'thumbnails', idea_id)
 	if not (os.path.exists(full_size_filepath) and os.path.exists(thumbnail_filepath)):
-		os.chmod(app.config['UPLOAD_FOLDER'], 0o777)
+		os.chmod(app.config['UPLOAD_FOLDER'], 0777)
 		os.mkdir(full_size_filepath)
 		os.mkdir(thumbnail_filepath)
 
@@ -82,6 +92,7 @@ def process_image(file, idea_id):
 		'resources', 'user_images', 'full_size', idea_id, filename)
 
 	return {
+		'image_id' : image_id,
 		'thumbnail' : thumbnail_relative_path,
 		'full_size' : full_size_relative_path
 	}

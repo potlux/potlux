@@ -101,6 +101,23 @@ def edit_idea(project_id):
 	return render_template('edit_project.html', 
 		idea=idea, idea_id=str(idea._id), leading_qs=leading_qs)
 
+@app.route('/idea/edit/remove/image/<project_id>', methods=["DELETE"])
+def delete_project_image(project_id):
+	if request.method == "DELETE":
+		print "deleting image"
+		image_id = request.args.get('del_image')
+		db.ideas.update({'_id' : ObjectId(project_id)}, {
+				'$pull' : {
+					'resources.images' : {
+						'image_id' : image_id
+					}
+				}
+			})
+		print "image removed from database"
+		delete_image(project_id, image_id)
+		print "image deleted from filesystem"
+		return "Success!"
+
 @app.route('/idea/edit/tags/<project_id>', methods=["POST", "DELETE"])
 @login_required
 def edit_project_tag(project_id):

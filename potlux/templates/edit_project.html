@@ -21,8 +21,11 @@
 
 	 {% if len(idea.resources.images) > 0 %}
       <div class="images">
-      {% for image_url in idea.resources.images: %}
-        <img src="{{ url_for('static', filename=image_url.full_size) }}" height="150" class="clickbl"/>
+      {% for image in idea.resources.images: %}
+        <div class="image-holder">
+          <div class="image-delete" data-image="{{ image.image_id }}">X</div>
+          <img src="{{ url_for('static', filename=image.full_size) }}" height="150" class="clickbl"/>
+        </div>
       {% endfor %}
       </div>
 
@@ -115,21 +118,18 @@
             });
           });
 
-          $('#add-contact').click(function() {
-            email_input.appendTo(email_form);
-            // var popup_div = $('<div></div>').css({
-            //   'width': '400px',
-            //   'height': '200px',
-            //   'position': 'absolute',
-            //   'top': '30vh',
-            //   'left': '30%',
-            //   'background-color': '#DDDDDD',
-            //   'box-shadow': '2px 2px 5px #A9A9A9',
-            //   'z-index': '100'
-            //   });
-            // popup_div.append('<input />').attr('id', 'new_email');
-            // popup_div.append()
-            $('body').append(email_form);
+          $('.image-delete').click(function() {
+            var base_url = "{{ url_for('delete_project_image', project_id=idea._id) }}";
+            var delete_url = base_url + "?del_image=" + encodeURIComponent($(this).attr('data-image'));
+
+            console.log(delete_url);
+            $.ajax({
+              url: delete_url,
+              method: "DELETE",
+              success: function() {
+                location.reload();
+              }
+            });
           });
         });
       </script>
