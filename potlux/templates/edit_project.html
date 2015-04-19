@@ -23,7 +23,11 @@
       <div class="images">
       {% for image in idea.resources.images: %}
         <div class="image-holder">
-          <div class="project-image">[^]</div>
+          {% if is_selected(image.image_id, idea) %}
+            <div class="set-project-image selected" data-image="{{ image.image_id }}">[^]</div>
+          {% else: %}
+            <div class="set-project-image" data-image="{{ image.image_id }}">[^]</div>
+          {% endif %}
           <div class="image-delete" data-image="{{ image.image_id }}">X</div>
           <img src="{{ url_for('static', filename=image.full_size) }}" height="150" class="clickbl"/>
         </div>
@@ -80,6 +84,23 @@
         CKEDITOR.replace( 'procedure' );
         CKEDITOR.replace( 'future plans' );
         $(function() {
+          $('.set-project-image').click(function() {
+            var selected_element = $(this);
+            var base_url = "{{ url_for('set_project_image', project_id=idea._id) }}";
+            var set_image_url = base_url + "?image_id=" + $(this).attr('data-image');
+            console.log(set_image_url);
+            $.ajax({
+              url: set_image_url,
+              method: "PUT",
+              success: function() {
+                $('.set-project-image').each(function() {
+                  $(this).removeClass('selected');
+                });
+                selected_element.toggleClass('selected');
+              }
+            });
+          });
+
           $('.remove-category-icon').click(function() {
             var base_url = "{{ url_for('edit_project_tag', project_id=idea._id) }}"
             var delete_url = base_url + "?del_cat=" + $(this).attr('data-cat');

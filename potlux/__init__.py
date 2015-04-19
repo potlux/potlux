@@ -35,9 +35,13 @@ def generate_csrf_token():
         session['_csrf_token'] = binascii.hexlify(os.urandom(24))
     return session['_csrf_token']
 
+def is_selected(image_id, idea):
+	return image_id == idea.resources['project-image']
+
 app.jinja_env.globals['len'] = len 
 app.jinja_env.globals['titleize'] = titleize
 app.jinja_env.globals['csrf_token'] = generate_csrf_token
+app.jinja_env.globals['is_selected'] = is_selected
 
 connection = Connection()
 connection.register([Idea, User])

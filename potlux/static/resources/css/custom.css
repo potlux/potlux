@@ -607,32 +607,34 @@ ul .flashes {
 	display: inline-block;
 }
 .image-delete {
-	border: 1px solid;
+	border: 1px solid white;
 	border-radius: 200px;
 	z-index: 99;
 	padding: 2px 8px;
 	position: absolute;
 	bottom: 4px;
 	right: 0;
+	color: white;
 }
 .image-delete:hover {
 	color: #F42C2C;
 	cursor: pointer;
 }
 
-.project-image {
-	border: 1px solid;
+.set-project-image {
+	border: 1px solid white;
 	border-radius: 50px;
 	z-index: 99;
 	padding: 2px 4px;
 	position: absolute;
 	bottom: 4px;
 	left: 4px;
+	color: white;
 }
-.project-image .selected {
-	color: lime;
+.selected {
+	color: #00A500;
 }
-.project-image:hover {
-	color: lime;
+.set-project-image:hover {
+	color: #00A500;
 	cursor: pointer;
 }
