@@ -106,13 +106,33 @@ def delete_project_image(project_id):
 	if request.method == "DELETE":
 		print "deleting image"
 		image_id = request.args.get('del_image')
+		idea = db.ideas.find_one({'_id' : ObjectId(project_id)})
+
+		new_project_image_id = idea['resources']['project-image']
+
+		print "IMAGE ID:", image_id
+		print "PROJECT IMAGE:", idea['resources']['project-image']
+
+		# Set project-image to the id that isn't going to be deleted.
+		if image_id == idea['resources']['project-image']:
+			print "need to change project-image"
+			# Find first image id that is not the one being deleted.
+			for image in idea['resources']['images']:
+				if image_id is not image['image_id']:
+					new_project_image_id = image['image_id']
+
+		# Set new project-image to that image id.
 		db.ideas.update({'_id' : ObjectId(project_id)}, {
 				'$pull' : {
 					'resources.images' : {
 						'image_id' : image_id
 					}
+				},
+				'$set' : {
+					'resources.project-image' : new_project_image_id
 				}
 			})
+
 		print "image removed from database"
 		delete_image(project_id, image_id)
 		print "image deleted from filesystem"
