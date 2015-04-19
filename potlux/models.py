@@ -72,6 +72,7 @@ class Idea(Document):
 				'thumbnail': basestring,
 				'full_size' : basestring
 			}],
+			'project-image' : basestring,
 			'videos': [basestring],
 			'websites': [basestring],
 			'documents': [basestring]
