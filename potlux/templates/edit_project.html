@@ -23,6 +23,7 @@
       <div class="images">
       {% for image in idea.resources.images: %}
         <div class="image-holder">
+          <div class="project-image">[^]</div>
           <div class="image-delete" data-image="{{ image.image_id }}">X</div>
           <img src="{{ url_for('static', filename=image.full_size) }}" height="150" class="clickbl"/>
         </div>

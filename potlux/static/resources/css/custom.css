@@ -619,3 +619,20 @@ ul .flashes {
 	color: #F42C2C;
 	cursor: pointer;
 }
+
+.project-image {
+	border: 1px solid;
+	border-radius: 50px;
+	z-index: 99;
+	padding: 2px 4px;
+	position: absolute;
+	bottom: 4px;
+	left: 4px;
+}
+.project-image .selected {
+	color: lime;
+}
+.project-image:hover {
+	color: lime;
+	cursor: pointer;
+}
