@@ -93,7 +93,7 @@ def edit_idea(project_id):
 					}
 				})
 
-		return redirect(url_for('show_idea', id=project_id))
+		return redirect(url_for('edit_idea', project_id=project_id))
 
 	# Dictionary of leading questions to be printed if there is no content.
 	leading_qs = loads(open(APP_ROOT + '/leading_questions.json').read())
