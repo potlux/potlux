@@ -342,7 +342,7 @@ def search(tag=None):
 	elif search_by == "category":
 		ideas = db.ideas.Idea.find({"categories" : { "$all" : [tag]}})
 	elif search_by == "university":
-		ideas = db.ideas.Idea.find({"university" : tag})
+		ideas = db.ideas.Idea.find({"university" : tag.lower()})
 	else:
 		ideas = db.ideas.Idea.find().sort('date_creation', pymongo.DESCENDING).limit(10)
 	
