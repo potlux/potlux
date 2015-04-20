@@ -24,9 +24,19 @@
       {% for image in idea.resources.images: %}
         <div class="image-holder">
           {% if is_selected(image.image_id, idea) %}
-            <div class="set-project-image selected" data-image="{{ image.image_id }}">[^]</div>
+            <div class="set-project-image selected" data-image="{{ image.image_id }}">
+              <svg xmlns="http://www.w3.org/2000/svg" width="255" height="240" viewBox="0 0 51 48" class="star-icon">
+                <title>Five Pointed Star</title>
+                <path fill="none" stroke="#000" d="m25,1 6,17h18l-14,11 5,17-15-10-15,10 5-17-14-11h18z"/>
+              </svg>
+            </div>
           {% else: %}
-            <div class="set-project-image" data-image="{{ image.image_id }}">[^]</div>
+            <div class="set-project-image" data-image="{{ image.image_id }}">
+              <svg xmlns="http://www.w3.org/2000/svg" width="255" height="240" viewBox="0 0 51 48" class="star-icon">
+                <title>Five Pointed Star</title>
+                <path fill="none" stroke="#000" d="m25,1 6,17h18l-14,11 5,17-15-10-15,10 5-17-14-11h18z"/>
+              </svg>
+            </div>
           {% endif %}
           <div class="image-delete" data-image="{{ image.image_id }}">X</div>
           <img src="{{ url_for('static', filename=image.full_size) }}" height="150" class="clickbl"/>

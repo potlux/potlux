@@ -621,6 +621,17 @@ ul .flashes {
 	cursor: pointer;
 }
 
+svg.star-icon {
+	padding-top: 1px;
+	width: 15px;
+	height: 15px;
+	stroke: white;
+}
+svg.star-icon path {
+	stroke: white;
+	stroke-width: 3px;
+}
+
 .set-project-image {
 	border: 1px solid white;
 	border-radius: 50px;
@@ -631,8 +642,9 @@ ul .flashes {
 	left: 4px;
 	color: white;
 }
-.selected {
-	color: #00A500;
+.selected svg.star-icon path {
+	fill: yellow;
+	stroke: yellow;
 }
 .set-project-image:hover {
 	color: #00A500;
