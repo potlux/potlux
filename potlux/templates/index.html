@@ -38,8 +38,11 @@
 		<a href="/idea/{{idea._id}}">
 		<div class="flip-container" ontouchstart="this.classList.toggle('hover');">
 			<div class="flipper">
-				{%if idea.resources.images:%}
-				<div class="front textCenter" style="background-image:url('{{url_for('static',filename=idea.resources.images[0].full_size)}}');background-size:cover;background-position: center;">
+				{% if idea['resources']['project-image']: %}
+				{% set background_url = full_file_name_of_image(idea['_id'], 
+																idea['resources']['project-image'],
+																'thumbnails') %}
+				<div class="front textCenter" style="background-image:url('{{ background_url }}');background-size:cover;background-position: center;">
 				{%else:%}
 				<div class="front textCenter">
 				{%endif%}

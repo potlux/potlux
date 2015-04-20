@@ -1,4 +1,4 @@
-from flask import Flask, abort, request
+from flask import Flask, abort, request, url_for
 from models import Idea, User
 from mongokit import *
 from inflection import titleize
@@ -38,10 +38,17 @@ def generate_csrf_token():
 def is_selected(image_id, idea):
 	return image_id == idea.resources['project-image']
 
+def full_file_name_of_image(idea_id, image_id, size):
+	print "IDEA ID:", idea_id
+	print "IMAGE ID:", image_id
+	filename = os.path.join('resources', 'user_images', size, str(idea_id), image_id + '.png')
+	return url_for('static', filename=filename)
+
 app.jinja_env.globals['len'] = len 
 app.jinja_env.globals['titleize'] = titleize
 app.jinja_env.globals['csrf_token'] = generate_csrf_token
 app.jinja_env.globals['is_selected'] = is_selected
+app.jinja_env.globals['full_file_name_of_image'] = full_file_name_of_image
 
 connection = Connection()
 connection.register([Idea, User])
