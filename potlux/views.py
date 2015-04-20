@@ -115,10 +115,11 @@ def delete_project_image(project_id):
 
 		# Set project-image to the id that isn't going to be deleted.
 		if image_id == idea['resources']['project-image']:
-			print "need to change project-image"
+			print "need to change project-image from", image_id
 			# Find first image id that is not the one being deleted.
 			for image in idea['resources']['images']:
-				if image_id is not image['image_id']:
+				print image['image_id']
+				if image_id != image['image_id']:
 					new_project_image_id = image['image_id']
 
 		# Set new project-image to that image id.
