@@ -78,8 +78,6 @@ def edit_idea(project_id):
 						'resources.images' : filenames
 					}
 				})
-			# idea['resources']['images'].append(filenames)
-			# idea.save()
 
 		else:
 			db.ideas.update({'_id' : ObjectId(project_id)},
