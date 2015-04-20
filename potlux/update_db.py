@@ -60,10 +60,19 @@ def compress_existing_images():
 			image.thumbnail((750, 750))
 			image.save(full_size_image_path)
 
-
+def add_project_image_to_project():
+	client = MongoClient()
+	db = client.potlux
+	collection = db.ideas
+	for doc in collection.find():
+		db.update({'_id' : doc['_id']}, {
+				'$set' : {
+					'resources.project-image' : doc['resources']['images'][0]['image_id']
+				}
+			})
 
 if __name__ == '__main__':
 	# change_idea_owners_to_list()
 	# add_full_name_to_user_model()
-	add_image_ids_to_idea_images()
+	# add_image_ids_to_idea_images()
 	compress_existing_images()
