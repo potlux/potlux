@@ -211,33 +211,32 @@ def edit_project_contacts(project_id):
 		email = request.form['contact_email']
 		user = db.users.find_one({'email' : email})
 
-		if user:
-			# generate token and url to send in url to user being added/deleted.
-			token_string = email + "&" + project_id
-			token = ts.dumps(token_string, salt=app.config['EMAIL_CONFIRM_KEY'])
-			confirm_url = url_for('contact_confirm', token=token, _external=True)
+		# generate token and url to send in url to user being added/deleted.
+		token_string = email + "&" + project_id
+		token = ts.dumps(token_string, salt=app.config['EMAIL_CONFIRM_KEY'])
+		confirm_url = url_for('contact_confirm', token=token, _external=True)
 
-			# generate confirmation email body.
-			if user.name:
-				name = user.name.first
-			else:
-				name = "Environmental warrior"	
+		# generate confirmation email body.
+		if user and user.name:
+			name = user.name.first
+		else:
+			name = "Environmental warrior"	
 
-			# generate email fields.
-			if current_user.name and current_user.name.first:
-				subject = current_user.name.first + " would like you to join their project!"
-			else:
-				subject = current_user.email + " would like you to join their project!"
+		# generate email fields.
+		if current_user.name and current_user.name.first:
+			subject = current_user.name.first + " would like you to join their project!"
+		else:
+			subject = current_user.email + " would like you to join their project!"
 
-			recipients = [email]
-			text_body = render_template('email/contact_confirm.txt', 
-				url=confirm_url, name=name)
-			html_body = render_template('email/contact_confirm.html', 
-				url=confirm_url, name=name)
+		recipients = [email]
+		text_body = render_template('email/contact_confirm.txt', 
+			url=confirm_url, name=name)
+		html_body = render_template('email/contact_confirm.html', 
+			url=confirm_url, name=name)
 
-			# send email and redirect user back to edit page.
-			send_email(subject, sender, recipients, text_body, html_body)
-			flash('An email has been sent to accept your invitation')
+		# send email and redirect user back to edit page.
+		send_email(subject, sender, recipients, text_body, html_body)
+		flash('An email has been sent to accept your invitation')
 		return redirect(url_for('edit_idea', project_id=project_id))
 
 	elif request.method == "DELETE":
@@ -410,15 +409,15 @@ def verify(token):
     user.save()
 
     # Find all projects with this person as a contact and add this user as an owner.
-    db.ideas.update({'contacts.email' : user.email}, {
+    print db.ideas.update({'contacts.email' : user.email}, {
     		'$addToSet' : {
     			'owners' : user._id
-    		},
-    		'$set' : {
-    			'contacts.$.name' : user.name.first + " " + user.name.last
-    		}},
-    		False,
-    		True)
+    		}}, multi=True)
+    print db.ideas.update({'contacts.email' : user.email}, {
+			'$set' : {
+    			'contacts.$.name' : user.name.full
+    		}}, multi=True)
+    		
 
     login_user(user)
     return redirect(url_for('home'))
