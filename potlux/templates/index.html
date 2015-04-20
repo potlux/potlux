@@ -41,7 +41,7 @@
 				{% if idea['resources']['project-image']: %}
 				{% set background_url = full_file_name_of_image(idea['_id'], 
 																idea['resources']['project-image'],
-																'thumbnails') %}
+																'full_size') %}
 				<div class="front textCenter" style="background-image:url('{{ background_url }}');background-size:cover;background-position: center;">
 				{%else:%}
 				<div class="front textCenter">
