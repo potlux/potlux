@@ -220,13 +220,13 @@ def edit_project_contacts(project_id):
 		if user and user.name:
 			name = user.name.first
 		else:
-			name = "Environmental warrior"	
+			name = "environmental warrior"	
 
 		# generate email fields.
 		if current_user.name and current_user.name.first:
-			subject = current_user.name.first + " would like you to join their project!"
+			subject = titleize(current_user.name.first) + " wants you to join their project!"
 		else:
-			subject = current_user.email + " would like you to join their project!"
+			subject = current_user.email + " wants you to join their project!"
 
 		recipients = [email]
 		text_body = render_template('email/contact_confirm.txt', 

@@ -1,7 +1,10 @@
 Hey {{ name }}! 
 
-You are being asked to join {{ asker }}'s project on Potlux as a contact. 
+You are being asked to become a contact on a Potlux project! 
 
 Click this link: {{ url }} to accept!
 
 If you don't have an account yet check out www.potlux.org/register to sign up and make it even easier to manage your environmental projects.
+
+Kind Regards,
+The Potlux Team
