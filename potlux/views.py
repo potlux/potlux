@@ -217,8 +217,8 @@ def edit_project_contacts(project_id):
 		confirm_url = url_for('contact_confirm', token=token, _external=True)
 
 		# generate confirmation email body.
-		if user and user.name:
-			name = user.name.first
+		if user and user['name']:
+			name = user['name']['first']
 		else:
 			name = "environmental warrior"	
 
