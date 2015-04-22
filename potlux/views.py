@@ -17,7 +17,7 @@ def coming_soon():
 @app.route('/all')
 # @login_required
 def show_all():
-	ideas = db.ideas.Idea.find()	
+	ideas = db.ideas.Idea.find()
 	return 'all' # dumps([idea for idea in ideas])
 
 @app.route('/new', methods=["POST", "GET"])
@@ -46,7 +46,7 @@ def new():
 
 		new_idea.save()
 		return redirect(url_for('show_idea', id=str(new_idea._id)))
-	else: 
+	else:
 		print form.errors
 		return render_template('submit.html', form=form)
 
@@ -54,10 +54,10 @@ def new():
 def show_idea(id):
 	idea = db.ideas.find_one({"_id" : ObjectId(id)})
 	print idea
-			
+
 	# Dictionary of leading questions to be printed if there is no content.
 	leading_qs = loads(open(APP_ROOT + '/leading_questions.json').read())
-	
+
 	return render_template('project.html', idea=idea, leading_qs=leading_qs)
 
 @app.route('/idea/edit/<project_id>', methods=["GET", "POST"])
@@ -95,8 +95,8 @@ def edit_idea(project_id):
 
 	# Dictionary of leading questions to be printed if there is no content.
 	leading_qs = loads(open(APP_ROOT + '/leading_questions.json').read())
-	
-	return render_template('edit_project.html', 
+
+	return render_template('edit_project.html',
 		idea=idea, idea_id=str(idea._id), leading_qs=leading_qs)
 
 @app.route('/idea/edit/remove/image/<project_id>', methods=["DELETE"])
@@ -194,7 +194,7 @@ def edit_project_website(project_id):
 # Form value: contact_email=<contact_email>
 #
 # If the email entered is associated with an account on Potlux, that user will be
-# added/deleted as an owner of the project as well as his/her contact info being 
+# added/deleted as an owner of the project as well as his/her contact info being
 # added to the project. An email will be sent to the user being added/deleted to
 # confirm the action before any change is made in the database. This email will link
 # to /idea/edit/contacts/confirm/<token>, which updates project in the database when
@@ -220,7 +220,7 @@ def edit_project_contacts(project_id):
 		if user and user['name']:
 			name = user['name']['first']
 		else:
-			name = "environmental warrior"	
+			name = "environmental warrior"
 
 		# generate email fields.
 		if current_user.name and current_user.name.first:
@@ -229,9 +229,9 @@ def edit_project_contacts(project_id):
 			subject = current_user.email + " wants you to join their project!"
 
 		recipients = [email]
-		text_body = render_template('email/contact_confirm.txt', 
+		text_body = render_template('email/contact_confirm.txt',
 			url=confirm_url, name=name)
-		html_body = render_template('email/contact_confirm.html', 
+		html_body = render_template('email/contact_confirm.html',
 			url=confirm_url, name=name)
 
 		# send email and redirect user back to edit page.
@@ -281,12 +281,12 @@ def edit_project_contacts(project_id):
 		subject = "You're being removed from a potlux project!"
 
 		potlux_url = url_for('show_idea', id=project_id, _external=True)
-		text_body = render_template('email/contact_delete_confirm.txt', 
-			url=confirm_url, 
+		text_body = render_template('email/contact_delete_confirm.txt',
+			url=confirm_url,
 			name=name,
 			potlux_url=potlux_url)
 		html_body = render_template('email/contact_delete_confirm.html',
-			url=confirm_url, 
+			url=confirm_url,
 			name=name,
 			potlux_url=potlux_url)
 		recipients = [email]
@@ -336,7 +336,7 @@ def search(tag=None):
 	search_by = request.args.get('search_type')
 	if not tag:
 		tag = request.args.get('search')
-	
+
 	if search_by == "recent":
 		ideas = db.ideas.Idea.find().sort('date_creation', pymongo.DESCENDING).limit(10)
 	elif search_by == "category":
@@ -345,7 +345,7 @@ def search(tag=None):
 		ideas = db.ideas.Idea.find({"university" : tag.lower()})
 	else:
 		ideas = db.ideas.Idea.find().sort('date_creation', pymongo.DESCENDING).limit(10)
-	
+
 	return render_template('index.html', ideas=ideas)
 
 @app.route('/random')
@@ -380,7 +380,7 @@ def register():
 			flash('An account with that email already exists!')
 			form = RegistrationForm()
 			return render_template('register.html', form=form)
-		else:	
+		else:
 			new_user.email = user_email
 			new_user.password = generate_password_hash(password)
 			new_user.name.first = first_name
@@ -417,7 +417,7 @@ def verify(token):
 			'$set' : {
     			'contacts.$.name' : user.name.full
     		}}, multi=True)
-    		
+
 
     login_user(user)
     return redirect(url_for('home'))
@@ -434,7 +434,7 @@ def reset_password():
 		body = render_template('email/reset.txt', url=recover_url)
 		html = render_template('email/reset.html', url=recover_url)
 		send_email(subject, app.config['FROM_EMAIL_ADDRESS'], [user.email], body, html)
-		
+
 		flash('Check your email for password reset link')
 		return redirect(url_for('home'))
 	return render_template('reset.html', form=form)
@@ -515,9 +515,9 @@ def contact():
 		subject = 'Potlux Feedback'
 		sender = app.config['FROM_EMAIL_ADDRESS']
 		recipients = [app.config['FROM_EMAIL_ADDRESS']]
-		text_body = render_template('email/feedback.txt', 
+		text_body = render_template('email/feedback.txt',
 			message=message, name=name, email=email)
-		html_body = render_template('email/feedback.html', 
+		html_body = render_template('email/feedback.html',
 			message=message, name=name, email=email)
 
 		send_email(subject, sender, recipients, text_body, html_body)
@@ -531,4 +531,4 @@ def schools():
 	matches = universities_trie.keys(prefix)
 	matches_capitalized = [titleize(school) for school in matches]
 	return dumps(matches_capitalized)
-	
+

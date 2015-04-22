@@ -38,7 +38,7 @@
               </svg>
             </div>
           {% endif %}
-          <div class="image-delete" data-image="{{ image.image_id }}">X</div>
+          <div class="image-delete" data-image="{{ image.image_id }}">x</div>
           <img src="{{ url_for('static', filename=image.full_size) }}" height="150" class="clickbl"/>
         </div>
       {% endfor %}
