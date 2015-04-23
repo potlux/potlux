@@ -78,6 +78,12 @@ def edit_idea(project_id):
 						'resources.images' : filenames
 					}
 				})
+			if not idea['resources']['project-image']:
+				db.ideas.update({'_id' : ObjectId(project_id)}, {
+						'$set' : {
+							'resources.project-image' : filenames['image_id']
+						}
+					})
 			return redirect(url_for('edit_idea', project_id=project_id))
 
 		else:
