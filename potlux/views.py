@@ -45,7 +45,7 @@ def new():
 			new_idea.owners = [current_user._id]
 
 		new_idea.save()
-		return redirect(url_for('show_idea', id=str(new_idea._id)))
+		return redirect(url_for('show_idea', project_id=str(new_idea._id)))
 	else:
 		print form.errors
 		return render_template('submit.html', form=form)
@@ -281,7 +281,7 @@ def edit_project_contacts(project_id):
 
 		subject = "You're being removed from a potlux project!"
 
-		potlux_url = url_for('show_idea', id=project_id, _external=True)
+		potlux_url = url_for('show_idea', project_id=project_id, _external=True)
 		text_body = render_template('email/contact_delete_confirm.txt',
 			url=confirm_url,
 			name=name,
@@ -325,7 +325,7 @@ def contact_confirm(token):
 				}
 			}})
 	flash('You have been added as a contact for this project.')
-	return redirect(url_for('show_idea', id=project_id))
+	return redirect(url_for('show_idea', project_id=project_id))
 
 ##
 # Route to search by tag.

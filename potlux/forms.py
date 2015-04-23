@@ -30,7 +30,7 @@ class ProjectSubmitForm(Form):
 		# if re.match(self.website.data, IP_REGEX):
 		# 	raise validators.ValidationError('We do not accept IP Adresses!')
 	def validate_university(self, field):
-		if not db.self.university.data in uni_list:
+		if not self.university.data.lower() in uni_list:
 			raise validators.ValidationError("We don't recognize this school!")
 
 class EmailForm(Form):
