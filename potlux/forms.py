@@ -1,6 +1,6 @@
 from flask.ext.wtf import Form
 from wtforms import TextField, PasswordField, BooleanField, TextAreaField, validators
-from potlux import db
+from potlux import db, uni_list
 from werkzeug.security import check_password_hash
 
 import requests, re
@@ -29,6 +29,9 @@ class ProjectSubmitForm(Form):
 		# IP_REGEX = "^([01]?\\d\\d?|2[0-4]\\d|25[0-5])\\.([01]?\\d\\d?|2[0-4]\\d|25[0-5])\\.([01]?\\d\\d?|2[0-4]\\d|25[0-5])\\.([01]?\\d\\d?|2[0-4]\\d|25[0-5])$"
 		# if re.match(self.website.data, IP_REGEX):
 		# 	raise validators.ValidationError('We do not accept IP Adresses!')
+	def validate_university(self, field):
+		if not db.self.university.data in uni_list:
+			raise validators.ValidationError("We don't recognize this school!")
 
 class EmailForm(Form):
     email = TextField('Email', validators = [validators.Email(), validators.Required()])
