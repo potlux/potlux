@@ -27,7 +27,7 @@ def new():
 	if form.validate_on_submit():
 		name = form.name.data.lower()
 		categories = [cat.lower() for cat in form.categories.data.split(",")]
-		contact = {'name': form.first_name.data + " " + form.last_name.data,
+		contact = {'name': current_user.name.full,
 				   'email': current_user.email}
 		summary = form.summary.data
 		university = form.university.data.lower()
@@ -50,9 +50,9 @@ def new():
 		print form.errors
 		return render_template('submit.html', form=form)
 
-@app.route('/idea/<id>', methods=["GET", "POST"])
-def show_idea(id):
-	idea = db.ideas.find_one({"_id" : ObjectId(id)})
+@app.route('/idea/<project_id>', methods=["GET", "POST"])
+def show_idea(project_id):
+	idea = db.ideas.find_one({"_id" : ObjectId(project_id)})
 	print idea
 
 	# Dictionary of leading questions to be printed if there is no content.
@@ -78,6 +78,7 @@ def edit_idea(project_id):
 						'resources.images' : filenames
 					}
 				})
+			return redirect(url_for('edit_idea', project_id=project_id))
 
 		else:
 			db.ideas.update({'_id' : ObjectId(project_id)},
@@ -91,7 +92,7 @@ def edit_idea(project_id):
 					}
 				})
 
-		return redirect(url_for('edit_idea', project_id=project_id))
+		return redirect(url_for('show_idea', project_id=project_id))
 
 	# Dictionary of leading questions to be printed if there is no content.
 	leading_qs = loads(open(APP_ROOT + '/leading_questions.json').read())
