@@ -113,7 +113,7 @@ def delete_project_image(project_id):
 		image_id = request.args.get('del_image')
 		idea = db.ideas.find_one({'_id' : ObjectId(project_id)})
 
-		new_project_image_id = idea['resources']['project-image']
+		new_project_image_id = None
 
 		print "IMAGE ID:", image_id
 		print "PROJECT IMAGE:", idea['resources']['project-image']
