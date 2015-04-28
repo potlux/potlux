@@ -39,7 +39,7 @@
 		<div class="flip-container" ontouchstart="this.classList.toggle('hover');">
 			<div class="flipper">
 				{% if idea['resources']['project-image']: %}
-				{% set background_url = full_file_name_of_image(idea['_id'], 
+				{% set background_url = full_file_name_of_image(idea['_id'],
 																idea['resources']['project-image'],
 																'full_size') %}
 				<div class="front textCenter" style="background-image:url('{{ background_url }}');background-size:cover;background-position: center;">
@@ -55,10 +55,18 @@
 					<tr>
 					<td>
 						{%if idea.resources.images:%}
-						<div class="projName whiteFont">{{ titleize(idea.name) }}</div>
-						<div class="uniName whiteFont">{{ titleize(idea.university) }}</div>
+						{%if len(idea.name) > 30:%}
+						<div class="projName whiteFont snail">{{ titleize(idea.name) }}</div>
 						{%else:%}
 						<div class="projName whiteFont">{{ titleize(idea.name) }}</div>
+						{%endif%}
+						<div class="uniName whiteFont">{{ titleize(idea.university) }}</div>
+						{%else:%}
+						{%if len(idea.name) > 30:%}
+						<div class="projName whiteFont snail">{{ titleize(idea.name) }}</div>
+						{%else:%}
+						<div class="projName whiteFont">{{ titleize(idea.name) }}</div>
+						{%endif%}
 						<div class="uniName whiteFont">{{ titleize(idea.university) }}</div>
 						{%endif%}
 					</td>
