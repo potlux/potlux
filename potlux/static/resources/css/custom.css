@@ -231,6 +231,29 @@ table {
 	font-weight:100;
 }
 
+.follow-project {
+	display: inline-block;
+}
+.followed svg.heart-icon path {
+	fill: #F63B30;
+	stroke: #8E221B;
+	stroke-width: 2px;
+}
+
+svg.heart-icon {
+	height: 40px;
+	width: 40px;
+}
+svg.heart-icon:hover {
+	cursor: pointer;
+}
+
+svg.heart-icon path {
+	fill: none;
+	stroke: #000;
+	stroke-width: 2px;
+}
+
 .subButton {
 	background: #23d0a5;
 	border: none;

@@ -16,7 +16,8 @@ class User(Document, UserMixin):
 			'first' : basestring,
 			'last' : basestring,
 			'full' : basestring
-		}
+		},
+		'favorites' : [ObjectId] # ObjectId's of favorite projects.
 	}
 
 	default_values = {

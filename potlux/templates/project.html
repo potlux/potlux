@@ -13,7 +13,9 @@
 {% block content %}
 
     <div class="content about">
-      {{ render_project_info(idea, current_user._id in idea.owners) }}
+      {{ render_project_info(idea, 
+              current_user._id in idea.owners,
+              idea._id in current_user.favorites) }}
       <br />
       <br />
 
@@ -76,9 +78,32 @@
                     $('#myModal .modal-body').html('');
                 });
            });
-        })
-    </script>
-    <script>
+
+           $('.follow-project').click(function() {
+            var selected_element = $(this);
+            var base_url = "{{ url_for('add_favorite', user_id=current_user._id) }}";
+            var add_favorite_url = base_url + "?project_id={{ idea._id }}";
+            console.log(add_favorite_url);
+            $.ajax({
+              url: add_favorite_url,
+              method: "PUT",
+              success: function() {
+                selected_element.toggleClass('followed');
+              },
+              error: function(jqXHR, textStatus, errorThrown) {
+                console.log(jqXHR);
+                // This is kinda hacky, figure out a better way to alert user that he must log in.
+                if (jqXHR.status == 404) {
+                  // TODO (Jared): nicer looking dialogue box that links to log in screen.
+                  alert("You must log in to do this!");
+                }
+                else {
+                  alert("ERROR");
+                }
+              }
+            })
+          });
+        });
 
       function editSummary(fieldName){
         var curSum = document.getElementById(fieldName).innerHTML;

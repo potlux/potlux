@@ -404,6 +404,25 @@ def register():
 	else:
 		return render_template('register.html', form=form)
 
+##
+# TODO: add user authentication for this route.
+##
+@app.route('/user/<user_id>/add/favorite', methods=['PUT'])
+def add_favorite(user_id):
+	project_id = ObjectId(request.args.get('project_id'))
+
+	if db.users.find({'_id' : ObjectId(user_id), 'favorites' : project_id}).count() > 0:
+		db.users.update({'_id' : ObjectId(user_id)},
+			{'$pull' : {
+				'favorites' : project_id
+			}})
+	else:
+		db.users.update({'_id' : ObjectId(user_id)},
+			{'$addToSet' : {
+				'favorites' : project_id
+			}})
+	return 'Success!'
+
 @app.route('/verify/<token>')
 def verify(token):
     try:
