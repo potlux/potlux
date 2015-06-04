@@ -156,14 +156,20 @@ a:hover {
 	font-weight:;
 }
 
+#welcomeUser {
+	color: #fff;
+	float: left;
+	padding: 4px 15px;
+}
+
 .innerlog {
 	background: #20BB94;
 	text-align:center;
 	width: 65px;
 	padding: 4px;
-	margin-left: 165px;
 	border-radius: 5px;
 	cursor: pointer;
+	float: right;
 }
 
 .editButtn {
