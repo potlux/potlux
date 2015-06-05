@@ -72,9 +72,32 @@ def add_project_image_to_project():
 					}
 				})
 
+def add_favorites_to_users():
+	client = MongoClient()
+	db = client.potlux
+	# Add a favorites attribute to every user.
+	for user in db.users.find():
+		db.users.update({}, {
+				'$set' : {
+					'favorites' : []
+				}
+			},
+			multi=True)
+
+	# Add all projects created by a user to their favorites.
+	for doc in db.ideas.find():
+		idea_id = doc['_id']
+		for owner_id in doc['owners']:
+			db.users.update({'_id' : owner_id}, {
+					'$addToSet' : {
+						'favorites' : idea_id
+					}
+				})
+
 if __name__ == '__main__':
 	# change_idea_owners_to_list()
 	# add_full_name_to_user_model()
 	# compress_existing_images()
-	add_project_image_to_project()
+	# add_project_image_to_project()
+	add_favorites_to_users()
 	
