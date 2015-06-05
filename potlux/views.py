@@ -404,6 +404,10 @@ def register():
 	else:
 		return render_template('register.html', form=form)
 
+@app.route('/user/<user_id>')
+def show_user(user_id):
+	return dumps(db.users.find_one({'_id' : ObjectId(user_id)}))
+
 ##
 # TODO: add user authentication for this route.
 ##
