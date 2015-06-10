@@ -11,7 +11,7 @@ class AddNameForm(Form):
 	
 class ProjectSubmitForm(Form):
 	name = TextField('PROJECT NAME', validators = [validators.Required()])
-	categories = TextField('CATEGORIES')
+	categories = TextField('CATEGORIES', validators = [validators.Required()])
 	university = TextField('UNIVERSITY', validators = [validators.Required()])
 	first_name = TextField()
 	last_name = TextField()

@@ -17,28 +17,11 @@
 			    	<input type="hidden" name="_csrf_token" value="{{ csrf_token() }}" />
 			    	<table class="submitTable">
 						{{ render_submit_field(form.name, 'PROJECT NAME', class='submitBubble') }}
-						{{ render_submit_field(form.categories, 'TAGS', class='submitBubble') }}
+						{{ render_submit_field(form.categories, '
+												TAGS', 
+												class='submitBubble',
+												placeholder='Comma separated') }}
 						{{ render_submit_field(form.university, 'UNIVERSITY', class='submitBubble') }}
-			    		<!-- <tr>
-			    			<td class="formtd">YOUR NAME</td>
-			    			<td>
-			    				{{ form.first_name(class='contactBubble', placeholder='First')|safe }}
-			    				{{ form.last_name(class='contactBubble', placeholder='Last')|safe }}
-			    				{% if form.first_name.errors or form.last_name.errors %}
-							    	<ul class=errors>
-							    	{% for error in form.first_name.errors %}
-								      <li>{{ error }}</li>
-								    {% endfor %}
-								    {% for error in form.last_name.errors %}
-								      <li>{{ error }}</li>
-								    {% endfor %}
-								    </ul>
-							  	{% endif %}
-			    			</td>
-			    		</tr>
-			    		<tr>
-			    			<td class="spacer">&nbsp;</td>
-			    		</tr> -->
 			    		{{ render_submit_field(form.website, 'WEBSITE', class='submitBubble') }}
 			    		{{ render_submit_field(form.summary, 'SUMMARY',
 			    			class='submitBubble',
