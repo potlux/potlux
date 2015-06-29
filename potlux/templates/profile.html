@@ -1,0 +1,88 @@
+{% extends "template.html" %}
+{% block title %}Project{% endblock %}
+{% block head %}
+  {{ super() }}
+  <style type="text/css">
+    .important { color: #336699; }
+  </style>
+
+
+{% endblock %}
+
+{% block content %}
+
+	<div class="container">
+		
+		<div class="user-container row">
+			<div class="user-image col-sm-2">
+				{% if user.profile_pic %}
+				<img src="{{ user.profile_pic }}" />
+				{% else %}
+				<img src="{{ url_for('static', filename='resources/images/default-profile-pic.png') }}" />
+				{% endif %}
+			</div>
+			<div class="user-info col-sm-10">
+				<div class="user-name">
+					{{ titleize(user.name.full) }}
+				</div>
+				<div class="user-school">
+					Wesleyan University
+				</div>
+				<div class="user-contact">
+					<a href="mailto:{{user.email}}">{{ user.email }}</a>
+				</div>
+				<div class="user-info-footer">
+					<div class="followers">
+						27 Followers
+					</div>
+					<button class="subButton">
+						Follow
+					</button>
+				</div>
+			</div>
+		</div>
+
+		<div class="user-about textBlock">
+			<div class="about-title">
+				ABOUT
+			</div>	
+			<div class="about-content">
+				Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc condimentum quis velit nec dictum. Phasellus id ipsum nulla. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Nullam rhoncus erat et pretium malesuada. Nunc vehicula vel enim id ultrices. Aliquam scelerisque, massa a pellentesque commodo, dolor dolor consectetur risus, ut commodo libero nisl ut odio. Nam sed condimentum elit.
+			</div>
+		</div>
+	
+		<div class="projects row">
+			<div class="involved-in projects-section col-sm-4">
+				<div class="projects-title">
+					Involved In
+				</div>
+				<div class="projects-list">
+					THIS FEATURE COMING SOON
+				</div>
+			</div>
+			<div class="projects-liked projects-section col-sm-4">
+				<div class="projects-title">
+					Projects Liked
+				</div>
+				<div class="projects-list">
+					THIS FEATURE COMING SOON
+				</div>
+			</div>
+			<div class="following projects-section col-sm-4">
+				<div class="projects-title">
+					Following
+				</div>
+				<div class="projects-list">
+					THIS FEATURE COMING SOON
+				</div>
+			</div>
+		</div>
+
+		<div class="news-feed-container textBlock">
+			<div class="news-feed-title">News Feed</div>
+			<div class="coming-soon">COMING SOON</div>
+		</div>
+	</div>
+
+
+{% endblock %}

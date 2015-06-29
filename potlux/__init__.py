@@ -45,6 +45,7 @@ def full_file_name_of_image(idea_id, image_id, size):
 	return url_for('static', filename=filename)
 
 app.jinja_env.globals['len'] = len 
+app.jinja_env.globals['str'] = str
 app.jinja_env.globals['titleize'] = titleize
 app.jinja_env.globals['csrf_token'] = generate_csrf_token
 app.jinja_env.globals['is_selected'] = is_selected

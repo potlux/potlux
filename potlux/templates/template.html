@@ -44,9 +44,11 @@
             <td class="sidebar">
                 <div class="logInOut">
                     {% if current_user.is_authenticated(): %}
-                        <div id="welcomeUser">
-                            Hi, {{ titleize(current_user.name.first) }}!
-                        </div>
+                        <a href="/user/{{ current_user._id }}">
+                            <div id="welcomeUser">
+                                Hi, {{ titleize(current_user.name.first) }}!
+                            </div>
+                        </a>
                     {% endif %}
                     <div class="innerlog">
                     {% if current_user.is_authenticated(): %}

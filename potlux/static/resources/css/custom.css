@@ -687,3 +687,61 @@ svg.star-icon path {
 .snail {
 	font-size: 24px;
 }
+
+.user-info {
+	padding-left: 20px;
+}
+
+.user-name {
+	font-size: 32px;
+}
+
+.user-school {
+	font-size: 12px;
+}
+
+.user-contact a {
+	color: #23d0a5;
+}
+.user-contact a:hover {
+	color: #23d0a5;
+	font-weight: normal;
+	text-decoration: underline;
+}
+
+.user-info-footer {
+	margin-top: 20px;
+}
+.followers {
+	font-size: 10px;
+	color: #BCBDC5;
+}
+
+.user-about {
+	margin-top: 25px;
+}
+
+.projects {
+	max-width: 80%;
+	margin-top: 25px;
+}
+
+.projects-title {
+	background-color: #23d0a5;
+	color: #fff;
+	text-align: center;
+	padding: 10px;
+	border-top-left-radius: 5px;
+	border-top-right-radius: 5px; 
+}
+
+.projects-list {
+	background-color: #ddd;
+	text-align: center;
+	height: 100px;
+	padding-top: 25px;
+}
+
+.news-feed-container {
+	margin-top: 25px;
+}

@@ -406,7 +406,13 @@ def register():
 
 @app.route('/user/<user_id>')
 def show_user(user_id):
-	return dumps(db.users.find_one({'_id' : ObjectId(user_id)}))
+	user = db.users.User.find_one({'_id' : ObjectId(user_id)})
+	favorites = db.ideas.Idea.find({
+		'_id' : {
+			'$in' : user.favorites
+		}
+	})
+	return render_template('profile.html', user=user, favorites=favorites)
 
 ##
 # TODO: add user authentication for this route.
