@@ -407,11 +407,14 @@ def register():
 @app.route('/user/<user_id>')
 def show_user(user_id):
 	user = db.users.User.find_one({'_id' : ObjectId(user_id)})
+	print user
 	favorites = db.ideas.Idea.find({
 		'_id' : {
 			'$in' : user.favorites
 		}
 	})
+	print favorites
+	print "RENDERING TEMPLATE"
 	return render_template('profile.html', user=user, favorites=favorites)
 
 ##
