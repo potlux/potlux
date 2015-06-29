@@ -745,3 +745,7 @@ svg.star-icon path {
 .news-feed-container {
 	margin-top: 25px;
 }
+
+#welcomeUser a:hover {
+	text-decoration: underline;
+}
