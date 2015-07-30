@@ -15,7 +15,7 @@
 {% block content %}
 
 	<div class="content about">
-      {{ render_project_info(idea, current_user._id in idea.owners, True) }}
+      {{ render_project_info(idea, current_user._id in idea.owners, edit_page=True) }}
       <br />
       <br />
 
