@@ -345,13 +345,13 @@ def search(tag=None):
 		tag = request.args.get('search')
 
 	if search_by == "recent":
-		ideas = db.ideas.Idea.find().sort('date_creation', pymongo.DESCENDING).limit(10)
+		ideas = db.ideas.Idea.find().sort('date_creation', pymongo.DESCENDING)
 	elif search_by == "category":
-		ideas = db.ideas.Idea.find({"categories" : { "$all" : [tag]}})
+		ideas = db.ideas.Idea.find({"categories" : { "$all" : [tag]}}).sort('date_creation', pymongo.DESCENDING)
 	elif search_by == "university":
-		ideas = db.ideas.Idea.find({"university" : tag.lower()})
+		ideas = db.ideas.Idea.find({"university" : tag.lower()}).sort('date_creation', pymongo.DESCENDING)
 	else:
-		ideas = db.ideas.Idea.find().sort('date_creation', pymongo.DESCENDING).limit(10)
+		ideas = db.ideas.Idea.find().sort('date_creation', pymongo.DESCENDING)
 
 	return render_template('index.html', ideas=ideas)
 
@@ -510,7 +510,7 @@ def beta():
 def home():
 	if current_user.is_authenticated() and not current_user.name.full:
 		return redirect(url_for('add_name'))
-	new_ideas = db.ideas.Idea.find().sort('date_creation', pymongo.DESCENDING).limit(20)
+	new_ideas = db.ideas.Idea.find().sort('date_creation', pymongo.DESCENDING)
 	return render_template('index.html', ideas=new_ideas)
 
 @app.route('/add_name', methods=["GET", "POST"])
