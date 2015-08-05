@@ -55,14 +55,14 @@
 					<tr>
 					<td>
 						{%if idea.resources.images:%}
-						{%if len(idea.name) > 30:%}
+						{%if len(idea.name) > 25:%}
 						<div class="projName whiteFont snail">{{ titleize(idea.name) }}</div>
 						{%else:%}
 						<div class="projName whiteFont">{{ titleize(idea.name) }}</div>
 						{%endif%}
 						<div class="uniName whiteFont">{{ titleize(idea.university) }}</div>
 						{%else:%}
-						{%if len(idea.name) > 30:%}
+						{%if len(idea.name) > 25:%}
 						<div class="projName whiteFont snail">{{ titleize(idea.name) }}</div>
 						{%else:%}
 						<div class="projName whiteFont">{{ titleize(idea.name) }}</div>
