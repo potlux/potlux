@@ -8,3 +8,4 @@ Flask-wtf
 Flask-Security
 Boto
 marisa_trie
+requests
