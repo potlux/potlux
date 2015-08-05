@@ -685,7 +685,7 @@ svg.star-icon path {
 }
 
 .snail {
-	font-size: 24px;
+	font-size: 20px;
 }
 
 .user-info {
@@ -732,7 +732,7 @@ svg.star-icon path {
 	text-align: center;
 	padding: 10px;
 	border-top-left-radius: 5px;
-	border-top-right-radius: 5px; 
+	border-top-right-radius: 5px;
 }
 
 .projects-list {
