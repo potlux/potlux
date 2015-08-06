@@ -40,6 +40,48 @@
   </head>
   <body>
     <table id="content">
+        <tr class="topbar">
+            <td colspan="2">
+                <a href="/"><img src="{{url_for('static',filename='resources/images/potlux-sidebar.png')}}" class="logo topLogo" width="180"/></a>
+                <div class="navlink top" style="display:inline-block;">
+                    {% if active_page == 'home': %}
+                        <a class='activeLink' href="/">HOME</a>
+                    {% else: %}
+                        <a href="/">HOME</a>
+                    {% endif %}
+                    &nbsp;&nbsp;&nbsp;&nbsp;
+                    {% if active_page == 'about': %}
+                        <a class='activeLink' href="/about">ABOUT</a>
+                    {% else: %}
+                        <a href="/about">ABOUT</a>
+                    {% endif %}
+                    &nbsp;&nbsp;&nbsp;&nbsp;
+                    {% if active_page == 'submit': %}
+                        <a class='activeLink' href="/new">SUBMIT</a>
+                    {% else: %}
+                        <a href="/new">SUBMIT</a>
+                    {% endif %}
+                    &nbsp;&nbsp;&nbsp;&nbsp;
+                    {% if active_page == 'contact': %}
+                        <a class='activeLink' href="/contact">CONTACT</a>
+                    {% else: %}
+                        <a href="/contact">CONTACT</a>
+                    {% endif %}
+                </div>
+                <div class="loginTop">
+                    {% if current_user.is_authenticated(): %}
+                    <a href="/user/{{ current_user._id }}" class="topWelcome">
+                        Hi, {{ titleize(current_user.name.first) }}!
+                    </a>(
+                    {% endif %}
+                    {% if current_user.is_authenticated(): %}
+                            <a href="/logout">LOGOUT</a>)
+                    {% else: %}
+                            <a href="/login">LOGIN</a>
+                    {% endif %}
+                </div>
+            </td>
+        </tr>
         <tr>
             <td class="sidebar">
                 <div class="logInOut">
