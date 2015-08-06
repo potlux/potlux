@@ -749,3 +749,7 @@ svg.star-icon path {
 #welcomeUser a:hover {
 	text-decoration: underline;
 }
+
+.projectInfoTable td {
+	vertical-align: top;
+}

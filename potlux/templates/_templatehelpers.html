@@ -74,7 +74,7 @@
 
   {% if editable and not edit_page: %}
     <a href="{{ url_for('edit_idea', project_id=idea._id) }}" class="projLink">
-      <img src="{{url_for('static',filename='resources/images/editbtn2.png')}}" 
+      <img src="{{url_for('static',filename='resources/images/editbtn2.png')}}"
             height="40" width="40" class="darshdeep">
     </a>
   {% endif %}
@@ -92,7 +92,7 @@
   {% endif %}
   </div>
 
-  <table border="0">
+  <table border="0" class="projectInfoTable">
     <tr>
       <td>
         <span class="projectTitle">
