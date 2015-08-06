@@ -39,7 +39,8 @@ def new():
 		new_idea.contacts = [contact]
 		new_idea.summary = summary
 		new_idea.university = university
-		new_idea.resources.websites = [website]
+		if website:
+			new_idea.resources.websites = [website]
 
 		if current_user.is_authenticated():
 			new_idea.owners = [current_user._id]
