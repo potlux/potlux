@@ -95,55 +95,55 @@
 </div>
 
 <script>
-	function addArrow() {
-		document.getElementById("recent").innerHTML = "MOST RECENT"
-		document.getElementById("category").innerHTML = "CATEGORY"
-		document.getElementById("university").innerHTML = "UNIVERSITY"
-		var e = document.getElementById("type");
-		var strUser = e.options[e.selectedIndex].value;
-		document.getElementById(strUser).innerHTML = document.getElementById(strUser).innerHTML + "&nbsp;&nbsp; &#9660;"
-	}
+    function addArrow() {
+      document.getElementById("recent").innerHTML = "MOST RECENT"
+      document.getElementById("category").innerHTML = "CATEGORY"
+      document.getElementById("university").innerHTML = "UNIVERSITY"
+      var e = document.getElementById("type");
+      var strUser = e.options[e.selectedIndex].value;
+      document.getElementById(strUser).innerHTML = document.getElementById(strUser).innerHTML + "&nbsp;&nbsp; &#9660;"
+    }
 
-	function truncateSummary(element) {
-		var maxWordCount = 200;
-		if (element.innerText.length > 200) {
-			element.innerText = element.innerText.substr(0, maxWordCount) + "...";
-		}
-	}
+    function truncateSummary(element) {
+      var maxWordCount = 200;
+      if (element.innerText.length > 200) {
+      	element.innerText = element.innerText.substr(0, maxWordCount) + "...";
+      }
+    }
 
-	function setAutocomplete(type) {
-		switch(type) {
-			case 'university':
-				$('#searchBar').autocomplete({
-					source: "{{ url_for('schools') }}"
-				});
-				break;
-			case 'category':
-				break;
-			default:
-				break;
-		}
-	}
+    function setAutocomplete(type) {
+      switch(type) {
+      case 'university':
+      $('#searchBar').autocomplete({
+        source: "{{ url_for('schools') }}"
+      });
+      break;
+      case 'category':
+        break;
+      default:
+        break;
+      }
+    }
 
-	function addInfiniteScroll() {
+    function addInfiniteScroll() {
 
-	}
+    }
 
-	window.onload = function() {
-		var cards = document.getElementsByClassName('KONVICT');
-		console.log(cards);
-		for (var i = 0; i < cards.length; i++) {
-			var cardText = cards[i];
-			console.log(cardText);
-			truncateSummary(cardText);
-		}
+    window.onload = function() {
+    	var cards = document.getElementsByClassName('KONVICT');
+    	console.log(cards);
+    	for (var i = 0; i < cards.length; i++) {
+    		var cardText = cards[i];
+    		console.log(cardText);
+    		truncateSummary(cardText);
+    	}
 
-		setAutocomplete($('#type').val());
+    	setAutocomplete($('#type').val());
 
-		$('#type').change(function() {
-			setAutocomplete($(this).val());
-		});
-	}
+    	$('#type').change(function() {
+    		setAutocomplete($(this).val());
+    	});
+    }
 
 </script>
 

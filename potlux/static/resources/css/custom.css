@@ -241,7 +241,7 @@ table {
 }
 
 .projectName {
-	font-size: 64px;
+	font-size: 52px;
 	font-weight:100;
 }
 
@@ -502,13 +502,13 @@ svg.heart-icon path {
 	text-align:center;
 }
 .projName {
-	font-size: 28px;
+	font-size: 24px;
 	font-weight: 300;
 	padding: 0 10px 0 10px;
 }
 
 .uniName {
-	font-size: 18px;
+	font-size: 14px;
 	font-weight: 200;
 }
 
