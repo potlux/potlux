@@ -135,6 +135,15 @@ a:hover {
 	width: 250px;
 }
 
+.topbar {
+	display: none;
+	height: 80px;
+}
+
+.topbar td {
+	background: #23d0a5;
+}
+
 .logInOut {
 	text-align: right;
 	padding: 10px;
@@ -232,7 +241,7 @@ table {
 }
 
 .projectName {
-	font-size: 64px;
+	font-size: 52px;
 	font-weight:100;
 }
 
@@ -287,6 +296,14 @@ svg.heart-icon path {
 	margin-left: 40px;
 	font-size: 16px;
 	height:18px;
+}
+
+.loginTop {
+	display: inline-block;
+	float: right;
+	margin-right: 15px;
+	margin-top: 5px;
+	color: #fff;
 }
 
 .navlink2{
@@ -485,13 +502,13 @@ svg.heart-icon path {
 	text-align:center;
 }
 .projName {
-	font-size: 28px;
+	font-size: 24px;
 	font-weight: 300;
 	padding: 0 10px 0 10px;
 }
 
 .uniName {
-	font-size: 18px;
+	font-size: 14px;
 	font-weight: 200;
 }
 
@@ -553,7 +570,7 @@ svg.heart-icon path {
 	border-radius: 10px;
 	padding: 25px;
 	margin-top: 10px;
-	max-width: 80%;
+	max-width: 800px;
 	font-weight: 300;
 }
 
@@ -752,4 +769,29 @@ svg.star-icon path {
 
 .projectInfoTable td {
 	vertical-align: top;
+}
+
+@media (max-width: 1000px) {
+	.sidebar {
+		display:none;
+	}
+
+	.topbar {
+		display: table-row;
+	}
+}
+
+@media (max-width: 680px) {
+	.topLogo {
+		display:none;
+	}
+	.loginTop {
+		margin-top: 0;
+	}
+}
+
+@media (max-width: 800px) {
+	.topWelcome {
+		display:none;
+	}
 }
