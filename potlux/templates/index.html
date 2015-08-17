@@ -10,7 +10,7 @@
 {% block content %}
 <div class="sortSearch">
 
-	<form action="{{ url_for('search') }}" method="GET">
+	<form action="{{ url_for('search') }}" method="GET" id="search-form">
 	<p class="nowrap">
 		SEARCH BY:
 		<select name="search_type" id="type" onchange="addArrow()">
@@ -137,6 +137,12 @@
 			console.log(cardText);
 			truncateSummary(cardText);
 		}
+
+		$('#search-form').bind('keypress', function(e) {
+			if (e.keyCode == 13) {
+				return false;
+			}
+		});
 
 		setAutocomplete($('#type').val());
 
