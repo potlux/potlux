@@ -354,7 +354,7 @@ def search(tag=None):
 
 	if search_by == "recent":
 		ideas = db.ideas.Idea.find().sort('date_creation', pymongo.DESCENDING)
-	elif search_by == "category":
+	elif search_by == "tag":
 		ideas = db.ideas.Idea.find({"categories" : { "$all" : [tag]}}).sort('date_creation', pymongo.DESCENDING)
 	elif search_by == "university":
 		search_term = universities_trie.keys(tag.lower())[0]
