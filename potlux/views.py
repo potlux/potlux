@@ -23,6 +23,7 @@ def show_all():
 @app.route('/new', methods=["POST", "GET"])
 @login_required
 def new():
+	# ProjectController.create(form)
 	form = ProjectSubmitForm(request.form)
 	if form.validate_on_submit():
 		name = form.name.data.lower()
@@ -53,6 +54,7 @@ def new():
 
 @app.route('/idea/<project_id>', methods=["GET", "POST"])
 def show_idea(project_id):
+	# ProjectController.show(project_id)
 	idea = db.ideas.find_one({"_id" : ObjectId(project_id)})
 	print idea
 
@@ -64,6 +66,7 @@ def show_idea(project_id):
 @app.route('/idea/edit/<project_id>', methods=["GET", "POST"])
 @login_required
 def edit_idea(project_id):
+	# ProjectController.edit(project_id)
 	idea = db.ideas.Idea.find_one({"_id" : ObjectId(project_id)})
 	if not current_user._id in idea.owners:
 		flash("You're not allowed to do that!")
@@ -109,6 +112,7 @@ def edit_idea(project_id):
 
 @app.route('/idea/edit/remove/image/<project_id>', methods=["DELETE"])
 def delete_project_image(project_id):
+	# ProjectController.delete(project_id)
 	if request.method == "DELETE":
 		print "deleting image"
 		image_id = request.args.get('del_image')
@@ -147,6 +151,7 @@ def delete_project_image(project_id):
 
 @app.route('/idea/edit/project-image/<project_id>', methods=["PUT"])
 def set_project_image(project_id):
+	# ProjectController.set_image()
 	if request.method == 'PUT':
 		image_id = request.args.get('image_id')
 		db.ideas.update({'_id' : ObjectId(project_id)}, {
@@ -159,6 +164,7 @@ def set_project_image(project_id):
 @app.route('/idea/edit/tags/<project_id>', methods=["POST", "DELETE"])
 @login_required
 def edit_project_tag(project_id):
+	# ProjectController.set_tag()
 	if request.method == "POST":
 		new_category = request.form['new_cat'].strip().lower()
 		if new_category:
@@ -179,6 +185,7 @@ def edit_project_tag(project_id):
 @app.route('/idea/edit/websites/<project_id>', methods=["POST", "DELETE"])
 @login_required
 def edit_project_website(project_id):
+	# ProjectController.edit(project_id)
 	if request.method == "POST":
 		new_website = request.form['new_site'].strip().lower()
 		if new_website:
@@ -350,7 +357,9 @@ def search(tag=None):
 	elif search_by == "category":
 		ideas = db.ideas.Idea.find({"categories" : { "$all" : [tag]}}).sort('date_creation', pymongo.DESCENDING)
 	elif search_by == "university":
-		ideas = db.ideas.Idea.find({"university" : tag.lower()}).sort('date_creation', pymongo.DESCENDING)
+		search_term = universities_trie.keys(tag.lower())[0]
+		print search_term
+		ideas = db.ideas.Idea.find({"university" : search_term}).sort('date_creation', pymongo.DESCENDING)
 	else:
 		ideas = db.ideas.Idea.find().sort('date_creation', pymongo.DESCENDING)
 
