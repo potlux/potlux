@@ -138,7 +138,7 @@
 
         <span>
         {% for category in idea.categories: %}
-          <a href="{{ url_for('search', query=category) }}" class="projLink">{{category}} </a>
+          <a href="{{ url_for('search', search_type='tag', search=category) }}" class="projLink">{{category}} </a>
           {% if edit_page: %}
             <span class="remove-category-icon action-text-icon" data-cat="{{category}}">x</span>
           {% endif %}

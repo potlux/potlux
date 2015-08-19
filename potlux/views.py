@@ -355,7 +355,6 @@ def contact_confirm(token):
 # Route to search by tag.
 ##
 @app.route('/search')
-@app.route('/search/<tag>')
 def search(query=None):
 	ideas = None
 	search_by = request.args.get('search_type')
