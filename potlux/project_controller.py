@@ -120,3 +120,13 @@ class ProjectController:
 
 			delete_image(project_id, image_id)
 			return "Success!"
+
+	def set_project_image(self, project_id):
+		if self.request.method == 'PUT':
+			image_id = self.request.args.get('image_id')
+			db.ideas.update({'_id' : ObjectId(project_id)}, {
+					'$set' : {
+						'resources.project-image' : image_id
+					}
+				})
+		return 'Success!'

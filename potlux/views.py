@@ -56,15 +56,8 @@ def delete_project_image(project_id):
 
 @app.route('/idea/edit/project-image/<project_id>', methods=["PUT"])
 def set_project_image(project_id):
-	# ProjectController.set_image()
-	if request.method == 'PUT':
-		image_id = request.args.get('image_id')
-		db.ideas.update({'_id' : ObjectId(project_id)}, {
-				'$set' : {
-					'resources.project-image' : image_id
-				}
-			})
-	return 'Success!'
+	p = ProjectController(request)
+	return p.set_project_image(project_id)
 
 @app.route('/idea/edit/tags/<project_id>', methods=["POST", "DELETE"])
 @login_required
