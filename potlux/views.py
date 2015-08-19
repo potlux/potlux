@@ -27,7 +27,7 @@ def new():
 	form = ProjectSubmitForm(request.form)
 	if form.validate_on_submit():
 		name = form.name.data.lower()
-		categories = [cat.lower() for cat in form.categories.data.split(",")]
+		categories = [cat.lower().strip() for cat in form.categories.data.split(",")]
 		contact = {'name': current_user.name.full,
 				   'email': current_user.email}
 		summary = form.summary.data
