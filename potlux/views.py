@@ -366,7 +366,7 @@ def search(query=None):
 	elif search_by == "tag":
 		ideas = db.ideas.Idea.find({
 			"status" : "active",
-			"categories" : { "$all" : [query]}
+			"categories" : { "$all" : [query.lower()]}
 		}).sort('date_creation', pymongo.DESCENDING)
 	elif search_by == "university":
 		ideas = db.ideas.Idea.find({
