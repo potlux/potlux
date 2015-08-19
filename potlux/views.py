@@ -346,20 +346,26 @@ def contact_confirm(token):
 ##
 @app.route('/search')
 @app.route('/search/<tag>')
-def search(tag=None):
+def search(query=None):
 	ideas = None
 	search_by = request.args.get('search_type')
-	if not tag:
-		tag = request.args.get('search')
+	if not query:
+		query = request.args.get('search')
 
 	if search_by == "recent":
 		ideas = db.ideas.Idea.find().sort('date_creation', pymongo.DESCENDING)
 	elif search_by == "tag":
-		ideas = db.ideas.Idea.find({"categories" : { "$all" : [tag]}}).sort('date_creation', pymongo.DESCENDING)
+		ideas = db.ideas.Idea.find({"categories" : { "$all" : [query]}}).sort('date_creation', pymongo.DESCENDING)
 	elif search_by == "university":
-		search_term = universities_trie.keys(tag.lower())[0]
-		print search_term
-		ideas = db.ideas.Idea.find({"university" : search_term}).sort('date_creation', pymongo.DESCENDING)
+		ideas = db.ideas.Idea.find({"university" : query.lower()}).sort('date_creation', pymongo.DESCENDING)
+		if ideas.count() <= 0:
+			search_terms = universities_trie.keys(query.lower())
+			print "Search terms", search_terms
+			ideas = db.ideas.Idea.find({
+				"university" : {
+					"$in" : search_terms
+				}
+			})
 	else:
 		ideas = db.ideas.Idea.find().sort('date_creation', pymongo.DESCENDING)
 
