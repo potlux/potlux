@@ -84,6 +84,12 @@
     		<input type="submit" name="submit" class="subButton" value="Save Changes"/ style="width:130px">
       </form>
 
+      <div class="delete-button">
+        <form action="{{ url_for('delete_idea', project_id=idea._id) }}">
+          <input type="submit" value="DELETE" />
+        </form>
+      </div>
+
 
       <br/><br/><br/>
 
