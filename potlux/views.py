@@ -1,4 +1,5 @@
 from potlux import app, db, login_required, login_user, logout_user, universities_trie, APP_ROOT
+from project_controller import ProjectController
 from forms import RegistrationForm, LoginForm, EmailForm, PasswordForm, ProjectSubmitForm, AddNameForm
 from flask import request, render_template, redirect, url_for, session, escape, flash, abort
 from flask.ext.login import login_required, current_user
@@ -17,40 +18,15 @@ def coming_soon():
 @app.route('/all')
 # @login_required
 def show_all():
+	# ProjectController.show_all()
 	ideas = db.ideas.Idea.find()
 	return 'all' # dumps([idea for idea in ideas])
 
 @app.route('/new', methods=["POST", "GET"])
 @login_required
 def new():
-	# ProjectController.create(form)
-	form = ProjectSubmitForm(request.form)
-	if form.validate_on_submit():
-		name = form.name.data.lower()
-		categories = [cat.lower().strip() for cat in form.categories.data.split(",")]
-		contact = {'name': current_user.name.full,
-				   'email': current_user.email}
-		summary = form.summary.data
-		university = form.university.data.lower()
-		website = sanitize_link(form.website.data.lower())
-
-		new_idea = db.ideas.Idea()
-		new_idea.name = name
-		new_idea.categories = categories
-		new_idea.contacts = [contact]
-		new_idea.summary = summary
-		new_idea.university = university
-		if website:
-			new_idea.resources.websites = [website]
-
-		if current_user.is_authenticated():
-			new_idea.owners = [current_user._id]
-
-		new_idea.save()
-		return redirect(url_for('show_idea', project_id=str(new_idea._id)))
-	else:
-		print form.errors
-		return render_template('submit.html', form=form)
+	p = ProjectController(request)
+	return p.create()
 
 @app.route('/idea/delete/<project_id>')
 def delete_idea(project_id):
@@ -64,14 +40,8 @@ def delete_idea(project_id):
 
 @app.route('/idea/<project_id>', methods=["GET", "POST"])
 def show_idea(project_id):
-	# ProjectController.show(project_id)
-	idea = db.ideas.find_one({"_id" : ObjectId(project_id)})
-	print idea
-
-	# Dictionary of leading questions to be printed if there is no content.
-	leading_qs = loads(open(APP_ROOT + '/leading_questions.json').read())
-
-	return render_template('project.html', idea=idea, leading_qs=leading_qs)
+	p = ProjectController()
+	return p.show(project_id)
 
 @app.route('/idea/edit/<project_id>', methods=["GET", "POST"])
 @login_required
