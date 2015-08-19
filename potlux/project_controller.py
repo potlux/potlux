@@ -1,4 +1,4 @@
-from flask import redirect, render_template, url_for
+from flask import redirect, render_template, url_for, abort
 from potlux import db, APP_ROOT
 from forms import ProjectSubmitForm
 from flask.ext.login import current_user
@@ -130,3 +130,39 @@ class ProjectController:
 					}
 				})
 		return 'Success!'
+
+	def edit_project_tag(self, project_id):
+		if self.request.method == "POST":
+			new_category = self.request.form['new_cat'].strip().lower()
+			if new_category:
+				db.ideas.update({'_id' : ObjectId(project_id)},
+					{'$addToSet' : {
+						'categories' : new_category
+					}})
+			return redirect(url_for('edit_idea', project_id=project_id))
+		if self.request.method == "DELETE":
+			delete_cat = self.request.args.get('del_cat')
+			db.ideas.update({'_id' : ObjectId(project_id)},
+				{'$pull' : {
+					'categories' : delete_cat
+				}})
+			return 'Success!'
+		abort(404)
+
+	def edit_project_website(self, project_id):
+		if self.request.method == "POST":
+			new_website = self.request.form['new_site'].strip().lower()
+			if new_website:
+				db.ideas.update({'_id' : ObjectId(project_id)},
+					{'$addToSet' : {
+						'resources.websites' : sanitize_link(new_website)
+					}})
+			return redirect(url_for('edit_idea', project_id=project_id))
+		if self.request.method == "DELETE":
+			delete_site = self.request.args.get('del_site')
+			db.ideas.update({'_id' : ObjectId(project_id)},
+				{'$pull' : {
+					'resources.websites' : delete_site
+				}})
+			return 'Success!'
+		abort(404)

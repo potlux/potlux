@@ -62,44 +62,14 @@ def set_project_image(project_id):
 @app.route('/idea/edit/tags/<project_id>', methods=["POST", "DELETE"])
 @login_required
 def edit_project_tag(project_id):
-	# ProjectController.set_tag()
-	if request.method == "POST":
-		new_category = request.form['new_cat'].strip().lower()
-		if new_category:
-			db.ideas.update({'_id' : ObjectId(project_id)},
-				{'$addToSet' : {
-					'categories' : new_category
-				}})
-		return redirect(url_for('edit_idea', project_id=project_id))
-	if request.method == "DELETE":
-		delete_cat = request.args.get('del_cat')
-		db.ideas.update({'_id' : ObjectId(project_id)},
-			{'$pull' : {
-				'categories' : delete_cat
-			}})
-		return 'Success!'
-	abort(404)
+	p = ProjectController(request)
+	return p.edit_project_tag(project_id)
 
 @app.route('/idea/edit/websites/<project_id>', methods=["POST", "DELETE"])
 @login_required
 def edit_project_website(project_id):
-	# ProjectController.edit(project_id)
-	if request.method == "POST":
-		new_website = request.form['new_site'].strip().lower()
-		if new_website:
-			db.ideas.update({'_id' : ObjectId(project_id)},
-				{'$addToSet' : {
-					'resources.websites' : new_website
-				}})
-		return redirect(url_for('edit_idea', project_id=project_id))
-	if request.method == "DELETE":
-		delete_site = request.args.get('del_site')
-		db.ideas.update({'_id' : ObjectId(project_id)},
-			{'$pull' : {
-				'resources.websites' : delete_site
-			}})
-		return 'Success!'
-	abort(404)
+	p = ProjectController(request)
+	return p.edit_project_website(project_id)
 
 ##
 # Deletes or adds contact to a project.
