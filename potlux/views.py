@@ -52,6 +52,16 @@ def new():
 		print form.errors
 		return render_template('submit.html', form=form)
 
+@app.route('/idea/delete/<project_id>')
+def delete_idea(project_id):
+	db.ideas.update({'_id' : ObjectId(project_id)}, {
+			'$set' : {
+				'status' : 'deleted'
+			}
+		})
+	flash('Project deleted')
+	return redirect(url_for('home'))
+
 @app.route('/idea/<project_id>', methods=["GET", "POST"])
 def show_idea(project_id):
 	# ProjectController.show(project_id)
@@ -353,21 +363,28 @@ def search(query=None):
 		query = request.args.get('search')
 
 	if search_by == "recent":
-		ideas = db.ideas.Idea.find().sort('date_creation', pymongo.DESCENDING)
+		ideas = db.ideas.Idea.find({'status' : 'active'}).sort('date_creation', pymongo.DESCENDING)
 	elif search_by == "tag":
-		ideas = db.ideas.Idea.find({"categories" : { "$all" : [query]}}).sort('date_creation', pymongo.DESCENDING)
+		ideas = db.ideas.Idea.find({
+			"status" : "active",
+			"categories" : { "$all" : [query]}
+		}).sort('date_creation', pymongo.DESCENDING)
 	elif search_by == "university":
-		ideas = db.ideas.Idea.find({"university" : query.lower()}).sort('date_creation', pymongo.DESCENDING)
+		ideas = db.ideas.Idea.find({
+			"university" : query.lower(),
+			"status" : "active"
+		}).sort('date_creation', pymongo.DESCENDING)
 		if ideas.count() <= 0:
 			search_terms = universities_trie.keys(query.lower())
 			print "Search terms", search_terms
 			ideas = db.ideas.Idea.find({
 				"university" : {
 					"$in" : search_terms
-				}
-			})
+				},
+				"status" : "active"
+			}).sort('date_creation', pymongo.DESCENDING)
 	else:
-		ideas = db.ideas.Idea.find().sort('date_creation', pymongo.DESCENDING)
+		ideas = db.ideas.Idea.find({"status" : "active"}).sort('date_creation', pymongo.DESCENDING)
 
 	return render_template('index.html', ideas=ideas)
 
@@ -526,7 +543,7 @@ def beta():
 def home():
 	if current_user.is_authenticated() and not current_user.name.full:
 		return redirect(url_for('add_name'))
-	new_ideas = db.ideas.Idea.find().sort('date_creation', pymongo.DESCENDING)
+	new_ideas = db.ideas.Idea.find({'status' : 'active'}).sort('date_creation', pymongo.DESCENDING)
 	return render_template('index.html', ideas=new_ideas)
 
 @app.route('/add_name', methods=["GET", "POST"])
