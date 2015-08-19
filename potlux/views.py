@@ -40,94 +40,19 @@ def delete_idea(project_id):
 
 @app.route('/idea/<project_id>', methods=["GET", "POST"])
 def show_idea(project_id):
-	p = ProjectController()
+	p = ProjectController(request)
 	return p.show(project_id)
 
 @app.route('/idea/edit/<project_id>', methods=["GET", "POST"])
 @login_required
 def edit_idea(project_id):
-	# ProjectController.edit(project_id)
-	idea = db.ideas.Idea.find_one({"_id" : ObjectId(project_id)})
-	if not current_user._id in idea.owners:
-		flash("You're not allowed to do that!")
-		return app.login_manager.unauthorized()
-
-	if request.method == "POST":
-		if 'imageUpload' in request.files:
-			# handle image upload
-			filenames = process_image(request.files['imageUpload'], project_id)
-			print filenames
-			db.ideas.update({'_id' : ObjectId(project_id)}, {
-					'$addToSet' : {
-						'resources.images' : filenames
-					}
-				})
-			if not idea['resources']['project-image']:
-				db.ideas.update({'_id' : ObjectId(project_id)}, {
-						'$set' : {
-							'resources.project-image' : filenames['image_id']
-						}
-					})
-			return redirect(url_for('edit_idea', project_id=project_id))
-
-		else:
-			db.ideas.update({'_id' : ObjectId(project_id)},
-				{
-					'$set': {
-						'impact' : text_or_none(request.form['impact'].strip()),
-						'procedure' : text_or_none(request.form['procedure'].strip()),
-						'future' : text_or_none(request.form['future plans'].strip()),
-						'results' : text_or_none(request.form['mistakes & lessons learned'].strip()),
-						'summary' : text_or_none(request.form['summary'].strip())
-					}
-				})
-
-		return redirect(url_for('show_idea', project_id=project_id))
-
-	# Dictionary of leading questions to be printed if there is no content.
-	leading_qs = loads(open(APP_ROOT + '/leading_questions.json').read())
-
-	return render_template('edit_project.html',
-		idea=idea, idea_id=str(idea._id), leading_qs=leading_qs)
+	p = ProjectController(request)
+	return p.edit(project_id)
 
 @app.route('/idea/edit/remove/image/<project_id>', methods=["DELETE"])
 def delete_project_image(project_id):
-	# ProjectController.delete(project_id)
-	if request.method == "DELETE":
-		print "deleting image"
-		image_id = request.args.get('del_image')
-		idea = db.ideas.find_one({'_id' : ObjectId(project_id)})
-
-		new_project_image_id = None
-
-		print "IMAGE ID:", image_id
-		print "PROJECT IMAGE:", idea['resources']['project-image']
-
-		# Set project-image to the id that isn't going to be deleted.
-		if image_id == idea['resources']['project-image']:
-			print "need to change project-image from", image_id
-			# Find first image id that is not the one being deleted.
-			for image in idea['resources']['images']:
-				print image['image_id']
-				if image_id != image['image_id']:
-					new_project_image_id = image['image_id']
-
-		# Set new project-image to that image id.
-		db.ideas.update({'_id' : ObjectId(project_id)}, {
-				'$pull' : {
-					'resources.images' : {
-						'image_id' : image_id
-					}
-				},
-				'$set' : {
-					'resources.project-image' : new_project_image_id
-				}
-			})
-
-		print "image removed from database"
-		delete_image(project_id, image_id)
-		print "image deleted from filesystem"
-		return "Success!"
+	p = ProjectController(request)
+	return p.delete_project_image(project_id)
 
 @app.route('/idea/edit/project-image/<project_id>', methods=["PUT"])
 def set_project_image(project_id):
