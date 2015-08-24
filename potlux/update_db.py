@@ -97,7 +97,7 @@ def add_favorites_to_users():
 def add_status_attribute_to_project():
 	client = MongoClient()
 	db = client.potlux
-	db.ideas.update({},
+	db.ideas.update({'status' : ''},
 		{'$set':
 			{
 				'status' : 'active'
@@ -111,5 +111,5 @@ if __name__ == '__main__':
 	# compress_existing_images()
 	# add_project_image_to_project()
 	# add_favorites_to_users()
-	add_status_attribute_to_project()
+	# add_status_attribute_to_project()
 	
