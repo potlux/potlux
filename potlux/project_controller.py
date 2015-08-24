@@ -30,6 +30,7 @@ class ProjectController:
 			new_idea.categories = categories
 			new_idea.contacts = [contact]
 			new_idea.summary = summary
+			new_idea.status = 'active'
 			new_idea.university = university
 			if website:
 				new_idea.resources.websites = [website]
