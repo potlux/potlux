@@ -42,6 +42,15 @@ class ProjectController:
 		else:
 			return render_template('submit.html', form=form)
 
+	def delete(self, project_id):
+		db.ideas.update({'_id' : ObjectId(project_id)}, {
+				'$set' : {
+					'status' : 'deleted'
+				}
+			})
+		flash('Project deleted')
+		return redirect(url_for('home'))
+
 	def show(self, project_id):
 		idea = db.ideas.find_one({"_id" : ObjectId(project_id)})
 

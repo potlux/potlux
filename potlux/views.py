@@ -30,13 +30,8 @@ def new():
 
 @app.route('/idea/delete/<project_id>')
 def delete_idea(project_id):
-	db.ideas.update({'_id' : ObjectId(project_id)}, {
-			'$set' : {
-				'status' : 'deleted'
-			}
-		})
-	flash('Project deleted')
-	return redirect(url_for('home'))
+	p = ProjectController(request)
+	return p.delete(project_id)
 
 @app.route('/idea/<project_id>', methods=["GET", "POST"])
 def show_idea(project_id):
