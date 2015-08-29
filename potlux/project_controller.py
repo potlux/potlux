@@ -1,9 +1,10 @@
-from flask import redirect, render_template, url_for, abort
-from potlux import db, APP_ROOT
+from flask import redirect, render_template, url_for, abort, flash
+from potlux import db, APP_ROOT, app, ts
 from forms import ProjectSubmitForm
 from flask.ext.login import current_user
 from bson.json_util import loads
-from helpers import sanitize_link, process_image, text_or_none, delete_image
+from helpers import sanitize_link, process_image, text_or_none, delete_image, send_email
+from inflection import titleize
 from mongokit import *
 import pymongo
 
@@ -176,3 +177,126 @@ class ProjectController:
 				}})
 			return 'Success!'
 		abort(404)
+
+	def edit_project_contacts(self, project_id):
+		sender = app.config['FROM_EMAIL_ADDRESS']
+
+		if self.request.method == "POST":
+
+			# find user associated with email.
+			email = self.request.form['contact_email']
+			user = db.users.find_one({'email' : email})
+
+			# generate token and url to send in url to user being added/deleted.
+			token_string = email + "&" + project_id
+			token = ts.dumps(token_string, salt=app.config['EMAIL_CONFIRM_KEY'])
+			confirm_url = url_for('contact_confirm', token=token, _external=True)
+
+			# generate confirmation email body.
+			if user and user['name']:
+				name = user['name']['first']
+			else:
+				name = "environmental warrior"
+
+			# generate email fields.
+			if current_user.name and current_user.name.first:
+				subject = titleize(current_user.name.first) + " wants you to join their project!"
+			else:
+				subject = current_user.email + " wants you to join their project!"
+
+			recipients = [email]
+			text_body = render_template('email/contact_confirm.txt',
+				url=confirm_url, name=name)
+			html_body = render_template('email/contact_confirm.html',
+				url=confirm_url, name=name)
+
+			# send email and redirect user back to edit page.
+			send_email(subject, sender, recipients, text_body, html_body)
+			flash('An email has been sent to accept your invitation')
+			return redirect(url_for('edit_idea', project_id=project_id))
+
+		elif self.request.method == "DELETE":
+			print "deleting contact"
+			# delete email from list of contacts.
+			email = self.request.args.get('del_email')
+			print "email:", email
+			user = db.users.User.find_one({'email' : email})
+			print "user:", user
+
+			# generate token and url to send in url to user being added/deleted.
+			token_string = email + "&" + project_id
+			token = ts.dumps(token_string, salt=app.config['EMAIL_CONFIRM_KEY'])
+			confirm_url = url_for('contact_confirm', token=token, _external=True)
+			print "confirm url:", confirm_url
+
+			# Delete user from project.
+			if user:
+				print "found user, deleting owner and contact from project"
+				db.ideas.update({'_id' : ObjectId(project_id)},
+					{'$pull' : {
+						'contacts' : {
+							'email' : user.email
+						},
+						'owners' : user._id
+					}})
+			else:
+				print "could not find user, deleting contact"
+				db.ideas.update({'_id' : ObjectId(project_id)},
+					{'$pull' : {
+						'contacts' : {
+							'email' : email
+						}
+					}})
+
+			# generate email fields.
+			if user and user.name:
+				name = user.name.first
+			else:
+				name = "Environmental warrior"
+
+			subject = "You're being removed from a potlux project!"
+
+			potlux_url = url_for('show_idea', project_id=project_id, _external=True)
+			text_body = render_template('email/contact_delete_confirm.txt',
+				url=confirm_url,
+				name=name,
+				potlux_url=potlux_url)
+			html_body = render_template('email/contact_delete_confirm.html',
+				url=confirm_url,
+				name=name,
+				potlux_url=potlux_url)
+			recipients = [email]
+			send_email(subject, sender, recipients, text_body, html_body)
+			return 'Success!'
+
+		return abort(404)
+
+	def contact_confirmation(self, project_id):
+		try:
+			token_string = ts.loads(token, salt=app.config['EMAIL_CONFIRM_KEY'], max_age=86400)
+		except:
+			abort(404)
+
+		email = token_string.split('&')[0]
+		project_id = token_string.split('&')[1]
+
+		added_user = db.users.User.find_one({'email' : email})
+		if added_user:
+			db.ideas.update({'_id' : ObjectId(project_id)},
+				{'$addToSet' : {
+					'contacts' : {
+						'name' : added_user.name.full,
+						'email' : added_user.email
+					},
+					'owners' : added_user._id
+				}})
+		else:
+			db.ideas.update({'_id' : ObjectId(project_id)},
+				{'$addToSet' : {
+					'contacts' : {
+						'name' : '',
+						'email' : email
+					}
+				}})
+		flash('You have been added as a contact for this project.')
+		return redirect(url_for('show_idea', project_id=project_id))
