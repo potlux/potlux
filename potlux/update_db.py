@@ -111,5 +111,5 @@ if __name__ == '__main__':
 	# compress_existing_images()
 	# add_project_image_to_project()
 	# add_favorites_to_users()
-	# add_status_attribute_to_project()
+	add_status_attribute_to_project()
 	
