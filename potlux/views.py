@@ -1,4 +1,5 @@
 from potlux import app, db, login_required, login_user, logout_user, universities_trie, APP_ROOT
+from project_controller import ProjectController
 from forms import RegistrationForm, LoginForm, EmailForm, PasswordForm, ProjectSubmitForm, AddNameForm
 from flask import request, render_template, redirect, url_for, session, escape, flash, abort
 from flask.ext.login import login_required, current_user
@@ -17,202 +18,53 @@ def coming_soon():
 @app.route('/all')
 # @login_required
 def show_all():
+	# ProjectController.show_all()
 	ideas = db.ideas.Idea.find()
 	return 'all' # dumps([idea for idea in ideas])
 
 @app.route('/new', methods=["POST", "GET"])
 @login_required
 def new():
-	# ProjectController.create(form)
-	form = ProjectSubmitForm(request.form)
-	if form.validate_on_submit():
-		name = form.name.data.lower()
-		categories = [cat.lower().strip() for cat in form.categories.data.split(",")]
-		contact = {'name': current_user.name.full,
-				   'email': current_user.email}
-		summary = form.summary.data
-		university = form.university.data.lower()
-		website = sanitize_link(form.website.data.lower())
-
-		new_idea = db.ideas.Idea()
-		new_idea.name = name
-		new_idea.categories = categories
-		new_idea.contacts = [contact]
-		new_idea.summary = summary
-		new_idea.status = 'active'
-		new_idea.university = university
-		if website:
-			new_idea.resources.websites = [website]
-
-		if current_user.is_authenticated():
-			new_idea.owners = [current_user._id]
-
-		new_idea.save()
-		return redirect(url_for('show_idea', project_id=str(new_idea._id)))
-	else:
-		print form.errors
-		return render_template('submit.html', form=form)
+	p = ProjectController(request)
+	return p.create()
 
 @app.route('/idea/delete/<project_id>')
 def delete_idea(project_id):
-	db.ideas.update({'_id' : ObjectId(project_id)}, {
-			'$set' : {
-				'status' : 'deleted'
-			}
-		})
-	flash('Project deleted')
-	return redirect(url_for('home'))
+	p = ProjectController(request)
+	return p.delete(project_id)
 
 @app.route('/idea/<project_id>', methods=["GET", "POST"])
 def show_idea(project_id):
-	# ProjectController.show(project_id)
-	idea = db.ideas.find_one({"_id" : ObjectId(project_id)})
-	print idea
-
-	# Dictionary of leading questions to be printed if there is no content.
-	leading_qs = loads(open(APP_ROOT + '/leading_questions.json').read())
-
-	return render_template('project.html', idea=idea, leading_qs=leading_qs)
+	p = ProjectController(request)
+	return p.show(project_id)
 
 @app.route('/idea/edit/<project_id>', methods=["GET", "POST"])
 @login_required
 def edit_idea(project_id):
-	# ProjectController.edit(project_id)
-	idea = db.ideas.Idea.find_one({"_id" : ObjectId(project_id)})
-	if not current_user._id in idea.owners:
-		flash("You're not allowed to do that!")
-		return app.login_manager.unauthorized()
-
-	if request.method == "POST":
-		if 'imageUpload' in request.files:
-			# handle image upload
-			filenames = process_image(request.files['imageUpload'], project_id)
-			print filenames
-			db.ideas.update({'_id' : ObjectId(project_id)}, {
-					'$addToSet' : {
-						'resources.images' : filenames
-					}
-				})
-			if not idea['resources']['project-image']:
-				db.ideas.update({'_id' : ObjectId(project_id)}, {
-						'$set' : {
-							'resources.project-image' : filenames['image_id']
-						}
-					})
-			return redirect(url_for('edit_idea', project_id=project_id))
-
-		else:
-			db.ideas.update({'_id' : ObjectId(project_id)},
-				{
-					'$set': {
-						'impact' : text_or_none(request.form['impact'].strip()),
-						'procedure' : text_or_none(request.form['procedure'].strip()),
-						'future' : text_or_none(request.form['future plans'].strip()),
-						'results' : text_or_none(request.form['mistakes & lessons learned'].strip()),
-						'summary' : text_or_none(request.form['summary'].strip())
-					}
-				})
-
-		return redirect(url_for('show_idea', project_id=project_id))
-
-	# Dictionary of leading questions to be printed if there is no content.
-	leading_qs = loads(open(APP_ROOT + '/leading_questions.json').read())
-
-	return render_template('edit_project.html',
-		idea=idea, idea_id=str(idea._id), leading_qs=leading_qs)
+	p = ProjectController(request)
+	return p.edit(project_id)
 
 @app.route('/idea/edit/remove/image/<project_id>', methods=["DELETE"])
 def delete_project_image(project_id):
-	# ProjectController.delete(project_id)
-	if request.method == "DELETE":
-		print "deleting image"
-		image_id = request.args.get('del_image')
-		idea = db.ideas.find_one({'_id' : ObjectId(project_id)})
-
-		new_project_image_id = None
-
-		print "IMAGE ID:", image_id
-		print "PROJECT IMAGE:", idea['resources']['project-image']
-
-		# Set project-image to the id that isn't going to be deleted.
-		if image_id == idea['resources']['project-image']:
-			print "need to change project-image from", image_id
-			# Find first image id that is not the one being deleted.
-			for image in idea['resources']['images']:
-				print image['image_id']
-				if image_id != image['image_id']:
-					new_project_image_id = image['image_id']
-
-		# Set new project-image to that image id.
-		db.ideas.update({'_id' : ObjectId(project_id)}, {
-				'$pull' : {
-					'resources.images' : {
-						'image_id' : image_id
-					}
-				},
-				'$set' : {
-					'resources.project-image' : new_project_image_id
-				}
-			})
-
-		print "image removed from database"
-		delete_image(project_id, image_id)
-		print "image deleted from filesystem"
-		return "Success!"
+	p = ProjectController(request)
+	return p.delete_project_image(project_id)
 
 @app.route('/idea/edit/project-image/<project_id>', methods=["PUT"])
 def set_project_image(project_id):
-	# ProjectController.set_image()
-	if request.method == 'PUT':
-		image_id = request.args.get('image_id')
-		db.ideas.update({'_id' : ObjectId(project_id)}, {
-				'$set' : {
-					'resources.project-image' : image_id
-				}
-			})
-	return 'Success!'
+	p = ProjectController(request)
+	return p.set_project_image(project_id)
 
 @app.route('/idea/edit/tags/<project_id>', methods=["POST", "DELETE"])
 @login_required
 def edit_project_tag(project_id):
-	# ProjectController.set_tag()
-	if request.method == "POST":
-		new_category = request.form['new_cat'].strip().lower()
-		if new_category:
-			db.ideas.update({'_id' : ObjectId(project_id)},
-				{'$addToSet' : {
-					'categories' : new_category
-				}})
-		return redirect(url_for('edit_idea', project_id=project_id))
-	if request.method == "DELETE":
-		delete_cat = request.args.get('del_cat')
-		db.ideas.update({'_id' : ObjectId(project_id)},
-			{'$pull' : {
-				'categories' : delete_cat
-			}})
-		return 'Success!'
-	abort(404)
+	p = ProjectController(request)
+	return p.edit_project_tag(project_id)
 
 @app.route('/idea/edit/websites/<project_id>', methods=["POST", "DELETE"])
 @login_required
 def edit_project_website(project_id):
-	# ProjectController.edit(project_id)
-	if request.method == "POST":
-		new_website = request.form['new_site'].strip().lower()
-		if new_website:
-			db.ideas.update({'_id' : ObjectId(project_id)},
-				{'$addToSet' : {
-					'resources.websites' : new_website
-				}})
-		return redirect(url_for('edit_idea', project_id=project_id))
-	if request.method == "DELETE":
-		delete_site = request.args.get('del_site')
-		db.ideas.update({'_id' : ObjectId(project_id)},
-			{'$pull' : {
-				'resources.websites' : delete_site
-			}})
-		return 'Success!'
-	abort(404)
+	p = ProjectController(request)
+	return p.edit_project_website(project_id)
 
 ##
 # Deletes or adds contact to a project.
@@ -229,97 +81,8 @@ def edit_project_website(project_id):
 @app.route('/idea/edit/contacts/<project_id>', methods=["POST", "DELETE"])
 @login_required
 def edit_project_contacts(project_id):
-	sender = app.config['FROM_EMAIL_ADDRESS']
-
-	if request.method == "POST":
-
-		# find user associated with email.
-		email = request.form['contact_email']
-		user = db.users.find_one({'email' : email})
-
-		# generate token and url to send in url to user being added/deleted.
-		token_string = email + "&" + project_id
-		token = ts.dumps(token_string, salt=app.config['EMAIL_CONFIRM_KEY'])
-		confirm_url = url_for('contact_confirm', token=token, _external=True)
-
-		# generate confirmation email body.
-		if user and user['name']:
-			name = user['name']['first']
-		else:
-			name = "environmental warrior"
-
-		# generate email fields.
-		if current_user.name and current_user.name.first:
-			subject = titleize(current_user.name.first) + " wants you to join their project!"
-		else:
-			subject = current_user.email + " wants you to join their project!"
-
-		recipients = [email]
-		text_body = render_template('email/contact_confirm.txt',
-			url=confirm_url, name=name)
-		html_body = render_template('email/contact_confirm.html',
-			url=confirm_url, name=name)
-
-		# send email and redirect user back to edit page.
-		send_email(subject, sender, recipients, text_body, html_body)
-		flash('An email has been sent to accept your invitation')
-		return redirect(url_for('edit_idea', project_id=project_id))
-
-	elif request.method == "DELETE":
-		print "deleting contact"
-		# delete email from list of contacts.
-		email = request.args.get('del_email')
-		print "email:", email
-		user = db.users.User.find_one({'email' : email})
-		print "user:", user
-
-		# generate token and url to send in url to user being added/deleted.
-		token_string = email + "&" + project_id
-		token = ts.dumps(token_string, salt=app.config['EMAIL_CONFIRM_KEY'])
-		confirm_url = url_for('contact_confirm', token=token, _external=True)
-		print "confirm url:", confirm_url
-
-		# Delete user from project.
-		if user:
-			print "found user, deleting owner and contact from project"
-			db.ideas.update({'_id' : ObjectId(project_id)},
-				{'$pull' : {
-					'contacts' : {
-						'email' : user.email
-					},
-					'owners' : user._id
-				}})
-		else:
-			print "could not find user, deleting contact"
-			db.ideas.update({'_id' : ObjectId(project_id)},
-				{'$pull' : {
-					'contacts' : {
-						'email' : email
-					}
-				}})
-
-		# generate email fields.
-		if user and user.name:
-			name = user.name.first
-		else:
-			name = "Environmental warrior"
-
-		subject = "You're being removed from a potlux project!"
-
-		potlux_url = url_for('show_idea', project_id=project_id, _external=True)
-		text_body = render_template('email/contact_delete_confirm.txt',
-			url=confirm_url,
-			name=name,
-			potlux_url=potlux_url)
-		html_body = render_template('email/contact_delete_confirm.html',
-			url=confirm_url,
-			name=name,
-			potlux_url=potlux_url)
-		recipients = [email]
-		send_email(subject, sender, recipients, text_body, html_body)
-		return 'Success!'
-
-	return abort(404)
+	p = ProjectController(request)
+	return p.edit_project_contacts(project_id)
 
 @app.route('/idea/edit/contacts/confirm/<token>')
 def contact_confirm(token):
