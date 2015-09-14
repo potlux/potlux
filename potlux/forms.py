@@ -21,7 +21,11 @@ class ProjectSubmitForm(Form):
 	def validate_website(self, field):
 		if self.website.data:
 			if 'http://' not in self.website.data:
-				if requests.get('http://' + self.website.data).status_code is not 200:
+				try:
+					if requests.get('http://' + self.website.data).status_code is not 200:
+						raise validators.ValidationError('Invalid link')
+				except requests.exceptions.ConnectionError as e:
+					print e
 					raise validators.ValidationError('Invalid link')
 			elif requests.get(self.website.data).status_code is not 200:
 				raise validators.ValidationError('Invalid link')
