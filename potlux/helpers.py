@@ -5,7 +5,14 @@ from werkzeug.security import check_password_hash
 
 import boto.ses
 import models
-import uuid, os	
+import uuid, os, re	
+
+def titleize(text):
+	return re.sub(
+        r"\b('?[a-z])",
+        lambda match: match.group(1).capitalize(),
+        text
+    )
 
 def text_or_none(text):
 	if text == "<p>None</p>":

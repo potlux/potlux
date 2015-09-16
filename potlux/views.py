@@ -3,7 +3,6 @@ from project_controller import ProjectController
 from forms import RegistrationForm, LoginForm, EmailForm, PasswordForm, ProjectSubmitForm, AddNameForm
 from flask import request, render_template, redirect, url_for, session, escape, flash, abort
 from flask.ext.login import login_required, current_user
-from inflection import titleize
 from mongokit import *
 import pymongo
 from bson.json_util import dumps, loads
