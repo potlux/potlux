@@ -1,6 +1,6 @@
 from flask.ext.wtf import Form
-from wtforms import TextField, PasswordField, BooleanField, TextAreaField, validators
-from potlux import db, uni_list
+from wtforms import TextField, PasswordField, BooleanField, TextAreaField, SelectField, validators
+from potlux import db, uni_list, POTLUX_CATEGORIES
 from werkzeug.security import check_password_hash
 
 import requests, re
@@ -11,7 +11,7 @@ class AddNameForm(Form):
 	
 class ProjectSubmitForm(Form):
 	name = TextField('PROJECT NAME', validators = [validators.Required()])
-	categories = TextField('CATEGORIES', validators = [validators.Required()])
+	categories = SelectField('CATEGORIES', choices = POTLUX_CATEGORIES, validators = [validators.Required()])
 	university = TextField('UNIVERSITY', validators = [validators.Required()])
 	first_name = TextField()
 	last_name = TextField()

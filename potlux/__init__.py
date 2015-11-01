@@ -44,6 +44,18 @@ def full_file_name_of_image(idea_id, image_id, size):
 	filename = os.path.join('resources', 'user_images', size, str(idea_id), image_id + '.png')
 	return url_for('static', filename=filename)
 
+def populate_category_list():
+    print "Populating categories list"
+    potlux_categories = []
+    categories_file = open(os.path.join(APP_ROOT, 'static', 'resources', 'category_list'), 'r')
+    for line in categories_file:
+        potlux_categories.append((line.strip(), line.strip()))
+
+    # Sort alphabetically before returning.
+    return sorted(potlux_categories)
+
+POTLUX_CATEGORIES = populate_category_list()
+
 app.jinja_env.globals['len'] = len 
 app.jinja_env.globals['str'] = str
 app.jinja_env.globals['titleize'] = titleize
