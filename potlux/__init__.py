@@ -49,7 +49,7 @@ def populate_category_list():
     potlux_categories = []
     categories_file = open(os.path.join(APP_ROOT, 'static', 'resources', 'category_list'), 'r')
     for line in categories_file:
-        potlux_categories.append((line.strip(), line.strip()))
+        potlux_categories.append((line.strip(), titleize(line.strip())))
 
     # Sort alphabetically before returning.
     return sorted(potlux_categories)
@@ -62,6 +62,7 @@ app.jinja_env.globals['titleize'] = titleize
 app.jinja_env.globals['csrf_token'] = generate_csrf_token
 app.jinja_env.globals['is_selected'] = is_selected
 app.jinja_env.globals['full_file_name_of_image'] = full_file_name_of_image
+app.jinja_env.globals['potlux_categories'] = POTLUX_CATEGORIES
 
 connection = Connection()
 connection.register([Idea, User])
