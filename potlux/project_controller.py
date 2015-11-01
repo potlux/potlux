@@ -1,5 +1,5 @@
 from flask import redirect, render_template, url_for, abort, flash
-from potlux import db, APP_ROOT, app, ts
+from potlux import db, APP_ROOT, app, ts, POTLUX_CATEGORIES
 from forms import ProjectSubmitForm
 from flask.ext.login import current_user
 from bson.json_util import loads
@@ -101,7 +101,7 @@ class ProjectController:
 		leading_qs = loads(open(APP_ROOT + '/leading_questions.json').read())
 
 		return render_template('edit_project.html',
-			idea=idea, idea_id=str(idea._id), leading_qs=leading_qs)
+			idea=idea, idea_id=str(idea._id), leading_qs=leading_qs, categories=POTLUX_CATEGORIES)
 
 	def delete_project_image(self, project_id):
 		if self.request.method == "DELETE":
