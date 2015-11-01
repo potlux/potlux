@@ -56,6 +56,7 @@ class Idea(Document):
 		'date_creation': datetime.datetime,
 		#'last_edit' : datetime.datetime,
 		'name': basestring,
+		# TODO: Figure out how to validate contents of list.
 		'categories': [basestring],
 		'university': basestring,
 		'contacts': [{
