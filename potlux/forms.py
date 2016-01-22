@@ -84,10 +84,6 @@ class RegistrationForm(Form):
 		validators.Email()
 	])
 
-	def validate_email(self, field):
-		if '.edu' not in self.email.data:
-			raise validators.ValidationError('Please use a .edu email')
-
 	password = PasswordField('Password', [
         validators.Required(),
         validators.EqualTo('confirm', message='Passwords must match')

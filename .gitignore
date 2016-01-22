@@ -8,3 +8,5 @@ config.py
 user_images/
 
 my_scripts/
+
+venv/
