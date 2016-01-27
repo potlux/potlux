@@ -12,13 +12,17 @@
 
 	<form action="{{ url_for('search') }}" method="GET" id="search-form">
 	<p class="nowrap">
-		SEARCH BY:
-		<select name="search_type" id="type" onchange="addArrow()">
-		  <!-- <option value="recent" selected="selected" id="recent">MOST RECENT &nbsp;&nbsp; &#9660;</option> -->
-		  <option value="university" id="university">UNIVERSITY</option>
-		  <option value="tag" id="category">TAG</option>
+		<label for="school">UNIVERSITY</label>
+		<input class="searchBub" id="searchBar" type="text" name="university" placeholder="Search"/>
+
+		<label for="category">CATEGORY</label>
+		<select name="category" id="type" onchange="addArrow()">
+			<option disabled selected>Choose one...</option>
+			{% for category in potlux_categories: %}
+		  		<option value="{{ category[0] }}" id="university">{{ category[1] }}</option>
+		  	{% endfor %}
 		</select>
-		<input class="searchBub" id="searchBar" type="text" name="search" placeholder="Search"/>
+		<input type="submit" value="search" />
 	</p>
 	</form>
 
@@ -111,18 +115,10 @@
 		}
 	}
 
-	function setAutocomplete(type) {
-		switch(type) {
-			case 'university':
-				$('#searchBar').autocomplete({
-					source: "{{ url_for('schools') }}"
-				});
-				break;
-			case 'category':
-				break;
-			default:
-				break;
-		}
+	function setAutocomplete() {
+		$('#searchBar').autocomplete({
+			source: "{{ url_for('schools') }}"
+		});
 	}
 
 	function addInfiniteScroll() {
@@ -131,10 +127,8 @@
 
 	window.onload = function() {
 		var cards = document.getElementsByClassName('KONVICT');
-		console.log(cards);
 		for (var i = 0; i < cards.length; i++) {
 			var cardText = cards[i];
-			console.log(cardText);
 			truncateSummary(cardText);
 		}
 
@@ -144,11 +138,7 @@
 		// 	}
 		// });
 
-		setAutocomplete($('#type').val());
-
-		$('#type').change(function() {
-			setAutocomplete($(this).val());
-		});
+		setAutocomplete();
 	}
 
 </script>

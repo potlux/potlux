@@ -120,33 +120,41 @@ def contact_confirm(token):
 @app.route('/search')
 def search(query=None):
 	ideas = None
-	search_by = request.args.get('search_type')
-	if not query:
-		query = request.args.get('search')
+	search_dict = {
+		"status": "active"
+	}
+	if request.args.get("category"):
+		search_dict["categories"]  = request.args.get("category").lower()
+	if request.args.get("university"):
+		search_dict["university"] = request.args.get("university").lower()
+	ideas = db.ideas.Idea.find(search_dict).sort('date_creation', pymongo.DESCENDING)
 
-	if search_by == "recent":
-		ideas = db.ideas.Idea.find({'status' : 'active'}).sort('date_creation', pymongo.DESCENDING)
-	elif search_by == "tag":
-		ideas = db.ideas.Idea.find({
-			"status" : "active",
-			"categories" : { "$all" : [query.lower()]}
-		}).sort('date_creation', pymongo.DESCENDING)
-	elif search_by == "university":
-		ideas = db.ideas.Idea.find({
-			"university" : query.lower(),
-			"status" : "active"
-		}).sort('date_creation', pymongo.DESCENDING)
-		if ideas.count() <= 0:
-			search_terms = universities_trie.keys(query.lower())
-			print "Search terms", search_terms
-			ideas = db.ideas.Idea.find({
-				"university" : {
-					"$in" : search_terms
-				},
-				"status" : "active"
-			}).sort('date_creation', pymongo.DESCENDING)
-	else:
-		ideas = db.ideas.Idea.find({"status" : "active"}).sort('date_creation', pymongo.DESCENDING)
+	# if not query:
+	# 	query = request.args.get('search')
+
+	# if search_by == "recent":
+	# 	ideas = db.ideas.Idea.find({'status' : 'active'}).sort('date_creation', pymongo.DESCENDING)
+	# elif search_by == "tag":
+	# 	ideas = db.ideas.Idea.find({
+	# 		"status" : "active",
+	# 		"categories" : { "$all" : [query.lower()]}
+	# 	}).sort('date_creation', pymongo.DESCENDING)
+	# elif search_by == "university":
+	# 	ideas = db.ideas.Idea.find({
+	# 		"university" : query.lower(),
+	# 		"status" : "active"
+	# 	}).sort('date_creation', pymongo.DESCENDING)
+	# 	if ideas.count() <= 0:
+	# 		search_terms = universities_trie.keys(query.lower())
+	# 		print "Search terms", search_terms
+	# 		ideas = db.ideas.Idea.find({
+	# 			"university" : {
+	# 				"$in" : search_terms
+	# 			},
+	# 			"status" : "active"
+	# 		}).sort('date_creation', pymongo.DESCENDING)
+	# else:
+	# 	ideas = db.ideas.Idea.find({"status" : "active"}).sort('date_creation', pymongo.DESCENDING)
 
 	return render_template('index.html', ideas=ideas)
 
